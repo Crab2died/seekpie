@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8">
+    <meta name="baidu-site-verification" content="dIcXMeY8Ya">
+    
+    <title>Pseudo Distributed Hadoop Install | 螃蟹以死</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.3, maximum-scale=1, user-scalable=0">
+    <meta name="keywords" content="螃蟹以死(Crab2Died)的个人博客，分享学习、工作的经验总结。涉及软件开发，大数据开发，分布式系统，微服务，前端开发等">
+    <meta itemprop="name" content="0">
+    <meta itemprop="image" content="https://www.seekpie.com/images/hadoop/hadoop_logo.jpg  ">
+    <meta itemprop="description" name="description" content="一. 环境准备准备Ubuntu、JDK8、Hadoop2.8.5安装Ubuntu https://www.ubuntu.com/download/desktop   安装JDK,修改环境变量 https://www.oracle.com/technetwork/java/javase/downloads/index.html  下载Hadoop2.8.5 http://hadoop.apache.org/其他准备1. 更新apt sudo apt-get update2. SSH安装，配置无密码SSH登入2.1. SSH安装 sudo apt-get install openssh-server2.2. 配置SSH无密码登入   cd ~/.ssh/                      ">
+    <meta name="baidu-site-verification" content="8ssDkDEucu">
+    
+    <link rel="alternative" href="/atom.xml" title="螃蟹以死" type="application/atom+xml">
+    
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <!--[if lt IE 9]>
+    <script src="/js/html5.js"></script>
+    <![endif]-->
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ab88d36acf7ff63477f8ed578415c246";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+    
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5475855676583847",
+        enable_page_level_ads: true
+    });
+</script>
+    
+    <script src="/js/jquery/jquery-2.2.0.min.js"></script>
+    <script src="/js/qrcode.min.js"></script>
+    <script src="/js/particles.js"></script>
+    <script src="/js/qq/share.js"></script>
+</head>
+</html>
+<body class="home">
+    <!--[if lt IE 9]>
+    <div class="browsehappy">
+        当前网页 <strong>不支持</strong>
+        你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/">升级你的浏览器</a>.
+    </div>
+    <![endif]-->
+
+    <!-- 背景 -->
+    <!--<div id="particles-js" style="position: fixed; width: 100%; height: 100%;" class="bc-grid">-->
+    <div style="position: fixed; width: 100%; height: 100%;" class="bc-grid">
+
+    </div>
+    <!-- 博客头部 -->
+    <header class="header">
+    <section class="container header-main">
+        <div class="logo">
+            <a href="/">
+                <div class="cover">
+                    <span class="name">螃蟹以死</span>
+                    <span class="description">seekpie</span>
+                </div>
+            </a>
+        </div>
+        <div class="dropnav icon-paragraph-justify" id="JELON__btnDropNav"></div>
+        <ul class="menu hidden" id="JELON__menu">
+            
+            <li rel="/2018/10/26/pseudo-distributed-hadoop-install/index.html" class="item ">
+                <a href="/" title="首页" class="fa fa-home">&nbsp;首页</a>
+            </li>
+            
+            <li rel="/2018/10/26/pseudo-distributed-hadoop-install/index.html" class="item ">
+                <a href="/archives/" title="归档" class="fa fa-archive">&nbsp;归档</a>
+            </li>
+            
+            <li rel="/2018/10/26/pseudo-distributed-hadoop-install/index.html" class="item ">
+                <a href="/about/" title="关于" class="fa fa-user-circle-o">&nbsp;关于</a>
+            </li>
+            
+            <li rel="/2018/10/26/pseudo-distributed-hadoop-install/index.html" class="item ">
+                <a href="/atom.xml" target="_blank" title="RSS" class="fa fa-rss">&nbsp;RSS</a>
+            </li>
+            
+            <li class="item search-item"><!-- 搜索遮罩框 -->
+<span class="local-search local-search-google local-search-plugin" id="local-search">
+  <span><input type="search" placeholder="站内搜索..." id="local-search-input" class="local-search-input-cls" style=""></span>&nbsp;
+  <span class="fa fa-search"></span>
+  <div id="local-search-result" class="local-search-result-cls"></div>
+</span></li>
+        </ul>
+        <div class="profile clearfix">
+            <div class="qr-site fl" onmouseover="siteQrMouseOver()" onmouseout="siteQrMouseOut()">
+                <div>
+                    <div id="site-qr"></div>
+                </div>
+            </div>
+            <div id="site-qr-pop"> </div>
+            <div class="feeds fl">
+                
+                
+                <p class="links">
+                    
+                        <a href="https://github.com/Crab2died" target="_blank">GitHub</a>
+                        |
+                    
+                        <a href="https://github.com/seek-pie" target="_blank">Seek Pie</a>
+                        |
+                    
+                        <a href="https://gitee.com/Crab2Died" target="_blank">Gitee</a>
+                        
+                    
+                </p>
+                <p class="sns">
+                    
+                        <a href="http://weibo.com/Crab2Died" class="weibo" target="_blank"><b>■</b> 新浪微博</a>
+                    
+                        <a href="https://www.zhihu.com/people/crab2died" class="zhihu" target="_blank"><b>■</b> 知 乎</a>
+                    
+                        <a href="mailto:Crab2Died@126.com" class="email" target="_blank"><b>■</b> E-mail</a>
+                    
+                </p>
+                
+            </div>
+            <div class="avatar fr">
+                <img src="/crab2died.png" alt="avatar" title="Crab2Died">
+            </div>
+        </div>
+    </section>
+</header>
+
+
+    
+
+  <div class="bulletin">
+    <!--<div class="bulletin-icon"><strong style="color: #ebd829; width: 50px"><i class="fa fa-volume-up"></i></strong></div>-->
+    <div class="bulletin-content">
+      
+        <marquee direction="left" behavior="scroll" scrollamount="7" scrolldelay="0" align="bottom" bgcolor="#ffffff" hspace="20" vspace="0" onmouseover="this.stop()" onmouseout="this.start()">
+        
+      
+    </marquee></div>
+    <div id="theClock" class="bulletin-clock">
+
+    </div>
+  </div>
+
+
+
+    <!-- 博客正文 -->
+    <div class="container body clearfix">
+        <section class="content">
+            <div class="content-main widget">
+                <!-- 文章页 -->
+<!-- 文章 -->
+<article class="post article">
+  <header class="text-center">
+    <h3 class="post-title"><span>Pseudo Distributed Hadoop Install</span></h3>
+  </header>
+  <p class="post-meta text-center">
+    <i class="fa fa-edit"></i>
+    Crab2Died &nbsp;&nbsp;
+    <i class="fa fa-calendar"></i>
+    <time datetime="2018-10-26T13:11:27.000Z">2018-10-26</time>
+    <span id="busuanzi_container_page_pv"> &nbsp;&nbsp; <i class="fa fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span>
+  </p>
+
+  <p class="copyright_label">
+    <span class="copyright_title">版权声明: </span>
+    <span class="copyright_notice">本文著作权归作者所有，转载请注明出处。
+      
+      <span class="copyright_link">https://www.seekpie.com/2018/10/26/pseudo-distributed-hadoop-install/</span>
+      </span>
+  </p>
+  <div class="post-content">
+    <h2 id="一-环境准备"><a href="#一-环境准备" class="headerlink" title="一. 环境准备"></a>一. 环境准备</h2><h3 id="准备Ubuntu、JDK8、Hadoop2-8-5"><a href="#准备Ubuntu、JDK8、Hadoop2-8-5" class="headerlink" title="准备Ubuntu、JDK8、Hadoop2.8.5"></a>准备Ubuntu、JDK8、Hadoop2.8.5</h3><ul>
+<li><a href="https://www.ubuntu.com/download/desktop" target="_blank" rel="noopener">安装Ubuntu https://www.ubuntu.com/download/desktop</a>   </li>
+<li><a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="noopener">安装JDK,修改环境变量 https://www.oracle.com/technetwork/java/javase/downloads/index.html</a>  </li>
+<li><a href="http://hadoop.apache.org/" target="_blank" rel="noopener">下载Hadoop2.8.5 http://hadoop.apache.org/</a></li>
+</ul>
+<h3 id="其他准备"><a href="#其他准备" class="headerlink" title="其他准备"></a>其他准备</h3><h4 id="1-更新apt-sudo-apt-get-update"><a href="#1-更新apt-sudo-apt-get-update" class="headerlink" title="1. 更新apt sudo apt-get update"></a>1. 更新apt <code>sudo apt-get update</code></h4><h4 id="2-SSH安装，配置无密码SSH登入"><a href="#2-SSH安装，配置无密码SSH登入" class="headerlink" title="2. SSH安装，配置无密码SSH登入"></a>2. SSH安装，配置无密码SSH登入</h4><h5 id="2-1-SSH安装-sudo-apt-get-install-openssh-server"><a href="#2-1-SSH安装-sudo-apt-get-install-openssh-server" class="headerlink" title="2.1. SSH安装 sudo apt-get install openssh-server"></a>2.1. SSH安装 <code>sudo apt-get install openssh-server</code></h5><h5 id="2-2-配置SSH无密码登入"><a href="#2-2-配置SSH无密码登入" class="headerlink" title="2.2. 配置SSH无密码登入"></a>2.2. 配置SSH无密码登入</h5>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.ssh/                            <span class="comment"># 若没有该目录，请先执行一次ssh crab2died</span></span><br><span class="line">ssh-keygen -t rsa                     <span class="comment"># 会有提示，都按回车就可以</span></span><br><span class="line">cat ./id_rsa.pub &gt;&gt; ./authorized_keys <span class="comment"># 加入授权</span></span><br><span class="line">ssh crab2died                         <span class="comment"># 验证无密码登入</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-修改hosts"><a href="#3-修改hosts" class="headerlink" title="3. 修改hosts"></a>3. 修改hosts</h4>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vi /etc/hosts</span><br><span class="line"><span class="comment"># 添加 </span></span><br><span class="line">本机ip   crab2died</span><br></pre></td></tr></table></figure>
+<h2 id="二-安装Hadoop"><a href="#二-安装Hadoop" class="headerlink" title="二. 安装Hadoop"></a>二. 安装Hadoop</h2><h3 id="1-解压Hadoop"><a href="#1-解压Hadoop" class="headerlink" title="1. 解压Hadoop"></a>1. 解压Hadoop</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">sudo tar -zxf ~/Downloads/hadoop-2.8.5.tar.gz -C /usr/<span class="built_in">local</span> <span class="comment"># 解压到/usr/local中</span></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/                                              </span><br><span class="line">chmod -R 777 ./hadoop-2.8.5                                 <span class="comment"># 设置权限</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-设置Hadoop环境变量"><a href="#2-设置Hadoop环境变量" class="headerlink" title="2. 设置Hadoop环境变量"></a>2. 设置Hadoop环境变量</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vi /etc/profile</span><br><span class="line"><span class="comment"># 添加</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_HOME=/usr/<span class="built_in">local</span>/hadoop-2.8.5 </span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$&#123;HADOOP_HOME&#125;</span>/sbin:<span class="variable">$&#123;HADOOP_HOME&#125;</span>/bin</span><br><span class="line"><span class="comment"># 保存执行</span></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
+<h3 id="3-验证Hadoop版本"><a href="#3-验证Hadoop版本" class="headerlink" title="3. 验证Hadoop版本"></a>3. 验证Hadoop版本</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hadoop version    <span class="comment"># 成功会返回版本信息</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-伪分布式配置"><a href="#4-伪分布式配置" class="headerlink" title="4. 伪分布式配置"></a>4. 伪分布式配置</h3><h4 id="4-1-进入-HADOOP-HOME-etc-hadoop目录中，修改以下文件"><a href="#4-1-进入-HADOOP-HOME-etc-hadoop目录中，修改以下文件" class="headerlink" title="4.1. 进入${HADOOP_HOME}/etc/hadoop目录中，修改以下文件"></a>4.1. 进入<code>${HADOOP_HOME}/etc/hadoop</code>目录中，修改以下文件</h4><h5 id="4-1-1-修改-hadoop-env-sh"><a href="#4-1-1-修改-hadoop-env-sh" class="headerlink" title="4.1.1. 修改 hadoop-env.sh"></a>4.1.1. 修改 hadoop-env.sh</h5><p>   将<code>export JAVA_HOME=${JAVA_HOME}</code>改成<code>export JAVA_HOME=/usr/local/jdk1.8.0_181  # JDK根目录</code></p>
+<h5 id="4-1-2-修改-core-site-xml"><a href="#4-1-2-修改-core-site-xml" class="headerlink" title="4.1.2. 修改 core-site.xml"></a>4.1.2. 修改 core-site.xml</h5>   <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/home/crab2died/hadoop/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">description</span>&gt;</span>Abase for other temporary directories.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://crab2died:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="4-1-3-修改-hdfs-site-xml"><a href="#4-1-3-修改-hdfs-site-xml" class="headerlink" title="4.1.3. 修改 hdfs-site.xml"></a>4.1.3. 修改 hdfs-site.xml</h5>   <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.nameservices<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop-cluster<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span>      </span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.name.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/home/crab2died/hadoop/hdfs/nn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.checkpoint.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/home/crab2died/hadoop/hdfs/snn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.checkpoint.edits.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/home/crab2died/hadoop/hdfs/snn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/home/crab2died/hadoop/hdfs/dn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="4-1-4-先复制cp-mapred-site-xml-template-mapred-site-xml-再修改-mapred-site-xml"><a href="#4-1-4-先复制cp-mapred-site-xml-template-mapred-site-xml-再修改-mapred-site-xml" class="headerlink" title="4.1.4. 先复制cp mapred-site.xml.template mapred-site.xml,再修改 mapred-site.xml"></a>4.1.4. 先复制<code>cp mapred-site.xml.template mapred-site.xml</code>,再修改 mapred-site.xml</h5>   <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="4-1-5-修改-yarn-site-xml"><a href="#4-1-5-修改-yarn-site-xml" class="headerlink" title="4.1.5. 修改 yarn-site.xml"></a>4.1.5. 修改 yarn-site.xml</h5>   <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>crab2died<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.local-dirs<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/home/crab2died/hadoop/yarn/nm<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-格式化HDFS-NameNode"><a href="#5-格式化HDFS-NameNode" class="headerlink" title="5. 格式化HDFS NameNode"></a>5. 格式化HDFS NameNode</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hdfs namenode -format</span><br></pre></td></tr></table></figure>
+<h3 id="6-启动集群"><a href="#6-启动集群" class="headerlink" title="6. 启动集群"></a>6. 启动集群</h3><h4 id="6-1-启动HDFS集群"><a href="#6-1-启动HDFS集群" class="headerlink" title="6.1. 启动HDFS集群"></a>6.1. 启动HDFS集群</h4>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hadoop-daemon.sh start namenode</span><br><span class="line">hadoop-daemon.sh start datanode</span><br><span class="line">hadoop-daemon.sh start secondarynamenode  <span class="comment"># 伪分布式才有</span></span><br></pre></td></tr></table></figure>
+<h4 id="6-2-启动YARN"><a href="#6-2-启动YARN" class="headerlink" title="6.2. 启动YARN"></a>6.2. 启动YARN</h4>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yarn-daemon.sh start resourcemanager</span><br><span class="line">yarn-daemon.sh start nodemanager</span><br></pre></td></tr></table></figure>
+<h3 id="7-jps查看进程"><a href="#7-jps查看进程" class="headerlink" title="7. jps查看进程"></a>7. jps查看进程</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">jps</span><br><span class="line">1213 NameNOde</span><br><span class="line">1261 NodeManager</span><br><span class="line">1521 ResourceManager</span><br><span class="line">1722 DataNode</span><br><span class="line">1732 SecondrayNameNode</span><br></pre></td></tr></table></figure>
+<h3 id="8-查看HDFS管理界面"><a href="#8-查看HDFS管理界面" class="headerlink" title="8. 查看HDFS管理界面"></a>8. 查看HDFS管理界面</h3><p>   <a href="http://crab2died:50070" target="_blank" rel="noopener">http://crab2died:50070</a></p>
+<h3 id="9-查看YARN管理界面"><a href="#9-查看YARN管理界面" class="headerlink" title="9. 查看YARN管理界面"></a>9. 查看YARN管理界面</h3><p>   <a href="http://crab2died:8088" target="_blank" rel="noopener">http://crab2died:8088</a></p>
+
+  </div>
+
+  <!-- 目录 -->
+  <div class="catalog">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-环境准备"><span class="toc-text">一. 环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#准备Ubuntu、JDK8、Hadoop2-8-5"><span class="toc-text">准备Ubuntu、JDK8、Hadoop2.8.5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他准备"><span class="toc-text">其他准备</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-更新apt-sudo-apt-get-update"><span class="toc-text">1. 更新apt sudo apt-get update</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-SSH安装，配置无密码SSH登入"><span class="toc-text">2. SSH安装，配置无密码SSH登入</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-SSH安装-sudo-apt-get-install-openssh-server"><span class="toc-text">2.1. SSH安装 sudo apt-get install openssh-server</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-配置SSH无密码登入"><span class="toc-text">2.2. 配置SSH无密码登入</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-修改hosts"><span class="toc-text">3. 修改hosts</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-安装Hadoop"><span class="toc-text">二. 安装Hadoop</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-解压Hadoop"><span class="toc-text">1. 解压Hadoop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-设置Hadoop环境变量"><span class="toc-text">2. 设置Hadoop环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-验证Hadoop版本"><span class="toc-text">3. 验证Hadoop版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-伪分布式配置"><span class="toc-text">4. 伪分布式配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-进入-HADOOP-HOME-etc-hadoop目录中，修改以下文件"><span class="toc-text">4.1. 进入${HADOOP_HOME}/etc/hadoop目录中，修改以下文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-1-修改-hadoop-env-sh"><span class="toc-text">4.1.1. 修改 hadoop-env.sh</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-2-修改-core-site-xml"><span class="toc-text">4.1.2. 修改 core-site.xml</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-3-修改-hdfs-site-xml"><span class="toc-text">4.1.3. 修改 hdfs-site.xml</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-4-先复制cp-mapred-site-xml-template-mapred-site-xml-再修改-mapred-site-xml"><span class="toc-text">4.1.4. 先复制cp mapred-site.xml.template mapred-site.xml,再修改 mapred-site.xml</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-5-修改-yarn-site-xml"><span class="toc-text">4.1.5. 修改 yarn-site.xml</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-格式化HDFS-NameNode"><span class="toc-text">5. 格式化HDFS NameNode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-启动集群"><span class="toc-text">6. 启动集群</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-启动HDFS集群"><span class="toc-text">6.1. 启动HDFS集群</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-启动YARN"><span class="toc-text">6.2. 启动YARN</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-jps查看进程"><span class="toc-text">7. jps查看进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-查看HDFS管理界面"><span class="toc-text">8. 查看HDFS管理界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-查看YARN管理界面"><span class="toc-text">9. 查看YARN管理界面</span></a></li></ol></li></ol>
+  </div>
+
+  <p class="post-meta">
+        <span class="post-cat">分类：
+          <a class="cat-link" href="/categories/Big-Data/">Big Data</a>
+        </span>
+    <span class="post-tags">
+            标签：
+      
+    
+        <a href="/tags/Big-Data/" title="Big Data" class="post-tag">Big Data</a> | 
+    
+        <a href="/tags/Hadoop/" title="Hadoop" class="post-tag">Hadoop</a>
+    
+
+        </span>
+  </p>
+</article>
+<!-- 分享按钮 -->
+
+  <div class="article-share clearfix text-center">
+    <div class="share-area">
+      <span class="share-txt">分享到：</span>
+      <a href="javascript: window.open('http://service.weibo.com/share/share.php?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title + '&pic=https://www.seekpie.com/images/hadoop/hadoop_logo.jpg&language=zh_cn');" class="share-icon weibo"></a>
+      <a href="javascript: wechatShare('wechat-show', window.location.href.split('#')[0])" class="share-icon wechat"></a>
+      <a href="javascript: window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title);" class="share-icon qqzone"></a>
+      <a href="javascript: window.open('http://connect.qq.com/widget/shareqq/index.html?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + encodeURIComponent(document.title) +'&desc=' + encodeURIComponent('一. 环境准备准备Ubuntu、JDK8、Hadoop2.8.5
+安装Ubuntu https://www.ubuntu.com/download/desktop   
+安装JDK,修改环境变量 https://www.oracle.com/technetwork/java/javase/downl') + '&pics=https://www.seekpie.com/images/hadoop/hadoop_logo.jpg');" class="share-icon qq"></a>
+      <a href="javascript: window.open('http://shuo.douban.com/!service/share?href=' + encodeURIComponent(location.href.split('#')[0]) + '&name=' + document.title + '&text=' + document.title);" class="share-icon douban"></a>
+    </div>
+  </div>
+  <div class="wechat-show">
+    <div class="wx-header"><span>分享到微信朋友圈</span><a class="wx-close" onclick="closeShare('wechat-show')">×</a></div>
+    <div id="wechat-share" style="margin: 10px"></div>
+    <div class="wx-footer">打开微信，使用“扫一扫”即可将网页分享至朋友圈。</div>
+  </div>
+
+
+<!-- 上一篇/下一篇 -->
+
+<div class="article-nav clearfix">
+    
+    <span class="prev fl">
+        上一篇<br>
+        <a href="/2018/10/26/pseudo-distributed-hbase-install/">
+            
+                Pseudo Distributed Hbase Install
+            
+        </a>
+    </span>
+    
+
+    
+    <span class="next fr">
+        下一篇<br>
+        <a href="/2018/08/27/restful-http/">
+            
+                RESTful HTTP
+            
+        </a>
+    </span>
+    
+</div>
+
+<!-- 文章评论 -->
+
+
+  <div id="comments" class="comments">
+  </div>
+
+  
+    <script src="/js/comment.js"></script>
+    <script>
+        JELON.Comment({
+            container: 'comments',
+            label: 'pseudo-distributed-hadoop-install' || '2018/10/26/pseudo-distributed-hadoop-install/',
+            owner: 'Crab2Died',
+            repo: 'blog-comments',
+            clientId: '2117b548bf34c40984be',
+            clientSecret: '2642328e6056dbf7b02951961e5ca481406410ed'
+        });
+    </script>
+  
+
+
+            </div>
+        </section>
+        <!-- 侧栏部分 -->
+<aside class="sidebar">
+
+    
+    <section class="widget toc-widget">
+      <h3 class="widget-hd"><strong>文章目录</strong></h3>
+      <!-- 目录 -->
+      <div class="toc">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一-环境准备"><span class="post-toc-text">一. 环境准备</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#准备Ubuntu、JDK8、Hadoop2-8-5"><span class="post-toc-text">准备Ubuntu、JDK8、Hadoop2.8.5</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#其他准备"><span class="post-toc-text">其他准备</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-更新apt-sudo-apt-get-update"><span class="post-toc-text">1. 更新apt sudo apt-get update</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-SSH安装，配置无密码SSH登入"><span class="post-toc-text">2. SSH安装，配置无密码SSH登入</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-1-SSH安装-sudo-apt-get-install-openssh-server"><span class="post-toc-text">2.1. SSH安装 sudo apt-get install openssh-server</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-2-配置SSH无密码登入"><span class="post-toc-text">2.2. 配置SSH无密码登入</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-修改hosts"><span class="post-toc-text">3. 修改hosts</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二-安装Hadoop"><span class="post-toc-text">二. 安装Hadoop</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-解压Hadoop"><span class="post-toc-text">1. 解压Hadoop</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-设置Hadoop环境变量"><span class="post-toc-text">2. 设置Hadoop环境变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-验证Hadoop版本"><span class="post-toc-text">3. 验证Hadoop版本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-伪分布式配置"><span class="post-toc-text">4. 伪分布式配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-1-进入-HADOOP-HOME-etc-hadoop目录中，修改以下文件"><span class="post-toc-text">4.1. 进入${HADOOP_HOME}/etc/hadoop目录中，修改以下文件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-1-1-修改-hadoop-env-sh"><span class="post-toc-text">4.1.1. 修改 hadoop-env.sh</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-1-2-修改-core-site-xml"><span class="post-toc-text">4.1.2. 修改 core-site.xml</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-1-3-修改-hdfs-site-xml"><span class="post-toc-text">4.1.3. 修改 hdfs-site.xml</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-1-4-先复制cp-mapred-site-xml-template-mapred-site-xml-再修改-mapred-site-xml"><span class="post-toc-text">4.1.4. 先复制cp mapred-site.xml.template mapred-site.xml,再修改 mapred-site.xml</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-1-5-修改-yarn-site-xml"><span class="post-toc-text">4.1.5. 修改 yarn-site.xml</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-格式化HDFS-NameNode"><span class="post-toc-text">5. 格式化HDFS NameNode</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-启动集群"><span class="post-toc-text">6. 启动集群</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#6-1-启动HDFS集群"><span class="post-toc-text">6.1. 启动HDFS集群</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#6-2-启动YARN"><span class="post-toc-text">6.2. 启动YARN</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-jps查看进程"><span class="post-toc-text">7. jps查看进程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#8-查看HDFS管理界面"><span class="post-toc-text">8. 查看HDFS管理界面</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#9-查看YARN管理界面"><span class="post-toc-text">9. 查看YARN管理界面</span></a></li></ol></li></ol>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="widget">
+        <h3 class="widget-hd"><strong>热门分类</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+  
+    <li title="Java">
+      <span class="badge">(8)</span>
+      <a href="/categories/Java/">Java</a>
+    </li>
+  
+    <li title="Big Data">
+      <span class="badge">(2)</span>
+      <a href="/categories/Big-Data/">Big Data</a>
+    </li>
+  
+    <li title="Elasticsearch">
+      <span class="badge">(1)</span>
+      <a href="/categories/Elasticsearch/">Elasticsearch</a>
+    </li>
+  
+    <li title="Excel4J">
+      <span class="badge">(1)</span>
+      <a href="/categories/Excel4J/">Excel4J</a>
+    </li>
+  
+    <li title="Database">
+      <span class="badge">(1)</span>
+      <a href="/categories/Database/">Database</a>
+    </li>
+  
+</ul>
+    </section>
+
+    
+    <section class="widget">
+        <h3 class="widget-hd"><strong>热门标签</strong></h3>
+        <!-- 文章标签 -->
+<div class="widget-bd tag-wrap">
+  
+    <a class="tag-item-link" href="/tags/Java/" title="Java 10篇">
+      Java(10)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/JVM/" title="JVM 3篇">
+      JVM(3)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Big-Data/" title="Big Data 2篇">
+      Big Data(2)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Concurrent/" title="Concurrent 1篇">
+      Concurrent(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Excel4J/" title="Excel4J 1篇">
+      Excel4J(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Database/" title="Database 1篇">
+      Database(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Interview/" title="Interview 1篇">
+      Interview(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/REST/" title="REST 1篇">
+      REST(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Classloader/" title="Classloader 1篇">
+      Classloader(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Collection/" title="Collection 1篇">
+      Collection(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/JIT/" title="JIT 1篇">
+      JIT(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Optimize/" title="Optimize 1篇">
+      Optimize(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Elasticsearch/" title="Elasticsearch 1篇">
+      Elasticsearch(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Java-Monitor/" title="Java Monitor 1篇">
+      Java Monitor(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/JMM/" title="JMM 1篇">
+      JMM(1)
+    </a>
+  
+</div>
+    </section>
+    
+
+    
+    <section class="widget visit-map">
+        <h3 class="widget-hd" style="display: inline-block"><strong>当前访客</strong></h3>
+        <div class="map-switch-btn"><a href="javascript:switchMapStyle()" class="map-switch">...</a></div>
+        <div class="widget-bd revolvermaps">
+正在加载访问地图...
+</div>
+    </section>
+    
+
+    
+
+    
+    <!-- 友情链接 -->
+    <section class="widget">
+        <h3 class="widget-hd"><strong>友情链接</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+    
+        <li>
+            <a href="https://coolshell.cn/" target="_blank" title="酷 壳">酷 壳</a>
+        </li>
+    
+        <li>
+            <a href="https://segmentfault.com/" target="_blank" title="SegmentFault">思 否</a>
+        </li>
+    
+        <li>
+            <a href="https://www.infoq.cn/" target="_blank" title="InfoQ">InfoQ</a>
+        </li>
+    
+        <li>
+            <a href="https://www.oschina.net/" target="_blank" title="开源中国">开源中国</a>
+        </li>
+    
+</ul>
+    </section>
+    
+
+    
+
+</aside>
+<!-- / 侧栏部分 -->
+    </div>
+
+    <!-- 博客底部 -->
+    <footer class="footer">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <span id="busuanzi_container_site_pv">总浏览量<span id="busuanzi_value_site_pv"></span>次</span>
+  <br>
+    Copyright &copy;
+    
+        2017 - 2020
+    
+
+    <a href="https://github.com/Crab2died" target="_blank"> Crab2Died </a>
+    All Rights Reserved.
+
+</footer>
+<div class="back-to-top" id="JELON__backToTop" title="返回顶部">返回顶部</div>
+
+    <!--博客js脚本 -->
+    <!-- 这里放网站js脚本 -->
+<script src="/js/main.js"></script>
+
+</body>
+</html>

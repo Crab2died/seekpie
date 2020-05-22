@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8">
+    <meta name="baidu-site-verification" content="dIcXMeY8Ya">
+    
+    <title>Database | 螃蟹以死</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.3, maximum-scale=1, user-scalable=0">
+    <meta name="keywords" content="螃蟹以死(Crab2Died)的个人博客，分享学习、工作的经验总结。涉及软件开发，大数据开发，分布式系统，微服务，前端开发等">
+    <meta itemprop="name" content="0">
+    <meta itemprop="image" content="https://www.seekpie.com/images/db/mysql_logo.png  ">
+    <meta itemprop="description" name="description" content="一. 四大特性(CIAD)原子性(Atomicity): 要么全成功，要么全失败，失败会回滚。一致性(Consistency): 一致性是指事务必须使数据库从一个一致性状态变换到另一个一致性状态，也就是说一个事务执行之前和执行之后都必须处于一致性状态。隔离性(Isolation): 隔离性是当多个用户并发访问数据库时，比如操作同一张表时，数据库为每一个用户开启的事务，不能被其他事务的操作所干扰，多个并发事务之间要相互隔离。持久性(Durability): 一旦事物提交成功，那么数据库中的数据就是永久改变的，即使系统故障也不会丢失提交的事物。二. 数据库隔离级别1. 不考虑隔离级别造成的问题更新丢失: 2个事物同时更新一条数据会有一个事物把另一个事物的更新覆盖了，这是因为系统没有任何操作隔离导 ">
+    <meta name="baidu-site-verification" content="8ssDkDEucu">
+    
+    <link rel="alternative" href="/atom.xml" title="螃蟹以死" type="application/atom+xml">
+    
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <!--[if lt IE 9]>
+    <script src="/js/html5.js"></script>
+    <![endif]-->
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ab88d36acf7ff63477f8ed578415c246";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+    
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5475855676583847",
+        enable_page_level_ads: true
+    });
+</script>
+    
+    <script src="/js/jquery/jquery-2.2.0.min.js"></script>
+    <script src="/js/qrcode.min.js"></script>
+    <script src="/js/particles.js"></script>
+    <script src="/js/qq/share.js"></script>
+</head>
+</html>
+<body class="home">
+    <!--[if lt IE 9]>
+    <div class="browsehappy">
+        当前网页 <strong>不支持</strong>
+        你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/">升级你的浏览器</a>.
+    </div>
+    <![endif]-->
+
+    <!-- 背景 -->
+    <!--<div id="particles-js" style="position: fixed; width: 100%; height: 100%;" class="bc-grid">-->
+    <div style="position: fixed; width: 100%; height: 100%;" class="bc-grid">
+
+    </div>
+    <!-- 博客头部 -->
+    <header class="header">
+    <section class="container header-main">
+        <div class="logo">
+            <a href="/">
+                <div class="cover">
+                    <span class="name">螃蟹以死</span>
+                    <span class="description">seekpie</span>
+                </div>
+            </a>
+        </div>
+        <div class="dropnav icon-paragraph-justify" id="JELON__btnDropNav"></div>
+        <ul class="menu hidden" id="JELON__menu">
+            
+            <li rel="/2018/07/06/database/index.html" class="item ">
+                <a href="/" title="首页" class="fa fa-home">&nbsp;首页</a>
+            </li>
+            
+            <li rel="/2018/07/06/database/index.html" class="item ">
+                <a href="/archives/" title="归档" class="fa fa-archive">&nbsp;归档</a>
+            </li>
+            
+            <li rel="/2018/07/06/database/index.html" class="item ">
+                <a href="/about/" title="关于" class="fa fa-user-circle-o">&nbsp;关于</a>
+            </li>
+            
+            <li rel="/2018/07/06/database/index.html" class="item ">
+                <a href="/atom.xml" target="_blank" title="RSS" class="fa fa-rss">&nbsp;RSS</a>
+            </li>
+            
+            <li class="item search-item"><!-- 搜索遮罩框 -->
+<span class="local-search local-search-google local-search-plugin" id="local-search">
+  <span><input type="search" placeholder="站内搜索..." id="local-search-input" class="local-search-input-cls" style=""></span>&nbsp;
+  <span class="fa fa-search"></span>
+  <div id="local-search-result" class="local-search-result-cls"></div>
+</span></li>
+        </ul>
+        <div class="profile clearfix">
+            <div class="qr-site fl" onmouseover="siteQrMouseOver()" onmouseout="siteQrMouseOut()">
+                <div>
+                    <div id="site-qr"></div>
+                </div>
+            </div>
+            <div id="site-qr-pop"> </div>
+            <div class="feeds fl">
+                
+                
+                <p class="links">
+                    
+                        <a href="https://github.com/Crab2died" target="_blank">GitHub</a>
+                        |
+                    
+                        <a href="https://github.com/seek-pie" target="_blank">Seek Pie</a>
+                        |
+                    
+                        <a href="https://gitee.com/Crab2Died" target="_blank">Gitee</a>
+                        
+                    
+                </p>
+                <p class="sns">
+                    
+                        <a href="http://weibo.com/Crab2Died" class="weibo" target="_blank"><b>■</b> 新浪微博</a>
+                    
+                        <a href="https://www.zhihu.com/people/crab2died" class="zhihu" target="_blank"><b>■</b> 知 乎</a>
+                    
+                        <a href="mailto:Crab2Died@126.com" class="email" target="_blank"><b>■</b> E-mail</a>
+                    
+                </p>
+                
+            </div>
+            <div class="avatar fr">
+                <img src="/crab2died.png" alt="avatar" title="Crab2Died">
+            </div>
+        </div>
+    </section>
+</header>
+
+
+    
+
+  <div class="bulletin">
+    <!--<div class="bulletin-icon"><strong style="color: #ebd829; width: 50px"><i class="fa fa-volume-up"></i></strong></div>-->
+    <div class="bulletin-content">
+      
+        <marquee direction="left" behavior="scroll" scrollamount="7" scrolldelay="0" align="bottom" bgcolor="#ffffff" hspace="20" vspace="0" onmouseover="this.stop()" onmouseout="this.start()">
+        
+      
+    </marquee></div>
+    <div id="theClock" class="bulletin-clock">
+
+    </div>
+  </div>
+
+
+
+    <!-- 博客正文 -->
+    <div class="container body clearfix">
+        <section class="content">
+            <div class="content-main widget">
+                <!-- 文章页 -->
+<!-- 文章 -->
+<article class="post article">
+  <header class="text-center">
+    <h3 class="post-title"><span>Database</span></h3>
+  </header>
+  <p class="post-meta text-center">
+    <i class="fa fa-edit"></i>
+    Crab2Died &nbsp;&nbsp;
+    <i class="fa fa-calendar"></i>
+    <time datetime="2018-07-06T15:15:27.000Z">2018-07-06</time>
+    <span id="busuanzi_container_page_pv"> &nbsp;&nbsp; <i class="fa fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span>
+  </p>
+
+  <p class="copyright_label">
+    <span class="copyright_title">版权声明: </span>
+    <span class="copyright_notice">本文著作权归作者所有，转载请注明出处。
+      
+      <span class="copyright_link">https://www.seekpie.com/2018/07/06/database/</span>
+      </span>
+  </p>
+  <div class="post-content">
+    <h2 id="一-四大特性-CIAD"><a href="#一-四大特性-CIAD" class="headerlink" title="一. 四大特性(CIAD)"></a>一. 四大特性(CIAD)</h2><ol>
+<li><strong>原子性(Atomicity)</strong>: 要么全成功，要么全失败，失败会回滚。</li>
+<li><strong>一致性(Consistency)</strong>: 一致性是指事务必须使数据库从一个一致性状态变换到另一个一致性状态，也就是说一个事务执
+行之前和执行之后都必须处于一致性状态。</li>
+<li><strong>隔离性(Isolation)</strong>: 隔离性是当多个用户并发访问数据库时，比如操作同一张表时，数据库为每一个用户开启的事务，
+不能被其他事务的操作所干扰，多个并发事务之间要相互隔离。</li>
+<li><strong>持久性(Durability)</strong>: 一旦事物提交成功，那么数据库中的数据就是永久改变的，即使系统故障也不会丢失提交的事物。</li>
+</ol>
+<h2 id="二-数据库隔离级别"><a href="#二-数据库隔离级别" class="headerlink" title="二. 数据库隔离级别"></a>二. 数据库隔离级别</h2><h3 id="1-不考虑隔离级别造成的问题"><a href="#1-不考虑隔离级别造成的问题" class="headerlink" title="1. 不考虑隔离级别造成的问题"></a>1. 不考虑隔离级别造成的问题</h3><ol>
+<li>更新丢失: 2个事物同时更新一条数据会有一个事物把另一个事物的更新覆盖了，这是因为系统没有任何操作隔离导致的.</li>
+<li>脏读: 一个事物读取了另一个事物还未提交事物的数据</li>
+<li>不可重复读: 一个事务对同一行数据重复读取两次，但是却得到了不同的结果<ul>
+<li>虚读: 一个事物去改变数据改变后发现还有数据为按要求改变，是因为另一事物也做了改变的缘故</li>
+<li>幻读: 同一个事物内多次查询返回的结果不一致，是因为另一事物对数据进行了改变</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-隔离级别-低-gt-高"><a href="#2-隔离级别-低-gt-高" class="headerlink" title="2. 隔离级别(低 -&gt; 高)"></a>2. 隔离级别(低 -&gt; 高)</h3><ol>
+<li><strong>Read uncommitted(未授权读取、读未提交)</strong><ul>
+<li>当一个事物在执行写操作时，则不允许另一事物执行写操作，可执行其他操作，可由排他锁来实现</li>
+<li>解决了更新丢失问题，但会出现脏读</li>
+</ul>
+</li>
+<li><strong>Read committed(授权读取、读提交)</strong><ul>
+<li>读取数据事物允许其他事物继续访问该数据，但未提交的数据禁止其他事物访问</li>
+<li>避免了脏读，但可能会出现幻读</li>
+</ul>
+</li>
+<li><strong>Repeatable read(可重复读取)</strong><ul>
+<li>读数据的事物将禁止写事物(可以读事物),写事物将禁止所有其他事物</li>
+<li>避免了脏读和不可重复读，但可能会出现幻读</li>
+</ul>
+</li>
+<li><strong>Serializable(序列化)</strong><ul>
+<li>事物严格按照顺序一个一个执行</li>
+<li>能避免所有情况，但会极大影响系统性能</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-扩展"><a href="#3-扩展" class="headerlink" title="3. 扩展"></a>3. 扩展</h3><ol>
+<li>大多数数据库的默认级别就是Read committed，比如Sql Server , Oracle。<br>  Mysql的默认隔离级别就是Repeatable read。 </li>
+<li>MySQL数据库隔离级别管理  <ul>
+<li>查看隔离级别: <code>select @@tx_isolation</code>  </li>
+<li>修改隔离级别:<br><code>set [glogal | session] transaction isolation level 隔离级别名称</code>如<code>set transaction isolation level read-committed</code><br>或者<code>set tx_isolation=&#39;隔离级别名称&#39;</code> 如 <code>set tx_isolation = &#39;read-committed&#39;</code></li>
+</ul>
+</li>
+<li>隔离级别的设置只对当前连接有效  </li>
+</ol>
+<h3 id="4-MySQL悲观锁、乐观锁、共享锁与排他锁"><a href="#4-MySQL悲观锁、乐观锁、共享锁与排他锁" class="headerlink" title="4. MySQL悲观锁、乐观锁、共享锁与排他锁"></a>4. MySQL悲观锁、乐观锁、共享锁与排他锁</h3><ol>
+<li><strong>悲观锁</strong>: 在操作数据时都认为会出现数据冲突，所以每次都会去获取锁，只有获取锁后才能对数据操作。</li>
+<li><strong>乐观锁</strong>: 在操作数据都认为不会发生数据冲突，可以直接操作，一般由用户通过版本号自己实现。</li>
+<li><strong>共享锁</strong>: 共享锁指的就是对于多个不同的事务，对同一个资源共享同一个锁。在SQL后面加上<code>lock in share mode</code>表示使用共享锁。</li>
+<li><strong>排他锁</strong>: 排它锁与共享锁相对应，就是指对于多个不同的事务，对同一个资源只能有一把锁。与共享锁类型，在需要执行的
+语句后面加上<code>for update</code>就可以了。</li>
+</ol>
+<h2 id="三-数据库的三大范式-Normal-Form"><a href="#三-数据库的三大范式-Normal-Form" class="headerlink" title="三. 数据库的三大范式(Normal Form)"></a>三. 数据库的三大范式(Normal Form)</h2><ol>
+<li><strong>第一范式(1NF)</strong>：强调的是列的原子性，即列不能够再分成其他几列。</li>
+<li><strong>第二范式(2NF)</strong>：一个表必须有一个主键，二是其他列必须完全依赖于主键，而不能依赖主键一部分</li>
+<li><strong>第三范式(3NF)</strong>：非主键列必须直接依赖于主键，不能存在传递依赖。即不能存在：非主键列A依赖于非主键列B，非主键列B依赖于主键的情况。</li>
+</ol>
+<h2 id="四-数据库数据结构"><a href="#四-数据库数据结构" class="headerlink" title="四. 数据库数据结构"></a>四. 数据库数据结构</h2><ol>
+<li>B+ Tree<ul>
+<li>相较于B Tree多了一层，只有树的叶子节点存储实际数据，方便了range查询操作</li>
+</ul>
+</li>
+</ol>
+<h2 id="五-mysql的MyISAM与InnoDB"><a href="#五-mysql的MyISAM与InnoDB" class="headerlink" title="五. mysql的MyISAM与InnoDB"></a>五. mysql的MyISAM与InnoDB</h2><ol>
+<li><code>show engines</code> 查看当前引擎与默认引擎</li>
+<li>设置表引擎 CREATE后面加<code>CREATE TABLE &quot;&quot; () ENGINE=MyISAM</code> 或 <code>alter table 表名 ENGINE = InnoDB</code></li>
+<li>比较  <ul>
+<li>MyISAM不支持事物,InnoDB支持  </li>
+<li>InnoDB支持行锁定,MyISAM不支持，只支持表锁定   </li>
+<li>InnoDB支持外键,MyISAM不支持  </li>
+<li>MyISAM支持全文检索,InnoDB不支持  </li>
+<li>MyISAM内置一个数据计数器，能很容易得出<code>SELECT COUNT(*) FROM TABLE_NAME</code>结果  </li>
+<li>MyISAM索引数据与表数据分离，而InnoDB索引与表数据紧密关联  </li>
+</ul>
+</li>
+</ol>
+<h2 id="六-SQL功能"><a href="#六-SQL功能" class="headerlink" title="六. SQL功能"></a>六. SQL功能</h2><ol>
+<li><strong>数据定义(DDL)</strong>：用于定义SQL模式、基本表、视图和索引的创建和撤消操作</li>
+<li><strong>数据操纵(DML)</strong>：数据操纵分成数据查询和数据更新两类。数据更新又分成插入、删除、和修改三种操作</li>
+<li><strong>数据控制</strong>：包括对基本表和视图的授权，完整性规则的描述，事务控制等内容</li>
+<li><strong>嵌入式SQL使用规定</strong>：涉及到SQL语句嵌入在宿主语言程序中使用的规则</li>
+</ol>
+
+  </div>
+
+  <!-- 目录 -->
+  <div class="catalog">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-四大特性-CIAD"><span class="toc-text">一. 四大特性(CIAD)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-数据库隔离级别"><span class="toc-text">二. 数据库隔离级别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-不考虑隔离级别造成的问题"><span class="toc-text">1. 不考虑隔离级别造成的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-隔离级别-低-gt-高"><span class="toc-text">2. 隔离级别(低 -&gt; 高)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-扩展"><span class="toc-text">3. 扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-MySQL悲观锁、乐观锁、共享锁与排他锁"><span class="toc-text">4. MySQL悲观锁、乐观锁、共享锁与排他锁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-数据库的三大范式-Normal-Form"><span class="toc-text">三. 数据库的三大范式(Normal Form)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四-数据库数据结构"><span class="toc-text">四. 数据库数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五-mysql的MyISAM与InnoDB"><span class="toc-text">五. mysql的MyISAM与InnoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六-SQL功能"><span class="toc-text">六. SQL功能</span></a></li></ol>
+  </div>
+
+  <p class="post-meta">
+        <span class="post-cat">分类：
+          <a class="cat-link" href="/categories/Database/">Database</a>
+        </span>
+    <span class="post-tags">
+            标签：
+      
+    
+        <a href="/tags/Database/" title="Database" class="post-tag">Database</a>
+    
+
+        </span>
+  </p>
+</article>
+<!-- 分享按钮 -->
+
+  <div class="article-share clearfix text-center">
+    <div class="share-area">
+      <span class="share-txt">分享到：</span>
+      <a href="javascript: window.open('http://service.weibo.com/share/share.php?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title + '&pic=https://www.seekpie.com/images/db/mysql_logo.png&language=zh_cn');" class="share-icon weibo"></a>
+      <a href="javascript: wechatShare('wechat-show', window.location.href.split('#')[0])" class="share-icon wechat"></a>
+      <a href="javascript: window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title);" class="share-icon qqzone"></a>
+      <a href="javascript: window.open('http://connect.qq.com/widget/shareqq/index.html?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + encodeURIComponent(document.title) +'&desc=' + encodeURIComponent('一. 四大特性(CIAD)
+原子性(Atomicity): 要么全成功，要么全失败，失败会回滚。
+一致性(Consistency): 一致性是指事务必须使数据库从一个一致性状态变换到另一个一致性状态，也就是说一个事务执
+行之前和执行之后都必须处于一致性状态。
+隔离性(Isolation): 隔离性是') + '&pics=https://www.seekpie.com/images/db/mysql_logo.png');" class="share-icon qq"></a>
+      <a href="javascript: window.open('http://shuo.douban.com/!service/share?href=' + encodeURIComponent(location.href.split('#')[0]) + '&name=' + document.title + '&text=' + document.title);" class="share-icon douban"></a>
+    </div>
+  </div>
+  <div class="wechat-show">
+    <div class="wx-header"><span>分享到微信朋友圈</span><a class="wx-close" onclick="closeShare('wechat-show')">×</a></div>
+    <div id="wechat-share" style="margin: 10px"></div>
+    <div class="wx-footer">打开微信，使用“扫一扫”即可将网页分享至朋友圈。</div>
+  </div>
+
+
+<!-- 上一篇/下一篇 -->
+
+<div class="article-nav clearfix">
+    
+    <span class="prev fl">
+        上一篇<br>
+        <a href="/2018/07/16/redis-cache-summarize/">
+            
+                Redis Cache Summarize
+            
+        </a>
+    </span>
+    
+
+    
+    <span class="next fr">
+        下一篇<br>
+        <a href="/2018/06/25/java-classloader/">
+            
+                Java Classloader
+            
+        </a>
+    </span>
+    
+</div>
+
+<!-- 文章评论 -->
+
+
+  <div id="comments" class="comments">
+  </div>
+
+  
+    <script src="/js/comment.js"></script>
+    <script>
+        JELON.Comment({
+            container: 'comments',
+            label: 'database' || '2018/07/06/database/',
+            owner: 'Crab2Died',
+            repo: 'blog-comments',
+            clientId: '2117b548bf34c40984be',
+            clientSecret: '2642328e6056dbf7b02951961e5ca481406410ed'
+        });
+    </script>
+  
+
+
+            </div>
+        </section>
+        <!-- 侧栏部分 -->
+<aside class="sidebar">
+
+    
+    <section class="widget toc-widget">
+      <h3 class="widget-hd"><strong>文章目录</strong></h3>
+      <!-- 目录 -->
+      <div class="toc">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一-四大特性-CIAD"><span class="post-toc-text">一. 四大特性(CIAD)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二-数据库隔离级别"><span class="post-toc-text">二. 数据库隔离级别</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-不考虑隔离级别造成的问题"><span class="post-toc-text">1. 不考虑隔离级别造成的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-隔离级别-低-gt-高"><span class="post-toc-text">2. 隔离级别(低 -&gt; 高)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-扩展"><span class="post-toc-text">3. 扩展</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-MySQL悲观锁、乐观锁、共享锁与排他锁"><span class="post-toc-text">4. MySQL悲观锁、乐观锁、共享锁与排他锁</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三-数据库的三大范式-Normal-Form"><span class="post-toc-text">三. 数据库的三大范式(Normal Form)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#四-数据库数据结构"><span class="post-toc-text">四. 数据库数据结构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#五-mysql的MyISAM与InnoDB"><span class="post-toc-text">五. mysql的MyISAM与InnoDB</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#六-SQL功能"><span class="post-toc-text">六. SQL功能</span></a></li></ol>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="widget">
+        <h3 class="widget-hd"><strong>热门分类</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+  
+    <li title="Java">
+      <span class="badge">(8)</span>
+      <a href="/categories/Java/">Java</a>
+    </li>
+  
+    <li title="Big Data">
+      <span class="badge">(2)</span>
+      <a href="/categories/Big-Data/">Big Data</a>
+    </li>
+  
+    <li title="Elasticsearch">
+      <span class="badge">(1)</span>
+      <a href="/categories/Elasticsearch/">Elasticsearch</a>
+    </li>
+  
+    <li title="Excel4J">
+      <span class="badge">(1)</span>
+      <a href="/categories/Excel4J/">Excel4J</a>
+    </li>
+  
+    <li title="Database">
+      <span class="badge">(1)</span>
+      <a href="/categories/Database/">Database</a>
+    </li>
+  
+</ul>
+    </section>
+
+    
+    <section class="widget">
+        <h3 class="widget-hd"><strong>热门标签</strong></h3>
+        <!-- 文章标签 -->
+<div class="widget-bd tag-wrap">
+  
+    <a class="tag-item-link" href="/tags/Java/" title="Java 10篇">
+      Java(10)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/JVM/" title="JVM 3篇">
+      JVM(3)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Big-Data/" title="Big Data 2篇">
+      Big Data(2)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Concurrent/" title="Concurrent 1篇">
+      Concurrent(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Excel4J/" title="Excel4J 1篇">
+      Excel4J(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Database/" title="Database 1篇">
+      Database(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Interview/" title="Interview 1篇">
+      Interview(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/REST/" title="REST 1篇">
+      REST(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Classloader/" title="Classloader 1篇">
+      Classloader(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Collection/" title="Collection 1篇">
+      Collection(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/JIT/" title="JIT 1篇">
+      JIT(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Optimize/" title="Optimize 1篇">
+      Optimize(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Elasticsearch/" title="Elasticsearch 1篇">
+      Elasticsearch(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Java-Monitor/" title="Java Monitor 1篇">
+      Java Monitor(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/JMM/" title="JMM 1篇">
+      JMM(1)
+    </a>
+  
+</div>
+    </section>
+    
+
+    
+    <section class="widget visit-map">
+        <h3 class="widget-hd" style="display: inline-block"><strong>当前访客</strong></h3>
+        <div class="map-switch-btn"><a href="javascript:switchMapStyle()" class="map-switch">...</a></div>
+        <div class="widget-bd revolvermaps">
+正在加载访问地图...
+</div>
+    </section>
+    
+
+    
+
+    
+    <!-- 友情链接 -->
+    <section class="widget">
+        <h3 class="widget-hd"><strong>友情链接</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+    
+        <li>
+            <a href="https://coolshell.cn/" target="_blank" title="酷 壳">酷 壳</a>
+        </li>
+    
+        <li>
+            <a href="https://segmentfault.com/" target="_blank" title="SegmentFault">思 否</a>
+        </li>
+    
+        <li>
+            <a href="https://www.infoq.cn/" target="_blank" title="InfoQ">InfoQ</a>
+        </li>
+    
+        <li>
+            <a href="https://www.oschina.net/" target="_blank" title="开源中国">开源中国</a>
+        </li>
+    
+</ul>
+    </section>
+    
+
+    
+
+</aside>
+<!-- / 侧栏部分 -->
+    </div>
+
+    <!-- 博客底部 -->
+    <footer class="footer">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <span id="busuanzi_container_site_pv">总浏览量<span id="busuanzi_value_site_pv"></span>次</span>
+  <br>
+    Copyright &copy;
+    
+        2017 - 2020
+    
+
+    <a href="https://github.com/Crab2died" target="_blank"> Crab2Died </a>
+    All Rights Reserved.
+
+</footer>
+<div class="back-to-top" id="JELON__backToTop" title="返回顶部">返回顶部</div>
+
+    <!--博客js脚本 -->
+    <!-- 这里放网站js脚本 -->
+<script src="/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8">
+    <meta name="baidu-site-verification" content="dIcXMeY8Ya">
+    
+    <title>Java Concurrent | 螃蟹以死</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.3, maximum-scale=1, user-scalable=0">
+    <meta name="keywords" content="螃蟹以死(Crab2Died)的个人博客，分享学习、工作的经验总结。涉及软件开发，大数据开发，分布式系统，微服务，前端开发等">
+    <meta itemprop="name" content="0">
+    <meta itemprop="image" content="https://www.seekpie.com/images/java/thread_status_transfer.png  ">
+    <meta itemprop="description" name="description" content="1. JAVA与线程1.1. 线程的实现实现方式:使用内核线程实现、 使用用户线程实现和使用用户线程加轻量级进程混合实现.JDK1.2之前是基于用户线程实现的，JDK1.2及以后是基于操作系统原生线程模型实现的.1.2. Java线程调度线程调度是指系统为线程分配处理器使用权的过程,主要调度方式有两种,分别是协同式线程调度(Cooperative Threads-Scheduling)和抢占式线程调度(Preemptive ThreadsScheduling)协同式线程调度:线程的执行时间由线程本身来控制,线程把自己的工作执行完了之后,要主动通知系统切换到另外一个线程上;优点是实现简单,缺点是线程执行时间不可控制,容易线程阻塞每个线程将由系统来分配执行时间,线程的切换不由线程本身来决定(在J ">
+    <meta name="baidu-site-verification" content="8ssDkDEucu">
+    
+    <link rel="alternative" href="/atom.xml" title="螃蟹以死" type="application/atom+xml">
+    
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <!--[if lt IE 9]>
+    <script src="/js/html5.js"></script>
+    <![endif]-->
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ab88d36acf7ff63477f8ed578415c246";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+    
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5475855676583847",
+        enable_page_level_ads: true
+    });
+</script>
+    
+    <script src="/js/jquery/jquery-2.2.0.min.js"></script>
+    <script src="/js/qrcode.min.js"></script>
+    <script src="/js/particles.js"></script>
+    <script src="/js/qq/share.js"></script>
+</head>
+</html>
+<body class="home">
+    <!--[if lt IE 9]>
+    <div class="browsehappy">
+        当前网页 <strong>不支持</strong>
+        你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/">升级你的浏览器</a>.
+    </div>
+    <![endif]-->
+
+    <!-- 背景 -->
+    <!--<div id="particles-js" style="position: fixed; width: 100%; height: 100%;" class="bc-grid">-->
+    <div style="position: fixed; width: 100%; height: 100%;" class="bc-grid">
+
+    </div>
+    <!-- 博客头部 -->
+    <header class="header">
+    <section class="container header-main">
+        <div class="logo">
+            <a href="/">
+                <div class="cover">
+                    <span class="name">螃蟹以死</span>
+                    <span class="description">seekpie</span>
+                </div>
+            </a>
+        </div>
+        <div class="dropnav icon-paragraph-justify" id="JELON__btnDropNav"></div>
+        <ul class="menu hidden" id="JELON__menu">
+            
+            <li rel="/2018/06/15/java-concurrent/index.html" class="item ">
+                <a href="/" title="首页" class="fa fa-home">&nbsp;首页</a>
+            </li>
+            
+            <li rel="/2018/06/15/java-concurrent/index.html" class="item ">
+                <a href="/archives/" title="归档" class="fa fa-archive">&nbsp;归档</a>
+            </li>
+            
+            <li rel="/2018/06/15/java-concurrent/index.html" class="item ">
+                <a href="/about/" title="关于" class="fa fa-user-circle-o">&nbsp;关于</a>
+            </li>
+            
+            <li rel="/2018/06/15/java-concurrent/index.html" class="item ">
+                <a href="/atom.xml" target="_blank" title="RSS" class="fa fa-rss">&nbsp;RSS</a>
+            </li>
+            
+            <li class="item search-item"><!-- 搜索遮罩框 -->
+<span class="local-search local-search-google local-search-plugin" id="local-search">
+  <span><input type="search" placeholder="站内搜索..." id="local-search-input" class="local-search-input-cls" style=""></span>&nbsp;
+  <span class="fa fa-search"></span>
+  <div id="local-search-result" class="local-search-result-cls"></div>
+</span></li>
+        </ul>
+        <div class="profile clearfix">
+            <div class="qr-site fl" onmouseover="siteQrMouseOver()" onmouseout="siteQrMouseOut()">
+                <div>
+                    <div id="site-qr"></div>
+                </div>
+            </div>
+            <div id="site-qr-pop"> </div>
+            <div class="feeds fl">
+                
+                
+                <p class="links">
+                    
+                        <a href="https://github.com/Crab2died" target="_blank">GitHub</a>
+                        |
+                    
+                        <a href="https://github.com/seek-pie" target="_blank">Seek Pie</a>
+                        |
+                    
+                        <a href="https://gitee.com/Crab2Died" target="_blank">Gitee</a>
+                        
+                    
+                </p>
+                <p class="sns">
+                    
+                        <a href="http://weibo.com/Crab2Died" class="weibo" target="_blank"><b>■</b> 新浪微博</a>
+                    
+                        <a href="https://www.zhihu.com/people/crab2died" class="zhihu" target="_blank"><b>■</b> 知 乎</a>
+                    
+                        <a href="mailto:Crab2Died@126.com" class="email" target="_blank"><b>■</b> E-mail</a>
+                    
+                </p>
+                
+            </div>
+            <div class="avatar fr">
+                <img src="/crab2died.png" alt="avatar" title="Crab2Died">
+            </div>
+        </div>
+    </section>
+</header>
+
+
+    
+
+  <div class="bulletin">
+    <!--<div class="bulletin-icon"><strong style="color: #ebd829; width: 50px"><i class="fa fa-volume-up"></i></strong></div>-->
+    <div class="bulletin-content">
+      
+        <marquee direction="left" behavior="scroll" scrollamount="7" scrolldelay="0" align="bottom" bgcolor="#ffffff" hspace="20" vspace="0" onmouseover="this.stop()" onmouseout="this.start()">
+        
+      
+    </marquee></div>
+    <div id="theClock" class="bulletin-clock">
+
+    </div>
+  </div>
+
+
+
+    <!-- 博客正文 -->
+    <div class="container body clearfix">
+        <section class="content">
+            <div class="content-main widget">
+                <!-- 文章页 -->
+<!-- 文章 -->
+<article class="post article">
+  <header class="text-center">
+    <h3 class="post-title"><span>Java Concurrent</span></h3>
+  </header>
+  <p class="post-meta text-center">
+    <i class="fa fa-edit"></i>
+    Crab2Died &nbsp;&nbsp;
+    <i class="fa fa-calendar"></i>
+    <time datetime="2018-06-15T04:15:27.000Z">2018-06-15</time>
+    <span id="busuanzi_container_page_pv"> &nbsp;&nbsp; <i class="fa fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span>
+  </p>
+
+  <p class="copyright_label">
+    <span class="copyright_title">版权声明: </span>
+    <span class="copyright_notice">本文著作权归作者所有，转载请注明出处。
+      
+      <span class="copyright_link">https://www.seekpie.com/2018/06/15/java-concurrent/</span>
+      </span>
+  </p>
+  <div class="post-content">
+    <h2 id="1-JAVA与线程"><a href="#1-JAVA与线程" class="headerlink" title="1. JAVA与线程"></a>1. JAVA与线程</h2><h3 id="1-1-线程的实现"><a href="#1-1-线程的实现" class="headerlink" title="1.1. 线程的实现"></a>1.1. 线程的实现</h3><ol>
+<li>实现方式:使用内核线程实现、 使用用户线程实现和使用用户线程加轻量级进程混合实现.</li>
+<li>JDK1.2之前是基于用户线程实现的，JDK1.2及以后是基于操作系统原生线程模型实现的.</li>
+</ol>
+<h3 id="1-2-Java线程调度"><a href="#1-2-Java线程调度" class="headerlink" title="1.2. Java线程调度"></a>1.2. Java线程调度</h3><ol>
+<li>线程调度是指系统为线程分配处理器使用权的过程,主要调度方式有两种,分别是协同式线程调度(Cooperative Threads-Scheduling)
+和抢占式线程调度(Preemptive ThreadsScheduling)</li>
+<li>协同式线程调度:线程的执行时间由线程本身来控制,线程把自己的工作执行完了之后,要主动通知系统切换到另外一个线程上;
+优点是实现简单,缺点是线程执行时间不可控制,容易线程阻塞</li>
+<li>每个线程将由系统来分配执行时间,线程的切换不由线程本身来决定(在Java中,Thread.yield()可以让出执行时间,但是要获取执行时
+间的话,线程本身是没有什么办法的);优点是线程的执行时间是系统可控的,也不会有一个线程导致整个进程阻塞的问题.</li>
+<li>JAVA线程有10个优先级(Thread.MIN_PRIORITY至Thread.MAX_PRIORITY)</li>
+</ol>
+<h3 id="1-3-线程转换状态"><a href="#1-3-线程转换状态" class="headerlink" title="1.3. 线程转换状态"></a>1.3. 线程转换状态</h3><ol>
+<li>JAVA线程定义了6个状态:  <ul>
+<li>新建(New):创建后尚未启动的线程处于这种状态.</li>
+<li>运行(Runable):Runable包括了操作系统线程状态中的Running和Ready,也就是处于此状态的线程有可能正在执行,也有可能正在等待着CPU为它分配执行时间.</li>
+<li>无限期等待(Waiting):处于这种状态的线程不会被分配CPU执行时间,它们要等待被其他线程显式地唤醒. 以下方法会让线程陷入无限期的等待状态:<br>● 没有设置Timeout参数的Object.wait()方法.<br>● 没有设置Timeout参数的Thread.join()方法.<br>● LockSupport.park()方法.  </li>
+<li>限期等待(Timed Waiting):处于这种状态的线程也不会被分配CPU执行时间,不过无须等待被其他线程显式地唤醒,在一定时间之后它们会由系统自动唤醒. 以下方法会让线程进入限期等待状态:<br>● Thread.sleep()方法.<br>● 设置了Timeout参数的Object.wait()方法.<br>● 设置了Timeout参数的Thread.join()方法.<br>● LockSupport.parkNanos()方法.<br>● LockSupport.parkUntil()方法 </li>
+<li>阻塞(Blocked):该状态程序在等待获取一个排他锁，程序在同步时会在该状态 </li>
+<li>结束(Terminated):已终止线程的线程状态,线程已经结束执行.</li>
+</ul>
+</li>
+<li>线程状态转换关系图<br><img src="/images/java/thread_status_transfer.png" alt="线程状态转换关系"></li>
+</ol>
+<h2 id="2-线程安全与锁优化"><a href="#2-线程安全与锁优化" class="headerlink" title="2. 线程安全与锁优化"></a>2. 线程安全与锁优化</h2><h3 id="2-1-JAVA中的线程安全"><a href="#2-1-JAVA中的线程安全" class="headerlink" title="2.1. JAVA中的线程安全"></a>2.1. JAVA中的线程安全</h3><ol>
+<li>共享数据分类<ul>
+<li>不可变(Immutable):不可变对象一定是线程安全的,典型的final</li>
+<li>绝对线程安全:</li>
+<li>相对线程安全: java大部分的线程安全都是相对线程安全的</li>
+<li>线程兼容:</li>
+<li>线程对立:</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-2-synchronized的优化"><a href="#2-2-synchronized的优化" class="headerlink" title="2.2. synchronized的优化"></a>2.2. synchronized的优化</h3><ol>
+<li>synchronized自JDK1.6后引入偏向锁和轻量级锁后大大提升了并发的性能</li>
+<li>synchronized锁升级<code>偏向锁 -&gt; 轻量级锁 -&gt; 重量级锁</code> 所以在锁高竞争下Lock性能更高</li>
+</ol>
+<h2 id="3-锁介绍"><a href="#3-锁介绍" class="headerlink" title="3. 锁介绍"></a>3. 锁介绍</h2><h3 id="3-1-自旋锁"><a href="#3-1-自旋锁" class="headerlink" title="3.1. 自旋锁"></a>3.1. 自旋锁</h3><ol>
+<li>自旋锁可以使线程在没有取得锁的时候，不被挂起，而转去执行一个空循环，（即所谓的自旋，就是自己执行空循环），若在若干个空循环后，线
+程如果可以获得锁，则继续执行。若线程依然不能获得锁，才会被挂起。使用自旋锁后，线程被挂起的几率相对减少，线程执行的连贯性相对加
+强。因此，对于那些锁竞争不是很激烈，锁占用时间很短的并发线程，具有一定的积极意义，但对于锁竞争激烈，单线程锁占用很长时间的并发
+程序，自旋锁在自旋等待后，往往毅然无法获得对应的锁，不仅仅白白浪费了CPU时间，最终还是免不了被挂起的操作 ，反而浪费了系统的资源。
+在JDK1.6中，Java虚拟机提供<code>-XX:+UseSpinning</code>参数来开启自旋锁，使用<code>-XX:PreBlockSpin</code>参数来设置自旋锁等待的次数。在JDK1.7
+开始，自旋锁的参数被取消，虚拟机不再支持由用户配置自旋锁，自旋锁总是会执行，自旋锁次数也由虚拟机自动调整。  </li>
+<li>问题：  <ul>
+<li>可能白占用CPU时间</li>
+<li>死锁问题，自己占用锁，还在等待锁释放</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-2-阻塞锁"><a href="#3-2-阻塞锁" class="headerlink" title="3.2. 阻塞锁"></a>3.2. 阻塞锁</h3><ol>
+<li>让线程进入阻塞状态进行等待，当获得相应的信号（唤醒，时间） 时，才可以进入线程的准备就绪状态，准备就绪状态的所有线程，通过竞争，进
+入运行状态。JAVA中，能够进入\退出、阻塞状态或包含阻塞锁的方法有 ，<code>synchronized</code> 关键字（其中的重量锁），<code>ReentrantLock</code>，
+<code>Object.wait()\notify()</code></li>
+</ol>
+<h3 id="3-3-可重入锁"><a href="#3-3-可重入锁" class="headerlink" title="3.3. 可重入锁"></a>3.3. 可重入锁</h3><ol>
+<li>可重入锁，也叫做递归锁，指的是同一线程 外层函数获得锁之后 ，内层递归函数仍然有获取该锁的代码，但不受影响。<br>在JAVA环境下 <code>ReentrantLock</code> 和<code>synchronized</code> 都是 可重入锁</li>
+</ol>
+<h3 id="3-4-乐观锁和悲观锁"><a href="#3-4-乐观锁和悲观锁" class="headerlink" title="3.4. 乐观锁和悲观锁"></a>3.4. 乐观锁和悲观锁</h3><ol>
+<li>悲观锁: 每次拿数据都上锁，如行锁、表锁、读锁、写锁</li>
+<li>乐观锁: 每次拿数据都不上锁，只是在修改前验证下数据在此期间有无更新，如版本号控制</li>
+</ol>
+<h3 id="3-5-轮询锁和定时锁"><a href="#3-5-轮询锁和定时锁" class="headerlink" title="3.5. 轮询锁和定时锁"></a>3.5. 轮询锁和定时锁</h3><ol>
+<li>由tryLock实现，与无条件获取锁模式相比，它们具有更完善的错误恢复机制。可避免死锁的发生：<br><code>boolean tryLock()</code>:仅在调用时锁为空闲状态才获取该锁。如果锁可用，则获取锁，并立即返回值true。如果锁不可用，则此方法将立即返回
+值false。<code>boolean tryLock(long time, TimeUnit unit) throws InterruptedException</code>:如果锁在给定的等待时间内空闲，并且当前
+线程未被中断，则获取锁。</li>
+</ol>
+<h3 id="3-6-显示锁和内置锁"><a href="#3-6-显示锁和内置锁" class="headerlink" title="3.6. 显示锁和内置锁"></a>3.6. 显示锁和内置锁</h3><ol>
+<li>显示锁用<code>Lock</code>来定义、内置锁用<code>synchronized</code>。</li>
+</ol>
+<h3 id="3-7-对象锁和类锁"><a href="#3-7-对象锁和类锁" class="headerlink" title="3.7. 对象锁和类锁"></a>3.7. 对象锁和类锁</h3><ol>
+<li>对象锁是用于实例对象(可有多个实例对象)方法上的</li>
+<li>类锁是作用于对象的静态方法和Class(一个类只有一个Class对象)对象上的</li>
+</ol>
+<h3 id="3-8-互斥锁"><a href="#3-8-互斥锁" class="headerlink" title="3.8. 互斥锁"></a>3.8. 互斥锁</h3><ol>
+<li>互斥锁, 指的是一次最多只能有一个线程持有的锁。如Java的Lock</li>
+</ol>
+<h3 id="3-9-锁粗化"><a href="#3-9-锁粗化" class="headerlink" title="3.9 锁粗化"></a>3.9 锁粗化</h3><ol>
+<li>将多个连续的锁操作合并成一个整体的锁</li>
+</ol>
+<h3 id="3-10-锁消除"><a href="#3-10-锁消除" class="headerlink" title="3.10. 锁消除"></a>3.10. 锁消除</h3><ol>
+<li>通过逃逸分析，能证明堆上数据不会逃逸出当前线程，则认为是线程安全的，不必要加锁操作</li>
+</ol>
+<h2 id="4-java线程池"><a href="#4-java线程池" class="headerlink" title="4. java线程池"></a>4. java线程池</h2><h3 id="4-1-线程池实现类"><a href="#4-1-线程池实现类" class="headerlink" title="4.1. 线程池实现类"></a>4.1. 线程池实现类</h3>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(C)ThreadPoolExecutor --&gt;  (AC)AbstractExecutorService --&gt; (I)ExecutorService --&gt; (I)Executor</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-ThreadPoolExecutor构造参数说明"><a href="#4-2-ThreadPoolExecutor构造参数说明" class="headerlink" title="4.2. ThreadPoolExecutor构造参数说明"></a>4.2. ThreadPoolExecutor构造参数说明</h3>  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// corePoolSize 核心线程数，当任务多于核心线程数时会进入缓冲阻塞队列workQueue</span></span><br><span class="line"><span class="comment">// maximunPoolSize 线程池最大线程数</span></span><br><span class="line"><span class="comment">// keepAliveTime 多于核心线程数的空闲线程最长存活时间量级与unit参数配合使用</span></span><br><span class="line"><span class="comment">// unit 线程等待时间的单位级</span></span><br><span class="line"><span class="comment">// workQueue 任务缓冲队列</span></span><br><span class="line"><span class="comment">// threadFactory 线程工厂，用于创建线程</span></span><br><span class="line"><span class="comment">// handler 表示拒接处理任务的策略有一下4种：</span></span><br><span class="line"><span class="comment">//  - ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常</span></span><br><span class="line"><span class="comment">//  - ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常</span></span><br><span class="line"><span class="comment">//  - ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）</span></span><br><span class="line"><span class="comment">//  - ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,<span class="keyword">int</span> maximumPoolSize,<span class="keyword">long</span> keepAliveTime,TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">        BlockingQueue&lt;Runnable&gt; workQueue)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,<span class="keyword">int</span> maximumPoolSize,<span class="keyword">long</span> keepAliveTime,TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">        BlockingQueue&lt;Runnable&gt; workQueue,ThreadFactory threadFactory)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,<span class="keyword">int</span> maximumPoolSize,<span class="keyword">long</span> keepAliveTime,TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">        BlockingQueue&lt;Runnable&gt; workQueue,RejectedExecutionHandler handler)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,<span class="keyword">int</span> maximumPoolSize,<span class="keyword">long</span> keepAliveTime,TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">    BlockingQueue&lt;Runnable&gt; workQueue,ThreadFactory threadFactory,RejectedExecutionHandler handler)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="4-3-实现原理"><a href="#4-3-实现原理" class="headerlink" title="4.3. 实现原理"></a>4.3. 实现原理</h3><ol>
+<li><p>线程池状态：  </p>
+<ul>
+<li><strong>RUNNING</strong>: 线程池初始化时就是RUNNING状态，表示线程池能够接受任务并处理，并且线程池中线程数默认为0(可以通过调用方法
+<code>prestartAllCoreThreads() #创建核心线程</code>或者<code>prestartCoreThread() #创建一个核心线程</code>来初始化线程数)</li>
+<li><strong>SHUTDOWN</strong>: 线程处于SHUTDOWN状态时,不接收新任务,但能处理已添加的任务;状态切换调用<code>shutdown()</code>时从<code>RUNNING-&gt; SHUTDOWN</code></li>
+<li><strong>STOP</strong>: 线程处于STOP状态时，不接收新任务，不处理已添加任务，并会终止正在执行的任务;状态切换调用<code>shutdownNow()</code>时从
+<code>RUNNING or SHUTDOWN -&gt; STOP</code></li>
+<li><strong>TIDYING</strong>: 当所有任务已终止，任务数量为0时，线程池会进入TIDYING状态，并且会执行钩子函数<code>terminated()</code>，用户可重载该方法
+实现自己的业务逻辑;状态切换是所有任务终止就进入TIDYING状态</li>
+<li><strong>TERMINATED</strong>: 线程池彻底终止状态;状态切换是TIDYING的钩子函数执行完毕后进入TERMINATED状态</li>
+</ul>
+</li>
+<li><p>任务执行过程</p>
+<ul>
+<li>当任务提交给线程池时，线程首先判断当前池内线程数是否大于corePoolSize(核心线程数)，如果小于这值就会创建一个新的线程来执行该任务；</li>
+<li>当线程数大于核心线程数时，则会尝试将任务放入缓冲队列(workQueue)内，若添加成功，则该任务会被等待的空闲线程取去执行，
+若添加失败，则会尝试创建新的线程去执行该任务；</li>
+<li>如果线程池内线程数达到了maximumPoolSize(最大线程数)时，则会采取handler(拒绝策略)处理</li>
+<li>如果线程池内的线程数大于corePoolSize时，当线程空闲超时keepAliveTime时，线程将被终止，直到线程数等于corePoolSize；
+如果允许核心线程数也有超时时间，则当核心线程数内的线程超时时也会被终止，直至线程数为0</li>
+</ul>
+</li>
+<li><p>线程池中的线程初始化</p>
+<ul>
+<li><code>prestartCoreThread()</code>：初始化一个核心线程</li>
+<li><code>prestartAllCoreThreads()</code>：初始化所有核心线程</li>
+<li>初始化后线程会执行workQueue的<code>take()</code>方法，该方法是阻塞的，直到有任务提交</li>
+</ul>
+</li>
+<li><p>任务缓存队列及排队策略</p>
+<ul>
+<li><strong>ArrayBlockingQueue</strong>：基于数组的FIFO阻塞队列,必须有最大容量的参数</li>
+<li><strong>LinkedBlockingQueue</strong>: 基于链表的FIFO阻塞队列,容量动态扩展</li>
+<li><strong>SynchronousQueue</strong>: 该队列不保存提交的任务，而是直接新建队列来执行任务</li>
+</ul>
+</li>
+<li><p>任务拒绝策略</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常</span><br><span class="line">ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常</span><br><span class="line">ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）</span><br><span class="line">ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="6">
+<li><p>线程池的关闭</p>
+<ul>
+<li><code>shutdown()</code>：不会立即终止线程池，而是要等所有任务缓存队列中的任务都执行完后才终止，但再也不会接受新的任务 </li>
+<li><code>shutdownNow()</code>: 立即终止线程池，并尝试打断正在执行的任务，并且清空任务缓存队列，返回尚未执行的任务</li>
+</ul>
+</li>
+<li><p>线程池容量动态调整</p>
+<ul>
+<li><code>setCorePoolSize()</code>：设置核心池大小</li>
+<li><code>setMaximumPoolSize()</code>：设置线程池最大能创建的线程数目大小</li>
+</ul>
+</li>
+</ol>
+<h3 id="4-4-Executors"><a href="#4-4-Executors" class="headerlink" title="4.4. Executors"></a>4.4. Executors</h3><ul>
+<li><strong>newFixedThreadPool</strong>: 定容量的线程池，核心线程数与最大线程数相等</li>
+<li><strong>newSingleThreadExecutor</strong>: 单线程线程池，线程池内核心线程数与最大线程数为1</li>
+<li><strong>newCachedThreadPool</strong>: 无线大小线程池，核心线程数为0，最大线程数为<code>Integer.MAX_VALUE</code>, 缓冲队列为<code>SynchronousQueue</code></li>
+<li><strong>newScheduledThreadPool</strong>：创建一个ScheduledThreadPoolExecutor定时执行线程池,最大线程数为<code>Integer.MAX_VALUE</code>,内部是
+一个DelayedWorkQueue实现</li>
+<li><strong>newSingleThreadScheduledExecutor</strong>: 创建一个ScheduledThreadPoolExecutor定时执行线程池,最大线程数为<code>Integer.MAX_VALUE</code>,
+内部是一个DelayedWorkQueue实现  </li>
+</ul>
+<h2 id="5-AbstractQueuedSynchronizer"><a href="#5-AbstractQueuedSynchronizer" class="headerlink" title="5. AbstractQueuedSynchronizer"></a>5. AbstractQueuedSynchronizer</h2><p>   内部类：</p>
+<ul>
+<li>ConditionObject：</li>
+<li>Node：存放线程信息队列</li>
+</ul>
+<h3 id="5-1-AQS之ReentrantLock独占锁源码分析"><a href="#5-1-AQS之ReentrantLock独占锁源码分析" class="headerlink" title="5.1. AQS之ReentrantLock独占锁源码分析"></a>5.1. AQS之ReentrantLock独占锁源码分析</h3><ul>
+<li><a href="http://www.infoq.com/cn/articles/jdk1.8-abstractqueuedsynchronizer" target="_blank" rel="noopener">AbstractQueuedSynchronizer独占锁</a></li>
+<li><code>ReentrantLock.lock()</code>保证在<code>ReentrantLock.unlock()</code>之间的代码只有一个线程在执行；ReentrantLock为可重入锁，它有一个与
+锁相关的获取计数器，如果拥有锁的某个线程再次得到锁，那么获取计数器就加1，然后锁需要被释放两次才能获得真正释放。</li>
+<li>内部类<code>Syn</code>实现了<code>AbstractQueuedSynchronizer</code>接口</li>
+<li>构造方法有公平锁和非公平锁，公平锁与非公平锁的区别在于公平锁在尝试获取锁时会放入等待队列的后面，获取锁的顺序是按先后顺序执行的，
+而非公平锁在尝试获取锁时首先会去尝试获取锁，若获取失败在进入等待队列按顺序执行。</li>
+</ul>
+<h3 id="5-2-AQS之CountDownLatch共享锁源码分析"><a href="#5-2-AQS之CountDownLatch共享锁源码分析" class="headerlink" title="5.2. AQS之CountDownLatch共享锁源码分析"></a>5.2. AQS之CountDownLatch共享锁源码分析</h3><ul>
+<li><a href="http://www.infoq.com/cn/articles/java8-abstractqueuedsynchronizer" target="_blank" rel="noopener">AbstractQueuedSynchronizer共享锁</a></li>
+<li><code>CountDownLatch.countDown()</code>实现锁计数-1，直到减至0是，唤醒<code>CountDownLatch.await()</code>等待线程</li>
+</ul>
+<h3 id="5-3-公平锁和非公平锁"><a href="#5-3-公平锁和非公平锁" class="headerlink" title="5.3. 公平锁和非公平锁"></a>5.3. 公平锁和非公平锁</h3><p>   公平锁是严格按照FIFO队列获得锁，但带来了大量的线程切换的消耗，非公平锁极大的降低了线程切换带来的消耗，虽然可能造成线程饥饿的情况，但也提高了吞吐量。</p>
+<h2 id="6-synchronized与Lock比较"><a href="#6-synchronized与Lock比较" class="headerlink" title="6. synchronized与Lock比较"></a>6. synchronized与Lock比较</h2><ol>
+<li><code>synchronized</code>是JVM层面实现的<strong><code>重量级锁</code></strong>，可通过监控工具监控<code>synchronized</code>的锁定，而且代码出现异常时会自动释放锁</li>
+<li><code>Lock</code>是纯JAVA实现的，为多种实现留下空间，可以实现不同的调度算法、性能特性或者锁定语义，<code>Lock</code>必须自己手动的释放锁
+形如<code>finally{lock.unlock();}</code></li>
+<li>当锁竞争激烈时用<code>Lock</code>,锁竞争较弱时用<code>synchronized</code></li>
+</ol>
+<h2 id="7-阻塞队列BlockingQueue"><a href="#7-阻塞队列BlockingQueue" class="headerlink" title="7. 阻塞队列BlockingQueue"></a>7. 阻塞队列BlockingQueue</h2><ol>
+<li>阻塞队列是一个FIFO队列</li>
+<li>主要方法   </li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Ops</th>
+<th style="text-align:center">Throws Exception</th>
+<th style="text-align:center">Special Value</th>
+<th style="text-align:center">Blocks Times Out</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Insert</td>
+<td style="text-align:center">add(o)</td>
+<td style="text-align:center">offer(o)</td>
+<td style="text-align:center">put(o) &amp; offer(o, timeout, timeUnit)</td>
+</tr>
+<tr>
+<td style="text-align:center">Remove</td>
+<td style="text-align:center">remove(o)</td>
+<td style="text-align:center">poll()</td>
+<td style="text-align:center">take()    &amp; poll(timeout, timeUnit)</td>
+</tr>
+<tr>
+<td style="text-align:center">Examine</td>
+<td style="text-align:center">element()</td>
+<td style="text-align:center">peek()</td>
+<td style="text-align:center">-</td>
+</tr>
+</tbody>
+</table>
+<ol start="3">
+<li><p>主要实现  </p>
+<ul>
+<li><strong>ArrayBlockingQueue</strong>：基于数组的有界阻塞队列，必须指定长度</li>
+<li><strong>LinkedBlockingQueue</strong>: 基于链表的有界阻塞队列，长度可指定也可动态扩张，默认长度为<code>Integer.MAX_VALUE</code></li>
+<li><strong>SynchronousQueue</strong>: 无缓冲区的阻塞队列，<code>put()</code>要阻塞等待<code>take()</code></li>
+<li><strong>PriorityBlockingQueue</strong>: 优先级阻塞队列，队列元素必须实现<code>Comparator</code>接口，基于数组，自动扩展长度</li>
+<li><strong>DelayQueue</strong>：一个使用优先级队列实现的无界阻塞队列</li>
+<li><strong>LinkedTransferQueue</strong>：一个由链表结构组成的无界阻塞队列</li>
+<li><strong>LinkedBlockingDeque</strong>：一个由链表结构组成的双向阻塞队列</li>
+</ul>
+</li>
+<li><p>注意<br>如果是无界阻塞队列，队列不可能会出现满的情况，所以使用put或offer方法永远不会被阻塞，而且使用offer方法时，该方法永远返回true。</p>
+</li>
+</ol>
+<h2 id="8-ConcurrentLinkedQueue"><a href="#8-ConcurrentLinkedQueue" class="headerlink" title="8. ConcurrentLinkedQueue"></a>8. ConcurrentLinkedQueue</h2><p>   非阻塞线程安全的FIFO队列，基于单向链表实现，循环CAS操作实现，由于是根据Node.NEXT是否为NULL来判断是否为TAIL节点，因此队列的元素值不可为NULL。</p>
+
+  </div>
+
+  <!-- 目录 -->
+  <div class="catalog">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-JAVA与线程"><span class="toc-text">1. JAVA与线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-线程的实现"><span class="toc-text">1.1. 线程的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Java线程调度"><span class="toc-text">1.2. Java线程调度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-线程转换状态"><span class="toc-text">1.3. 线程转换状态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-线程安全与锁优化"><span class="toc-text">2. 线程安全与锁优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-JAVA中的线程安全"><span class="toc-text">2.1. JAVA中的线程安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-synchronized的优化"><span class="toc-text">2.2. synchronized的优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-锁介绍"><span class="toc-text">3. 锁介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-自旋锁"><span class="toc-text">3.1. 自旋锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-阻塞锁"><span class="toc-text">3.2. 阻塞锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-可重入锁"><span class="toc-text">3.3. 可重入锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-乐观锁和悲观锁"><span class="toc-text">3.4. 乐观锁和悲观锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-轮询锁和定时锁"><span class="toc-text">3.5. 轮询锁和定时锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-显示锁和内置锁"><span class="toc-text">3.6. 显示锁和内置锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-对象锁和类锁"><span class="toc-text">3.7. 对象锁和类锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8-互斥锁"><span class="toc-text">3.8. 互斥锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-9-锁粗化"><span class="toc-text">3.9 锁粗化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-10-锁消除"><span class="toc-text">3.10. 锁消除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-java线程池"><span class="toc-text">4. java线程池</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-线程池实现类"><span class="toc-text">4.1. 线程池实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-ThreadPoolExecutor构造参数说明"><span class="toc-text">4.2. ThreadPoolExecutor构造参数说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-实现原理"><span class="toc-text">4.3. 实现原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-Executors"><span class="toc-text">4.4. Executors</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-AbstractQueuedSynchronizer"><span class="toc-text">5. AbstractQueuedSynchronizer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-AQS之ReentrantLock独占锁源码分析"><span class="toc-text">5.1. AQS之ReentrantLock独占锁源码分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-AQS之CountDownLatch共享锁源码分析"><span class="toc-text">5.2. AQS之CountDownLatch共享锁源码分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-公平锁和非公平锁"><span class="toc-text">5.3. 公平锁和非公平锁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-synchronized与Lock比较"><span class="toc-text">6. synchronized与Lock比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-阻塞队列BlockingQueue"><span class="toc-text">7. 阻塞队列BlockingQueue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-ConcurrentLinkedQueue"><span class="toc-text">8. ConcurrentLinkedQueue</span></a></li></ol>
+  </div>
+
+  <p class="post-meta">
+        <span class="post-cat">分类：
+          <a class="cat-link" href="/categories/Java/">Java</a>
+        </span>
+    <span class="post-tags">
+            标签：
+      
+    
+        <a href="/tags/Java/" title="Java" class="post-tag">Java</a> | 
+    
+        <a href="/tags/Concurrent/" title="Concurrent" class="post-tag">Concurrent</a>
+    
+
+        </span>
+  </p>
+</article>
+<!-- 分享按钮 -->
+
+  <div class="article-share clearfix text-center">
+    <div class="share-area">
+      <span class="share-txt">分享到：</span>
+      <a href="javascript: window.open('http://service.weibo.com/share/share.php?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title + '&pic=https://www.seekpie.com/images/java/thread_status_transfer.png&language=zh_cn');" class="share-icon weibo"></a>
+      <a href="javascript: wechatShare('wechat-show', window.location.href.split('#')[0])" class="share-icon wechat"></a>
+      <a href="javascript: window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title);" class="share-icon qqzone"></a>
+      <a href="javascript: window.open('http://connect.qq.com/widget/shareqq/index.html?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + encodeURIComponent(document.title) +'&desc=' + encodeURIComponent('1. JAVA与线程1.1. 线程的实现
+实现方式:使用内核线程实现、 使用用户线程实现和使用用户线程加轻量级进程混合实现.
+JDK1.2之前是基于用户线程实现的，JDK1.2及以后是基于操作系统原生线程模型实现的.
+
+1.2. Java线程调度
+线程调度是指系统为线程分配处理器使用权的过程,主要调') + '&pics=https://www.seekpie.com/images/java/thread_status_transfer.png');" class="share-icon qq"></a>
+      <a href="javascript: window.open('http://shuo.douban.com/!service/share?href=' + encodeURIComponent(location.href.split('#')[0]) + '&name=' + document.title + '&text=' + document.title);" class="share-icon douban"></a>
+    </div>
+  </div>
+  <div class="wechat-show">
+    <div class="wx-header"><span>分享到微信朋友圈</span><a class="wx-close" onclick="closeShare('wechat-show')">×</a></div>
+    <div id="wechat-share" style="margin: 10px"></div>
+    <div class="wx-footer">打开微信，使用“扫一扫”即可将网页分享至朋友圈。</div>
+  </div>
+
+
+<!-- 上一篇/下一篇 -->
+
+<div class="article-nav clearfix">
+    
+    <span class="prev fl">
+        上一篇<br>
+        <a href="/2018/06/15/java-collection-frame/">
+            
+                Java Collection Frame
+            
+        </a>
+    </span>
+    
+
+    
+    <span class="next fr">
+        下一篇<br>
+        <a href="/2018/06/15/java-memory-model/">
+            
+                Java Memory Model
+            
+        </a>
+    </span>
+    
+</div>
+
+<!-- 文章评论 -->
+
+
+  <div id="comments" class="comments">
+  </div>
+
+  
+    <script src="/js/comment.js"></script>
+    <script>
+        JELON.Comment({
+            container: 'comments',
+            label: 'java-concurrent' || '2018/06/15/java-concurrent/',
+            owner: 'Crab2Died',
+            repo: 'blog-comments',
+            clientId: '2117b548bf34c40984be',
+            clientSecret: '2642328e6056dbf7b02951961e5ca481406410ed'
+        });
+    </script>
+  
+
+
+            </div>
+        </section>
+        <!-- 侧栏部分 -->
+<aside class="sidebar">
+
+    
+    <section class="widget toc-widget">
+      <h3 class="widget-hd"><strong>文章目录</strong></h3>
+      <!-- 目录 -->
+      <div class="toc">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-JAVA与线程"><span class="post-toc-text">1. JAVA与线程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-1-线程的实现"><span class="post-toc-text">1.1. 线程的实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-2-Java线程调度"><span class="post-toc-text">1.2. Java线程调度</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-3-线程转换状态"><span class="post-toc-text">1.3. 线程转换状态</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-线程安全与锁优化"><span class="post-toc-text">2. 线程安全与锁优化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-1-JAVA中的线程安全"><span class="post-toc-text">2.1. JAVA中的线程安全</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-2-synchronized的优化"><span class="post-toc-text">2.2. synchronized的优化</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-锁介绍"><span class="post-toc-text">3. 锁介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-1-自旋锁"><span class="post-toc-text">3.1. 自旋锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-2-阻塞锁"><span class="post-toc-text">3.2. 阻塞锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-3-可重入锁"><span class="post-toc-text">3.3. 可重入锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-4-乐观锁和悲观锁"><span class="post-toc-text">3.4. 乐观锁和悲观锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-5-轮询锁和定时锁"><span class="post-toc-text">3.5. 轮询锁和定时锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-6-显示锁和内置锁"><span class="post-toc-text">3.6. 显示锁和内置锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-7-对象锁和类锁"><span class="post-toc-text">3.7. 对象锁和类锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-8-互斥锁"><span class="post-toc-text">3.8. 互斥锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-9-锁粗化"><span class="post-toc-text">3.9 锁粗化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-10-锁消除"><span class="post-toc-text">3.10. 锁消除</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-java线程池"><span class="post-toc-text">4. java线程池</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-1-线程池实现类"><span class="post-toc-text">4.1. 线程池实现类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-2-ThreadPoolExecutor构造参数说明"><span class="post-toc-text">4.2. ThreadPoolExecutor构造参数说明</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-3-实现原理"><span class="post-toc-text">4.3. 实现原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-4-Executors"><span class="post-toc-text">4.4. Executors</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-AbstractQueuedSynchronizer"><span class="post-toc-text">5. AbstractQueuedSynchronizer</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-1-AQS之ReentrantLock独占锁源码分析"><span class="post-toc-text">5.1. AQS之ReentrantLock独占锁源码分析</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-2-AQS之CountDownLatch共享锁源码分析"><span class="post-toc-text">5.2. AQS之CountDownLatch共享锁源码分析</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-3-公平锁和非公平锁"><span class="post-toc-text">5.3. 公平锁和非公平锁</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-synchronized与Lock比较"><span class="post-toc-text">6. synchronized与Lock比较</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-阻塞队列BlockingQueue"><span class="post-toc-text">7. 阻塞队列BlockingQueue</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-ConcurrentLinkedQueue"><span class="post-toc-text">8. ConcurrentLinkedQueue</span></a></li></ol>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="widget">
+        <h3 class="widget-hd"><strong>热门分类</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+  
+    <li title="Java">
+      <span class="badge">(8)</span>
+      <a href="/categories/Java/">Java</a>
+    </li>
+  
+    <li title="Big Data">
+      <span class="badge">(2)</span>
+      <a href="/categories/Big-Data/">Big Data</a>
+    </li>
+  
+    <li title="Elasticsearch">
+      <span class="badge">(1)</span>
+      <a href="/categories/Elasticsearch/">Elasticsearch</a>
+    </li>
+  
+    <li title="Excel4J">
+      <span class="badge">(1)</span>
+      <a href="/categories/Excel4J/">Excel4J</a>
+    </li>
+  
+    <li title="Database">
+      <span class="badge">(1)</span>
+      <a href="/categories/Database/">Database</a>
+    </li>
+  
+</ul>
+    </section>
+
+    
+    <section class="widget">
+        <h3 class="widget-hd"><strong>热门标签</strong></h3>
+        <!-- 文章标签 -->
+<div class="widget-bd tag-wrap">
+  
+    <a class="tag-item-link" href="/tags/Java/" title="Java 10篇">
+      Java(10)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/JVM/" title="JVM 3篇">
+      JVM(3)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Big-Data/" title="Big Data 2篇">
+      Big Data(2)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Concurrent/" title="Concurrent 1篇">
+      Concurrent(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Excel4J/" title="Excel4J 1篇">
+      Excel4J(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Database/" title="Database 1篇">
+      Database(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Interview/" title="Interview 1篇">
+      Interview(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/REST/" title="REST 1篇">
+      REST(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Classloader/" title="Classloader 1篇">
+      Classloader(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Collection/" title="Collection 1篇">
+      Collection(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/JIT/" title="JIT 1篇">
+      JIT(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Optimize/" title="Optimize 1篇">
+      Optimize(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Elasticsearch/" title="Elasticsearch 1篇">
+      Elasticsearch(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Java-Monitor/" title="Java Monitor 1篇">
+      Java Monitor(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/JMM/" title="JMM 1篇">
+      JMM(1)
+    </a>
+  
+</div>
+    </section>
+    
+
+    
+    <section class="widget visit-map">
+        <h3 class="widget-hd" style="display: inline-block"><strong>当前访客</strong></h3>
+        <div class="map-switch-btn"><a href="javascript:switchMapStyle()" class="map-switch">...</a></div>
+        <div class="widget-bd revolvermaps">
+正在加载访问地图...
+</div>
+    </section>
+    
+
+    
+
+    
+    <!-- 友情链接 -->
+    <section class="widget">
+        <h3 class="widget-hd"><strong>友情链接</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+    
+        <li>
+            <a href="https://coolshell.cn/" target="_blank" title="酷 壳">酷 壳</a>
+        </li>
+    
+        <li>
+            <a href="https://segmentfault.com/" target="_blank" title="SegmentFault">思 否</a>
+        </li>
+    
+        <li>
+            <a href="https://www.infoq.cn/" target="_blank" title="InfoQ">InfoQ</a>
+        </li>
+    
+        <li>
+            <a href="https://www.oschina.net/" target="_blank" title="开源中国">开源中国</a>
+        </li>
+    
+</ul>
+    </section>
+    
+
+    
+
+</aside>
+<!-- / 侧栏部分 -->
+    </div>
+
+    <!-- 博客底部 -->
+    <footer class="footer">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <span id="busuanzi_container_site_pv">总浏览量<span id="busuanzi_value_site_pv"></span>次</span>
+  <br>
+    Copyright &copy;
+    
+        2017 - 2020
+    
+
+    <a href="https://github.com/Crab2died" target="_blank"> Crab2Died </a>
+    All Rights Reserved.
+
+</footer>
+<div class="back-to-top" id="JELON__backToTop" title="返回顶部">返回顶部</div>
+
+    <!--博客js脚本 -->
+    <!-- 这里放网站js脚本 -->
+<script src="/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8">
+    <meta name="baidu-site-verification" content="dIcXMeY8Ya">
+    
+    <title>RESTful HTTP | 螃蟹以死</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.3, maximum-scale=1, user-scalable=0">
+    <meta name="keywords" content="螃蟹以死(Crab2Died)的个人博客，分享学习、工作的经验总结。涉及软件开发，大数据开发，分布式系统，微服务，前端开发等">
+    <meta itemprop="name" content="0">
+    <meta itemprop="image" content="https://www.seekpie.com/images/net/restful_api.jpeg  ">
+    <meta itemprop="description" name="description" content="一. REST由来REST(Representational State Transfer 表征性状态转移)2000年Roy Fielding的博士论文中首次提出REST是架构风格，是设计思想，不是标准也不是协议REST强调组件交互的可伸缩性、接口的通用性、组件的独立部署、以及用来减少交互延迟、增强安全性、封装遗留系统的中间组件二. REST特点服务端(server)与客户端(client)解耦简化服务端的可伸缩性，提高客户端便捷性面向资源，每一个资源都有唯一(CRUD等操作不会变)的标识符无状态(Stateless)，请求必须包含所有处理该请求的全部信息提高可见性，每个请求都是独立的，无需其他依赖的提高可靠性，故障恢复更容易提升扩展性，减少了服务器资源消耗可缓存(Cachable)减少交互 ">
+    <meta name="baidu-site-verification" content="8ssDkDEucu">
+    
+    <link rel="alternative" href="/atom.xml" title="螃蟹以死" type="application/atom+xml">
+    
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <!--[if lt IE 9]>
+    <script src="/js/html5.js"></script>
+    <![endif]-->
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ab88d36acf7ff63477f8ed578415c246";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+    
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5475855676583847",
+        enable_page_level_ads: true
+    });
+</script>
+    
+    <script src="/js/jquery/jquery-2.2.0.min.js"></script>
+    <script src="/js/qrcode.min.js"></script>
+    <script src="/js/particles.js"></script>
+    <script src="/js/qq/share.js"></script>
+</head>
+</html>
+<body class="home">
+    <!--[if lt IE 9]>
+    <div class="browsehappy">
+        当前网页 <strong>不支持</strong>
+        你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/">升级你的浏览器</a>.
+    </div>
+    <![endif]-->
+
+    <!-- 背景 -->
+    <!--<div id="particles-js" style="position: fixed; width: 100%; height: 100%;" class="bc-grid">-->
+    <div style="position: fixed; width: 100%; height: 100%;" class="bc-grid">
+
+    </div>
+    <!-- 博客头部 -->
+    <header class="header">
+    <section class="container header-main">
+        <div class="logo">
+            <a href="/">
+                <div class="cover">
+                    <span class="name">螃蟹以死</span>
+                    <span class="description">seekpie</span>
+                </div>
+            </a>
+        </div>
+        <div class="dropnav icon-paragraph-justify" id="JELON__btnDropNav"></div>
+        <ul class="menu hidden" id="JELON__menu">
+            
+            <li rel="/2018/08/27/restful-http/index.html" class="item ">
+                <a href="/" title="首页" class="fa fa-home">&nbsp;首页</a>
+            </li>
+            
+            <li rel="/2018/08/27/restful-http/index.html" class="item ">
+                <a href="/archives/" title="归档" class="fa fa-archive">&nbsp;归档</a>
+            </li>
+            
+            <li rel="/2018/08/27/restful-http/index.html" class="item ">
+                <a href="/about/" title="关于" class="fa fa-user-circle-o">&nbsp;关于</a>
+            </li>
+            
+            <li rel="/2018/08/27/restful-http/index.html" class="item ">
+                <a href="/atom.xml" target="_blank" title="RSS" class="fa fa-rss">&nbsp;RSS</a>
+            </li>
+            
+            <li class="item search-item"><!-- 搜索遮罩框 -->
+<span class="local-search local-search-google local-search-plugin" id="local-search">
+  <span><input type="search" placeholder="站内搜索..." id="local-search-input" class="local-search-input-cls" style=""></span>&nbsp;
+  <span class="fa fa-search"></span>
+  <div id="local-search-result" class="local-search-result-cls"></div>
+</span></li>
+        </ul>
+        <div class="profile clearfix">
+            <div class="qr-site fl" onmouseover="siteQrMouseOver()" onmouseout="siteQrMouseOut()">
+                <div>
+                    <div id="site-qr"></div>
+                </div>
+            </div>
+            <div id="site-qr-pop"> </div>
+            <div class="feeds fl">
+                
+                
+                <p class="links">
+                    
+                        <a href="https://github.com/Crab2died" target="_blank">GitHub</a>
+                        |
+                    
+                        <a href="https://github.com/seek-pie" target="_blank">Seek Pie</a>
+                        |
+                    
+                        <a href="https://gitee.com/Crab2Died" target="_blank">Gitee</a>
+                        
+                    
+                </p>
+                <p class="sns">
+                    
+                        <a href="http://weibo.com/Crab2Died" class="weibo" target="_blank"><b>■</b> 新浪微博</a>
+                    
+                        <a href="https://www.zhihu.com/people/crab2died" class="zhihu" target="_blank"><b>■</b> 知 乎</a>
+                    
+                        <a href="mailto:Crab2Died@126.com" class="email" target="_blank"><b>■</b> E-mail</a>
+                    
+                </p>
+                
+            </div>
+            <div class="avatar fr">
+                <img src="/crab2died.png" alt="avatar" title="Crab2Died">
+            </div>
+        </div>
+    </section>
+</header>
+
+
+    
+
+  <div class="bulletin">
+    <!--<div class="bulletin-icon"><strong style="color: #ebd829; width: 50px"><i class="fa fa-volume-up"></i></strong></div>-->
+    <div class="bulletin-content">
+      
+        <marquee direction="left" behavior="scroll" scrollamount="7" scrolldelay="0" align="bottom" bgcolor="#ffffff" hspace="20" vspace="0" onmouseover="this.stop()" onmouseout="this.start()">
+        
+      
+    </marquee></div>
+    <div id="theClock" class="bulletin-clock">
+
+    </div>
+  </div>
+
+
+
+    <!-- 博客正文 -->
+    <div class="container body clearfix">
+        <section class="content">
+            <div class="content-main widget">
+                <!-- 文章页 -->
+<!-- 文章 -->
+<article class="post article">
+  <header class="text-center">
+    <h3 class="post-title"><span>RESTful HTTP</span></h3>
+  </header>
+  <p class="post-meta text-center">
+    <i class="fa fa-edit"></i>
+    Crab2Died &nbsp;&nbsp;
+    <i class="fa fa-calendar"></i>
+    <time datetime="2018-08-26T17:11:27.000Z">2018-08-27</time>
+    <span id="busuanzi_container_page_pv"> &nbsp;&nbsp; <i class="fa fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span>
+  </p>
+
+  <p class="copyright_label">
+    <span class="copyright_title">版权声明: </span>
+    <span class="copyright_notice">本文著作权归作者所有，转载请注明出处。
+      
+      <span class="copyright_link">https://www.seekpie.com/2018/08/27/restful-http/</span>
+      </span>
+  </p>
+  <div class="post-content">
+    <h2 id="一-REST由来"><a href="#一-REST由来" class="headerlink" title="一. REST由来"></a>一. REST由来</h2><ol>
+<li>REST(Representational State Transfer 表征性状态转移)</li>
+<li>2000年Roy Fielding的博士论文中首次提出</li>
+<li>REST是架构风格，是设计思想，不是标准也不是协议</li>
+<li>REST强调组件交互的可伸缩性、接口的通用性、组件的独立部署、以及用来减少交互延迟、增强安全性、封装遗留系统的中间组件</li>
+</ol>
+<h2 id="二-REST特点"><a href="#二-REST特点" class="headerlink" title="二. REST特点"></a>二. REST特点</h2><ol>
+<li>服务端(server)与客户端(client)解耦<ul>
+<li>简化服务端的可伸缩性，提高客户端便捷性</li>
+</ul>
+</li>
+<li>面向资源，每一个资源都有唯一(CRUD等操作不会变)的标识符</li>
+<li>无状态(Stateless)，请求必须包含所有处理该请求的全部信息<ul>
+<li>提高可见性，每个请求都是独立的，无需其他依赖的</li>
+<li>提高可靠性，故障恢复更容易</li>
+<li>提升扩展性，减少了服务器资源消耗</li>
+</ul>
+</li>
+<li>可缓存(Cachable)<ul>
+<li>减少交互次数，减少网络延时</li>
+</ul>
+</li>
+<li>分层系统(Layered System)<ul>
+<li>允许Client与Server中间层(代理，网关等)代替Server端处理请求，客户端无需关心与他交互组件的其他之外的事</li>
+<li>提高了系统可扩展性，简化系统复杂度</li>
+</ul>
+</li>
+<li>统一接口(Uniform Interface)<ul>
+<li>服务端与客户端统一化的方法(GET/PUT/POST/DELETE)通信</li>
+<li>提高了接口的可见性</li>
+</ul>
+</li>
+<li>按需代码(Code-On-Demand)<ul>
+<li>提升系统可扩展性</li>
+</ul>
+</li>
+</ol>
+<h2 id="三-为什么要遵循REST"><a href="#三-为什么要遵循REST" class="headerlink" title="三. 为什么要遵循REST"></a>三. 为什么要遵循REST</h2><ol>
+<li>可更高效利用缓存来提高响应速度</li>
+<li>通讯本身的无状态性可以让不同的服务器的处理一系列请求中的不同请求，提高服务器的扩展性</li>
+<li>浏览器即可作为客户端，简化软件需求</li>
+<li>相对于其他叠加在HTTP协议之上的机制，REST的软件依赖性更小</li>
+<li>不需要额外的资源发现机制</li>
+<li>在软件技术演进中的长期的兼容性更好</li>
+</ol>
+<h2 id="四-RESTful最佳实践"><a href="#四-RESTful最佳实践" class="headerlink" title="四. RESTful最佳实践"></a>四. RESTful最佳实践</h2><ol>
+<li>URI规则<ul>
+<li>版本化(其一)   如: /api/v1</li>
+<li>使用名词，而不是动词  如: blog</li>
+<li>使用小写，用 _做词连接，而不用-</li>
+<li>表示资源集合时，使用复数形式     如: blogs</li>
+<li>子资源关系表示   示例: /blog/100/comments</li>
+<li>为减少URI层级深度,引入适当的参数查询</li>
+</ul>
+</li>
+<li>Request Method  (资源的CRUD)<ul>
+<li>GET/HEAD : 查询资源<ul>
+<li>GET /blog/100</li>
+<li>GET /blog/100/comments</li>
+</ul>
+</li>
+<li>POST: 创建资源<ul>
+<li>POST /blog</li>
+<li>POST /blog/100/comment</li>
+</ul>
+</li>
+<li>PUT/PATCH: 更新资源<ul>
+<li>PUT /blog/100</li>
+<li>PUT /blog/100/comment/1</li>
+</ul>
+</li>
+<li>DELETE: 删除资源<ul>
+<li>DELETE /blog/100</li>
+<li>DELETE /blog/100/comment/1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Response<ul>
+<li>一般地，返回JSON数据而不是XML</li>
+<li>不过滤API返回的空格，支持gzip/deflate压缩,Content-Encoding: gzip/deflate</li>
+<li>统一的返回格式，错误码信息等</li>
+<li>常见HTTP status<ul>
+<li><strong>200   OK</strong> - 对成功的GET、PUT、PATCH或DELETE操作进行响应。也可以被用在不创建新资源的POST操作上</li>
+<li><strong>201   Created</strong> - 对创建新资源的POST操作进行响应。应该带着指向新资源地址的Location header</li>
+<li><strong>204   No Content</strong> - 对不会返回响应体的成功请求进行响应（比如DELETE请求）</li>
+<li><strong>304   Not Modified</strong> - HTTP缓存header生效的时候用</li>
+<li><strong>400   Bad Request</strong> - 请求异常，比如请求中的body无法解析</li>
+<li><strong>401   Unauthorized</strong> - 没有进行认证或者认证非法。当API通过浏览器访问的时候，可以用来弹出一个认证对话框</li>
+<li><strong>403   Forbidden</strong> - 当认证成功，但是认证过的用户没有访问资源的权限</li>
+<li><strong>404   Not Found</strong> - 当一个不存在的资源被请求</li>
+<li><strong>405   Method Not Allowed</strong> - 所请求的HTTP方法不允许当前认证用户访问</li>
+<li><strong>410   Gone</strong> - 表示当前请求的资源不再可用。当调用老版本API的时候很有用</li>
+<li><strong>415   Unsupported Media Type</strong> - 如果请求中的内容类型是错误的</li>
+<li><strong>422   Unprocessable Entity</strong> - 用来表示校验错误</li>
+<li><strong>429   Too Many Requests</strong> - 由于请求频次达到上限而被拒绝访问</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>认证<ul>
+<li>RESTful API无状态的，每个请求都要自带凭证。</li>
+<li>使用基于SSL来保证传输安全的OAauth 2</li>
+</ul>
+</li>
+<li>缓存<ul>
+<li>强制缓存<ul>
+<li><strong>Cache-Control</strong>与<strong>Expires</strong></li>
+</ul>
+</li>
+<li>比对缓存<ul>
+<li>1、<strong>Last-Modified</strong>与<strong>If-Modified-Since</strong></li>
+<li>2、<strong>Etag</strong>与<strong>If-None-Match</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>HATEOAS (Hypermedia as the Engine of Application State)</p>
+<ul>
+<li><p>超媒体作为应用状态的引擎，即在返回结果中提供链接,指向其他API,为用户调用提供指引信息。如: 当调用<a href="http://api.blog.com" target="_blank" rel="noopener">http://api.blog.com</a> 时返回</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"link"</span>: &#123;</span><br><span class="line">        <span class="attr">"rel"</span>: <span class="string">"collection https://www.blog.com/blogs"</span>,</span><br><span class="line">        <span class="attr">"href"</span>: <span class="string">"https://api.blog.com/blogs"</span>,</span><br><span class="line">        <span class="attr">"title"</span>: <span class="string">"List of blogs"</span>,</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"application/vnd.yourformat+json"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>rel 表示与该API的关系，href表示指引API的链接，title表示API的标题，type表示接受类型</p>
+</li>
+</ul>
+</li>
+<li>HTTP Request Method覆盖<ul>
+<li>一些老的HTTP Client只支持GET、POST请求，为了兼容这些Client，API需要覆盖HTTP方法，一般做法是HTTP POST请求会有一个
+<strong>X-HTTP-Method-Override</strong>请求头，其值为PUT,PATCH,DELETE之一,以此兼容请求。</li>
+</ul>
+</li>
+<li>限制速度<ul>
+<li>避免请求泛滥，HTTP引入状态码429(Too Many Requests)</li>
+<li>一般地，是返回头信息(依照twitter的命名规则)<ul>
+<li><strong>X-Rate-Limit-Limit</strong>: 当前时间段允许的并发请求数</li>
+<li><strong>X-Rate-Limit-Remaining</strong>: 当前时间段保留的请求数。</li>
+<li><strong>X-Rate-Limit-Reset</strong>: 重置时间(秒)</li>
+<li><strong>Retry-After</strong>: 下一次访问应该等待的时间(秒)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+  </div>
+
+  <!-- 目录 -->
+  <div class="catalog">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-REST由来"><span class="toc-text">一. REST由来</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-REST特点"><span class="toc-text">二. REST特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-为什么要遵循REST"><span class="toc-text">三. 为什么要遵循REST</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四-RESTful最佳实践"><span class="toc-text">四. RESTful最佳实践</span></a></li></ol>
+  </div>
+
+  <p class="post-meta">
+        <span class="post-cat">分类：
+          <a class="cat-link" href="/categories/HTTP/">HTTP</a>
+        </span>
+    <span class="post-tags">
+            标签：
+      
+    
+        <a href="/tags/REST/" title="REST" class="post-tag">REST</a> | 
+    
+        <a href="/tags/HTTP/" title="HTTP" class="post-tag">HTTP</a>
+    
+
+        </span>
+  </p>
+</article>
+<!-- 分享按钮 -->
+
+  <div class="article-share clearfix text-center">
+    <div class="share-area">
+      <span class="share-txt">分享到：</span>
+      <a href="javascript: window.open('http://service.weibo.com/share/share.php?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title + '&pic=https://www.seekpie.com/images/net/restful_api.jpeg&language=zh_cn');" class="share-icon weibo"></a>
+      <a href="javascript: wechatShare('wechat-show', window.location.href.split('#')[0])" class="share-icon wechat"></a>
+      <a href="javascript: window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title);" class="share-icon qqzone"></a>
+      <a href="javascript: window.open('http://connect.qq.com/widget/shareqq/index.html?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + encodeURIComponent(document.title) +'&desc=' + encodeURIComponent('一. REST由来
+REST(Representational State Transfer 表征性状态转移)
+2000年Roy Fielding的博士论文中首次提出
+REST是架构风格，是设计思想，不是标准也不是协议
+REST强调组件交互的可伸缩性、接口的通用性、组件的独立部署、以及用来减少交互延') + '&pics=https://www.seekpie.com/images/net/restful_api.jpeg');" class="share-icon qq"></a>
+      <a href="javascript: window.open('http://shuo.douban.com/!service/share?href=' + encodeURIComponent(location.href.split('#')[0]) + '&name=' + document.title + '&text=' + document.title);" class="share-icon douban"></a>
+    </div>
+  </div>
+  <div class="wechat-show">
+    <div class="wx-header"><span>分享到微信朋友圈</span><a class="wx-close" onclick="closeShare('wechat-show')">×</a></div>
+    <div id="wechat-share" style="margin: 10px"></div>
+    <div class="wx-footer">打开微信，使用“扫一扫”即可将网页分享至朋友圈。</div>
+  </div>
+
+
+<!-- 上一篇/下一篇 -->
+
+<div class="article-nav clearfix">
+    
+    <span class="prev fl">
+        上一篇<br>
+        <a href="/2018/10/26/pseudo-distributed-hadoop-install/">
+            
+                Pseudo Distributed Hadoop Install
+            
+        </a>
+    </span>
+    
+
+    
+    <span class="next fr">
+        下一篇<br>
+        <a href="/2018/08/27/spring-intergration-websocket/">
+            
+                Spring Integration Websocket
+            
+        </a>
+    </span>
+    
+</div>
+
+<!-- 文章评论 -->
+
+
+  <div id="comments" class="comments">
+  </div>
+
+  
+    <script src="/js/comment.js"></script>
+    <script>
+        JELON.Comment({
+            container: 'comments',
+            label: 'restful-http' || '2018/08/27/restful-http/',
+            owner: 'Crab2Died',
+            repo: 'blog-comments',
+            clientId: '2117b548bf34c40984be',
+            clientSecret: '2642328e6056dbf7b02951961e5ca481406410ed'
+        });
+    </script>
+  
+
+
+            </div>
+        </section>
+        <!-- 侧栏部分 -->
+<aside class="sidebar">
+
+    
+    <section class="widget toc-widget">
+      <h3 class="widget-hd"><strong>文章目录</strong></h3>
+      <!-- 目录 -->
+      <div class="toc">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一-REST由来"><span class="post-toc-text">一. REST由来</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二-REST特点"><span class="post-toc-text">二. REST特点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三-为什么要遵循REST"><span class="post-toc-text">三. 为什么要遵循REST</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#四-RESTful最佳实践"><span class="post-toc-text">四. RESTful最佳实践</span></a></li></ol>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="widget">
+        <h3 class="widget-hd"><strong>热门分类</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+  
+    <li title="Java">
+      <span class="badge">(8)</span>
+      <a href="/categories/Java/">Java</a>
+    </li>
+  
+    <li title="Big Data">
+      <span class="badge">(2)</span>
+      <a href="/categories/Big-Data/">Big Data</a>
+    </li>
+  
+    <li title="Elasticsearch">
+      <span class="badge">(1)</span>
+      <a href="/categories/Elasticsearch/">Elasticsearch</a>
+    </li>
+  
+    <li title="Excel4J">
+      <span class="badge">(1)</span>
+      <a href="/categories/Excel4J/">Excel4J</a>
+    </li>
+  
+    <li title="Database">
+      <span class="badge">(1)</span>
+      <a href="/categories/Database/">Database</a>
+    </li>
+  
+</ul>
+    </section>
+
+    
+    <section class="widget">
+        <h3 class="widget-hd"><strong>热门标签</strong></h3>
+        <!-- 文章标签 -->
+<div class="widget-bd tag-wrap">
+  
+    <a class="tag-item-link" href="/tags/Java/" title="Java 10篇">
+      Java(10)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/JVM/" title="JVM 3篇">
+      JVM(3)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Big-Data/" title="Big Data 2篇">
+      Big Data(2)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Concurrent/" title="Concurrent 1篇">
+      Concurrent(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Excel4J/" title="Excel4J 1篇">
+      Excel4J(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Database/" title="Database 1篇">
+      Database(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Interview/" title="Interview 1篇">
+      Interview(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/REST/" title="REST 1篇">
+      REST(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Classloader/" title="Classloader 1篇">
+      Classloader(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Collection/" title="Collection 1篇">
+      Collection(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/JIT/" title="JIT 1篇">
+      JIT(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Optimize/" title="Optimize 1篇">
+      Optimize(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Elasticsearch/" title="Elasticsearch 1篇">
+      Elasticsearch(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Java-Monitor/" title="Java Monitor 1篇">
+      Java Monitor(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/JMM/" title="JMM 1篇">
+      JMM(1)
+    </a>
+  
+</div>
+    </section>
+    
+
+    
+    <section class="widget visit-map">
+        <h3 class="widget-hd" style="display: inline-block"><strong>当前访客</strong></h3>
+        <div class="map-switch-btn"><a href="javascript:switchMapStyle()" class="map-switch">...</a></div>
+        <div class="widget-bd revolvermaps">
+正在加载访问地图...
+</div>
+    </section>
+    
+
+    
+
+    
+    <!-- 友情链接 -->
+    <section class="widget">
+        <h3 class="widget-hd"><strong>友情链接</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+    
+        <li>
+            <a href="https://coolshell.cn/" target="_blank" title="酷 壳">酷 壳</a>
+        </li>
+    
+        <li>
+            <a href="https://segmentfault.com/" target="_blank" title="SegmentFault">思 否</a>
+        </li>
+    
+        <li>
+            <a href="https://www.infoq.cn/" target="_blank" title="InfoQ">InfoQ</a>
+        </li>
+    
+        <li>
+            <a href="https://www.oschina.net/" target="_blank" title="开源中国">开源中国</a>
+        </li>
+    
+</ul>
+    </section>
+    
+
+    
+
+</aside>
+<!-- / 侧栏部分 -->
+    </div>
+
+    <!-- 博客底部 -->
+    <footer class="footer">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <span id="busuanzi_container_site_pv">总浏览量<span id="busuanzi_value_site_pv"></span>次</span>
+  <br>
+    Copyright &copy;
+    
+        2017 - 2020
+    
+
+    <a href="https://github.com/Crab2died" target="_blank"> Crab2Died </a>
+    All Rights Reserved.
+
+</footer>
+<div class="back-to-top" id="JELON__backToTop" title="返回顶部">返回顶部</div>
+
+    <!--博客js脚本 -->
+    <!-- 这里放网站js脚本 -->
+<script src="/js/main.js"></script>
+
+</body>
+</html>

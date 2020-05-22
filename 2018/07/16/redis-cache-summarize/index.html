@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8">
+    <meta name="baidu-site-verification" content="dIcXMeY8Ya">
+    
+    <title>Redis Cache Summarize | 螃蟹以死</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.3, maximum-scale=1, user-scalable=0">
+    <meta name="keywords" content="螃蟹以死(Crab2Died)的个人博客，分享学习、工作的经验总结。涉及软件开发，大数据开发，分布式系统，微服务，前端开发等">
+    <meta itemprop="name" content="0">
+    <meta itemprop="image" content="https://www.seekpie.com/images/db/redis.jpeg  ">
+    <meta itemprop="description" name="description" content="1. 概述Redis全称: Remote Dictionary Server基于内存的Key-Value存储系统，单线程实现  多样的数据类型，支持的数据类型有：string(字符串)、hash(哈希)、list(链表)、set(集合)、zset(sorted set有序集合) redis的value大小可达到1GB(memcach只能达到1MB)持久化，redis会周期性的将更新的数据写入磁盘  master-slave(主从)同步  3.0后支持分布式存储，去中心化，具有线性伸缩功能Redis命令大全2. Redis数据持久化2.1. RDB(Redis DataBase)SNAPSHOT(快照): save 秒数 写操作次数如save 9000 1表示900s(15min)有一次写操作 ">
+    <meta name="baidu-site-verification" content="8ssDkDEucu">
+    
+    <link rel="alternative" href="/atom.xml" title="螃蟹以死" type="application/atom+xml">
+    
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <!--[if lt IE 9]>
+    <script src="/js/html5.js"></script>
+    <![endif]-->
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ab88d36acf7ff63477f8ed578415c246";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+    
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5475855676583847",
+        enable_page_level_ads: true
+    });
+</script>
+    
+    <script src="/js/jquery/jquery-2.2.0.min.js"></script>
+    <script src="/js/qrcode.min.js"></script>
+    <script src="/js/particles.js"></script>
+    <script src="/js/qq/share.js"></script>
+</head>
+</html>
+<body class="home">
+    <!--[if lt IE 9]>
+    <div class="browsehappy">
+        当前网页 <strong>不支持</strong>
+        你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/">升级你的浏览器</a>.
+    </div>
+    <![endif]-->
+
+    <!-- 背景 -->
+    <!--<div id="particles-js" style="position: fixed; width: 100%; height: 100%;" class="bc-grid">-->
+    <div style="position: fixed; width: 100%; height: 100%;" class="bc-grid">
+
+    </div>
+    <!-- 博客头部 -->
+    <header class="header">
+    <section class="container header-main">
+        <div class="logo">
+            <a href="/">
+                <div class="cover">
+                    <span class="name">螃蟹以死</span>
+                    <span class="description">seekpie</span>
+                </div>
+            </a>
+        </div>
+        <div class="dropnav icon-paragraph-justify" id="JELON__btnDropNav"></div>
+        <ul class="menu hidden" id="JELON__menu">
+            
+            <li rel="/2018/07/16/redis-cache-summarize/index.html" class="item ">
+                <a href="/" title="首页" class="fa fa-home">&nbsp;首页</a>
+            </li>
+            
+            <li rel="/2018/07/16/redis-cache-summarize/index.html" class="item ">
+                <a href="/archives/" title="归档" class="fa fa-archive">&nbsp;归档</a>
+            </li>
+            
+            <li rel="/2018/07/16/redis-cache-summarize/index.html" class="item ">
+                <a href="/about/" title="关于" class="fa fa-user-circle-o">&nbsp;关于</a>
+            </li>
+            
+            <li rel="/2018/07/16/redis-cache-summarize/index.html" class="item ">
+                <a href="/atom.xml" target="_blank" title="RSS" class="fa fa-rss">&nbsp;RSS</a>
+            </li>
+            
+            <li class="item search-item"><!-- 搜索遮罩框 -->
+<span class="local-search local-search-google local-search-plugin" id="local-search">
+  <span><input type="search" placeholder="站内搜索..." id="local-search-input" class="local-search-input-cls" style=""></span>&nbsp;
+  <span class="fa fa-search"></span>
+  <div id="local-search-result" class="local-search-result-cls"></div>
+</span></li>
+        </ul>
+        <div class="profile clearfix">
+            <div class="qr-site fl" onmouseover="siteQrMouseOver()" onmouseout="siteQrMouseOut()">
+                <div>
+                    <div id="site-qr"></div>
+                </div>
+            </div>
+            <div id="site-qr-pop"> </div>
+            <div class="feeds fl">
+                
+                
+                <p class="links">
+                    
+                        <a href="https://github.com/Crab2died" target="_blank">GitHub</a>
+                        |
+                    
+                        <a href="https://github.com/seek-pie" target="_blank">Seek Pie</a>
+                        |
+                    
+                        <a href="https://gitee.com/Crab2Died" target="_blank">Gitee</a>
+                        
+                    
+                </p>
+                <p class="sns">
+                    
+                        <a href="http://weibo.com/Crab2Died" class="weibo" target="_blank"><b>■</b> 新浪微博</a>
+                    
+                        <a href="https://www.zhihu.com/people/crab2died" class="zhihu" target="_blank"><b>■</b> 知 乎</a>
+                    
+                        <a href="mailto:Crab2Died@126.com" class="email" target="_blank"><b>■</b> E-mail</a>
+                    
+                </p>
+                
+            </div>
+            <div class="avatar fr">
+                <img src="/crab2died.png" alt="avatar" title="Crab2Died">
+            </div>
+        </div>
+    </section>
+</header>
+
+
+    
+
+  <div class="bulletin">
+    <!--<div class="bulletin-icon"><strong style="color: #ebd829; width: 50px"><i class="fa fa-volume-up"></i></strong></div>-->
+    <div class="bulletin-content">
+      
+        <marquee direction="left" behavior="scroll" scrollamount="7" scrolldelay="0" align="bottom" bgcolor="#ffffff" hspace="20" vspace="0" onmouseover="this.stop()" onmouseout="this.start()">
+        
+      
+    </marquee></div>
+    <div id="theClock" class="bulletin-clock">
+
+    </div>
+  </div>
+
+
+
+    <!-- 博客正文 -->
+    <div class="container body clearfix">
+        <section class="content">
+            <div class="content-main widget">
+                <!-- 文章页 -->
+<!-- 文章 -->
+<article class="post article">
+  <header class="text-center">
+    <h3 class="post-title"><span>Redis Cache Summarize</span></h3>
+  </header>
+  <p class="post-meta text-center">
+    <i class="fa fa-edit"></i>
+    Crab2Died &nbsp;&nbsp;
+    <i class="fa fa-calendar"></i>
+    <time datetime="2018-07-16T02:11:27.000Z">2018-07-16</time>
+    <span id="busuanzi_container_page_pv"> &nbsp;&nbsp; <i class="fa fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span>
+  </p>
+
+  <p class="copyright_label">
+    <span class="copyright_title">版权声明: </span>
+    <span class="copyright_notice">本文著作权归作者所有，转载请注明出处。
+      
+      <span class="copyright_link">https://www.seekpie.com/2018/07/16/redis-cache-summarize/</span>
+      </span>
+  </p>
+  <div class="post-content">
+    <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><ul>
+<li>Redis全称: Remote Dictionary Server</li>
+<li>基于内存的Key-Value存储系统，单线程实现  </li>
+<li>多样的数据类型，支持的数据类型有：string(字符串)、hash(哈希)、list(链表)、set(集合)、zset(sorted set有序集合) </li>
+<li>redis的value大小可达到1GB(memcach只能达到1MB)</li>
+<li>持久化，redis会周期性的将更新的数据写入磁盘  </li>
+<li>master-slave(主从)同步  </li>
+<li>3.0后支持分布式存储，去中心化，具有线性伸缩功能</li>
+<li><a href="http://redisdoc.com/index.html" target="_blank" rel="noopener">Redis命令大全</a></li>
+</ul>
+<h2 id="2-Redis数据持久化"><a href="#2-Redis数据持久化" class="headerlink" title="2. Redis数据持久化"></a>2. Redis数据持久化</h2><h3 id="2-1-RDB-Redis-DataBase"><a href="#2-1-RDB-Redis-DataBase" class="headerlink" title="2.1. RDB(Redis DataBase)"></a>2.1. RDB(Redis DataBase)</h3><ul>
+<li>SNAPSHOT(快照): <code>save 秒数 写操作次数</code>如<code>save 9000 1</code>表示900s(15min)有一次写操作生成快照，也可<code>save &quot;&quot;</code>表示
+每次写操作即生成快照</li>
+<li>配置<code>stop-writes-on-bgsave-error yes/no</code>当后台生成快照错误是否中断redis写操作的支持</li>
+<li>配置<code>rdbcompression yes/no</code>表示是否压缩RDB文件</li>
+<li>每次会fork一份来重启另一个进程进行持久化</li>
+</ul>
+<h3 id="2-2-AOF-Append-Only-File"><a href="#2-2-AOF-Append-Only-File" class="headerlink" title="2.2. AOF(Append Only File)"></a>2.2. AOF(Append Only File)</h3><ul>
+<li>配置<code>appendonly no/yes</code>启用AOF，启动时会触发全量写文件，后面写操作是增量写文件</li>
+<li>同步策略配置<code>appendfsync always(每次写操作都触发同步)/everysec(每秒同步一次)/no(不同步)</code></li>
+<li>重写(rewrite): 满足条件后触发重写，会对AOF文件内容优化，减少文件大小<br><strong>auto-aof-rewrite-percentage 100 (表示超过文件的百分比)</strong><br><strong>auto-aof-rewrite-min-size 64mb (触发重写的最小文件大小)</strong></li>
+<li>AOF文件修复: <code>redis-check-aof --fix appendonly.aof</code></li>
+</ul>
+<h3 id="2-3-比较"><a href="#2-3-比较" class="headerlink" title="2.3. 比较"></a>2.3. 比较</h3><ul>
+<li>RDB安全性较差、容易丢失最近一次缓存内容，但文件较小，恢复速度较快，是Master/Slave主从复制模式下的最好补充</li>
+<li>AOF更加安全、数据的完整性较强、但文件较大、恢复速度较慢，IO开支较大，比较影响性能</li>
+<li>Redis启用默认是脚在AOF文件恢复数据</li>
+</ul>
+<h3 id="2-4-缓存驱逐策略"><a href="#2-4-缓存驱逐策略" class="headerlink" title="2.4. 缓存驱逐策略"></a>2.4. 缓存驱逐策略</h3><ul>
+<li><strong>volatile-lru</strong>：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰</li>
+<li><strong>volatile-ttl</strong>：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰</li>
+<li><strong>volatile-random</strong>：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰</li>
+<li><strong>allkeys-lru</strong>：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰</li>
+<li><strong>allkeys-random</strong>：从数据集（server.db[i].dict）中任意选择数据淘汰</li>
+<li><strong>no-enviction</strong>：禁止驱逐数据</li>
+</ul>
+<h2 id="3-Redis集群"><a href="#3-Redis集群" class="headerlink" title="3. Redis集群"></a>3. Redis集群</h2><h3 id="3-1-分片策略"><a href="#3-1-分片策略" class="headerlink" title="3.1. 分片策略"></a>3.1. 分片策略</h3><ul>
+<li>Redis集群被分为16384(2<sup>14</sup>)个hash slot(hash槽)，集群内每个节点都拥有部分hash槽，使用数据键的CRC16编码对16384取模来
+计算数据对应的hash槽，Redis最大节点数为16384</li>
+<li>Redis集群新增节点只用把集群中每个节点的部分hash槽移动到新节点中即可</li>
+<li>Redis集群移除节点也只用把该节点的hash槽移动到其他节点即可</li>
+<li>Redis集群之间是异步复制</li>
+</ul>
+<h3 id="3-2-架构分析"><a href="#3-2-架构分析" class="headerlink" title="3.2. 架构分析"></a>3.2. 架构分析</h3><ul>
+<li>所有的redis节点彼此互联(PING-PONG 机制),内部使用二进制协议优化传输速度和带宽.</li>
+<li>节点的fail是通过集群中超过半数的节点检测失效时才生效  </li>
+<li>客户端与redis节点直连,不需要中间proxy层.客户端不需要连接集群所有节点,连接集群中任何一个可用节点即可        </li>
+</ul>
+
+  </div>
+
+  <!-- 目录 -->
+  <div class="catalog">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-概述"><span class="toc-text">1. 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Redis数据持久化"><span class="toc-text">2. Redis数据持久化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-RDB-Redis-DataBase"><span class="toc-text">2.1. RDB(Redis DataBase)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-AOF-Append-Only-File"><span class="toc-text">2.2. AOF(Append Only File)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-比较"><span class="toc-text">2.3. 比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-缓存驱逐策略"><span class="toc-text">2.4. 缓存驱逐策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Redis集群"><span class="toc-text">3. Redis集群</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-分片策略"><span class="toc-text">3.1. 分片策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-架构分析"><span class="toc-text">3.2. 架构分析</span></a></li></ol></li></ol>
+  </div>
+
+  <p class="post-meta">
+        <span class="post-cat">分类：
+          <a class="cat-link" href="/categories/Cache/">Cache</a>
+        </span>
+    <span class="post-tags">
+            标签：
+      
+    
+        <a href="/tags/Cache/" title="Cache" class="post-tag">Cache</a> | 
+    
+        <a href="/tags/Redis/" title="Redis" class="post-tag">Redis</a>
+    
+
+        </span>
+  </p>
+</article>
+<!-- 分享按钮 -->
+
+  <div class="article-share clearfix text-center">
+    <div class="share-area">
+      <span class="share-txt">分享到：</span>
+      <a href="javascript: window.open('http://service.weibo.com/share/share.php?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title + '&pic=https://www.seekpie.com/images/db/redis.jpeg&language=zh_cn');" class="share-icon weibo"></a>
+      <a href="javascript: wechatShare('wechat-show', window.location.href.split('#')[0])" class="share-icon wechat"></a>
+      <a href="javascript: window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title);" class="share-icon qqzone"></a>
+      <a href="javascript: window.open('http://connect.qq.com/widget/shareqq/index.html?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + encodeURIComponent(document.title) +'&desc=' + encodeURIComponent('1. 概述
+Redis全称: Remote Dictionary Server
+基于内存的Key-Value存储系统，单线程实现  
+多样的数据类型，支持的数据类型有：string(字符串)、hash(哈希)、list(链表)、set(集合)、zset(sorted set有序集合) 
+redis的') + '&pics=https://www.seekpie.com/images/db/redis.jpeg');" class="share-icon qq"></a>
+      <a href="javascript: window.open('http://shuo.douban.com/!service/share?href=' + encodeURIComponent(location.href.split('#')[0]) + '&name=' + document.title + '&text=' + document.title);" class="share-icon douban"></a>
+    </div>
+  </div>
+  <div class="wechat-show">
+    <div class="wx-header"><span>分享到微信朋友圈</span><a class="wx-close" onclick="closeShare('wechat-show')">×</a></div>
+    <div id="wechat-share" style="margin: 10px"></div>
+    <div class="wx-footer">打开微信，使用“扫一扫”即可将网页分享至朋友圈。</div>
+  </div>
+
+
+<!-- 上一篇/下一篇 -->
+
+<div class="article-nav clearfix">
+    
+    <span class="prev fl">
+        上一篇<br>
+        <a href="/2018/08/27/spring-intergration-websocket/">
+            
+                Spring Integration Websocket
+            
+        </a>
+    </span>
+    
+
+    
+    <span class="next fr">
+        下一篇<br>
+        <a href="/2018/07/06/database/">
+            
+                Database
+            
+        </a>
+    </span>
+    
+</div>
+
+<!-- 文章评论 -->
+
+
+  <div id="comments" class="comments">
+  </div>
+
+  
+    <script src="/js/comment.js"></script>
+    <script>
+        JELON.Comment({
+            container: 'comments',
+            label: 'redis-cache-summarize' || '2018/07/16/redis-cache-summarize/',
+            owner: 'Crab2Died',
+            repo: 'blog-comments',
+            clientId: '2117b548bf34c40984be',
+            clientSecret: '2642328e6056dbf7b02951961e5ca481406410ed'
+        });
+    </script>
+  
+
+
+            </div>
+        </section>
+        <!-- 侧栏部分 -->
+<aside class="sidebar">
+
+    
+    <section class="widget toc-widget">
+      <h3 class="widget-hd"><strong>文章目录</strong></h3>
+      <!-- 目录 -->
+      <div class="toc">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-概述"><span class="post-toc-text">1. 概述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-Redis数据持久化"><span class="post-toc-text">2. Redis数据持久化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-1-RDB-Redis-DataBase"><span class="post-toc-text">2.1. RDB(Redis DataBase)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-2-AOF-Append-Only-File"><span class="post-toc-text">2.2. AOF(Append Only File)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-3-比较"><span class="post-toc-text">2.3. 比较</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-4-缓存驱逐策略"><span class="post-toc-text">2.4. 缓存驱逐策略</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-Redis集群"><span class="post-toc-text">3. Redis集群</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-1-分片策略"><span class="post-toc-text">3.1. 分片策略</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-2-架构分析"><span class="post-toc-text">3.2. 架构分析</span></a></li></ol></li></ol>
+      </div>
+    </section>
+    
+
+    
+
+    <section class="widget">
+        <h3 class="widget-hd"><strong>热门分类</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+  
+    <li title="Java">
+      <span class="badge">(8)</span>
+      <a href="/categories/Java/">Java</a>
+    </li>
+  
+    <li title="Big Data">
+      <span class="badge">(2)</span>
+      <a href="/categories/Big-Data/">Big Data</a>
+    </li>
+  
+    <li title="Elasticsearch">
+      <span class="badge">(1)</span>
+      <a href="/categories/Elasticsearch/">Elasticsearch</a>
+    </li>
+  
+    <li title="Excel4J">
+      <span class="badge">(1)</span>
+      <a href="/categories/Excel4J/">Excel4J</a>
+    </li>
+  
+    <li title="Database">
+      <span class="badge">(1)</span>
+      <a href="/categories/Database/">Database</a>
+    </li>
+  
+</ul>
+    </section>
+
+    
+    <section class="widget">
+        <h3 class="widget-hd"><strong>热门标签</strong></h3>
+        <!-- 文章标签 -->
+<div class="widget-bd tag-wrap">
+  
+    <a class="tag-item-link" href="/tags/Java/" title="Java 10篇">
+      Java(10)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/JVM/" title="JVM 3篇">
+      JVM(3)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Big-Data/" title="Big Data 2篇">
+      Big Data(2)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Concurrent/" title="Concurrent 1篇">
+      Concurrent(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Excel4J/" title="Excel4J 1篇">
+      Excel4J(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Database/" title="Database 1篇">
+      Database(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Interview/" title="Interview 1篇">
+      Interview(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/REST/" title="REST 1篇">
+      REST(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Classloader/" title="Classloader 1篇">
+      Classloader(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Collection/" title="Collection 1篇">
+      Collection(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/JIT/" title="JIT 1篇">
+      JIT(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Optimize/" title="Optimize 1篇">
+      Optimize(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Elasticsearch/" title="Elasticsearch 1篇">
+      Elasticsearch(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Java-Monitor/" title="Java Monitor 1篇">
+      Java Monitor(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/JMM/" title="JMM 1篇">
+      JMM(1)
+    </a>
+  
+</div>
+    </section>
+    
+
+    
+    <section class="widget visit-map">
+        <h3 class="widget-hd" style="display: inline-block"><strong>当前访客</strong></h3>
+        <div class="map-switch-btn"><a href="javascript:switchMapStyle()" class="map-switch">...</a></div>
+        <div class="widget-bd revolvermaps">
+正在加载访问地图...
+</div>
+    </section>
+    
+
+    
+
+    
+    <!-- 友情链接 -->
+    <section class="widget">
+        <h3 class="widget-hd"><strong>友情链接</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+    
+        <li>
+            <a href="https://coolshell.cn/" target="_blank" title="酷 壳">酷 壳</a>
+        </li>
+    
+        <li>
+            <a href="https://segmentfault.com/" target="_blank" title="SegmentFault">思 否</a>
+        </li>
+    
+        <li>
+            <a href="https://www.infoq.cn/" target="_blank" title="InfoQ">InfoQ</a>
+        </li>
+    
+        <li>
+            <a href="https://www.oschina.net/" target="_blank" title="开源中国">开源中国</a>
+        </li>
+    
+</ul>
+    </section>
+    
+
+    
+
+</aside>
+<!-- / 侧栏部分 -->
+    </div>
+
+    <!-- 博客底部 -->
+    <footer class="footer">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <span id="busuanzi_container_site_pv">总浏览量<span id="busuanzi_value_site_pv"></span>次</span>
+  <br>
+    Copyright &copy;
+    
+        2017 - 2020
+    
+
+    <a href="https://github.com/Crab2died" target="_blank"> Crab2Died </a>
+    All Rights Reserved.
+
+</footer>
+<div class="back-to-top" id="JELON__backToTop" title="返回顶部">返回顶部</div>
+
+    <!--博客js脚本 -->
+    <!-- 这里放网站js脚本 -->
+<script src="/js/main.js"></script>
+
+</body>
+</html>
