@@ -1401,6 +1401,11 @@ pre .javascript .function {
   min-height: 170px;
   padding-top: 10px;
 }
+.widget .postcard {
+  position: relative;
+  max-width: 330px;
+  padding-top: 10px;
+}
 .widget .tag-wrap {
   padding: 10px 0 0;
   overflow: hidden;
