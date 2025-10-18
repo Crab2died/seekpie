@@ -1,26 +1,30 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8">
-    <meta name="baidu-site-verification" content="dIcXMeY8Ya">
+<head>
+    <meta charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8" >
+    <meta name="baidu-site-verification" content="dIcXMeY8Ya" />
     
     <title>Pseudo Distributed Hbase Install | 螃蟹以死</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.3, maximum-scale=1, user-scalable=0">
-    <meta name="keywords" content="螃蟹以死(Crab2Died)的个人博客，分享学习、工作的经验总结。涉及软件开发，大数据开发，分布式系统，微服务，前端开发等">
-    <meta itemprop="name" content="0">
-    <meta itemprop="image" content="https://www.seekpie.com/images/hbase/hbase_logo_00.png  ">
-    <meta itemprop="description" name="description" content="一. 环境准备1. Ubuntu、JDK8、Hadoop2.8.5、HBase2.1.0安装Ubuntu https://www.ubuntu.com/download/desktop  安装JDK,修改环境变量 https://www.oracle.com/technetwork/java/javase/downloads/index.html  安装Hadoop2.8.5 http://hadoop.apache.org/  下载HBase2.1.0 http://hbase.apache.org/2. 其他准备   部署Hadoop详见: Hadoop 伪分布式部署二. 部署HBase1. 解压HBase   cd ~sudo tar -zxf ~/Downloads/hbase-2. ">
-    <meta name="baidu-site-verification" content="8ssDkDEucu">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.3, maximum-scale=1, user-scalable=0" />
+    <meta name="keywords" content="螃蟹以死(Crab2Died)的个人博客，分享学习、工作的经验总结。涉及软件开发，大数据开发，分布式系统，微服务，前端开发等" />
+    <meta itemprop="name" content="0" />
+    <meta itemprop="image" content="https://www.seekpie.com/images/hbase/hbase_logo_00.png  "/>
+    <meta itemprop="description" name="description"  content="一. 环境准备1. Ubuntu、JDK8、Hadoop2.8.5、HBase2.1.0安装Ubuntu https://www.ubuntu.com/download/desktop  安装JDK,修改环境变量 https://www.oracle.com/technetwork/java/javase/downloads/index.html  安装Hadoop2.8.5 http://hadoop.apache.org/  下载HBase2.1.0 http://hbase.apache.org/2. 其他准备   部署Hadoop详见: Hadoop 伪分布式部署二. 部署HBase1. 解压HBase   cd ~sudo tar -zxf ~/Downloads/hbase-2. " />
+    <meta name="baidu-site-verification" content="8ssDkDEucu" />
     
-    <link rel="alternative" href="/atom.xml" title="螃蟹以死" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="螃蟹以死" type="application/atom+xml" >
     
     
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico" >
     
-    <link rel="stylesheet" href="/css/style.css">
+    
+<link rel="stylesheet" href="/css/style.css">
+
     <!--[if lt IE 9]>
-    <script src="/js/html5.js"></script>
+    
+<script src="/js/html5.js"></script>
+
     <![endif]-->
     
     <script>
@@ -44,12 +48,20 @@
     });
 </script>
     
-    <script src="/js/jquery/jquery-2.2.0.min.js"></script>
-    <script src="/js/qrcode.min.js"></script>
-    <script src="/js/particles.js"></script>
-    <script src="/js/qq/share.js"></script>
-</head>
-</html>
+    
+<script src="/js/jquery/jquery-2.2.0.min.js"></script>
+
+    
+<script src="/js/qrcode.min.js"></script>
+
+    
+<script src="/js/particles.js"></script>
+
+    
+<script src="/js/qq/share.js"></script>
+
+<meta name="generator" content="Hexo 8.0.0"></head>
+
 <body class="home">
     <!--[if lt IE 9]>
     <div class="browsehappy">
@@ -78,30 +90,30 @@
         <ul class="menu hidden" id="JELON__menu">
             
             <li rel="/2018/10/26/pseudo-distributed-hbase-install/index.html" class="item ">
-                <a href="/" title="首页" class="fa fa-home">&nbsp;首页</a>
+                <a href="/"  title="首页" class="fa fa-home">&nbsp;首页</a>
             </li>
             
             <li rel="/2018/10/26/pseudo-distributed-hbase-install/index.html" class="item ">
-                <a href="/archives/" title="归档" class="fa fa-archive">&nbsp;归档</a>
+                <a href="/archives/"  title="归档" class="fa fa-archive">&nbsp;归档</a>
             </li>
             
             <li rel="/2018/10/26/pseudo-distributed-hbase-install/index.html" class="item ">
-                <a href="/about/" title="关于" class="fa fa-user-circle-o">&nbsp;关于</a>
+                <a href="/about/"  title="关于" class="fa fa-user-circle-o">&nbsp;关于</a>
             </li>
             
             <li rel="/2018/10/26/pseudo-distributed-hbase-install/index.html" class="item ">
-                <a href="/atom.xml" target="_blank" title="RSS" class="fa fa-rss">&nbsp;RSS</a>
+                <a href="/atom.xml" target="_blank"  title="RSS" class="fa fa-rss">&nbsp;RSS</a>
             </li>
             
             <li class="item search-item"><!-- 搜索遮罩框 -->
 <span class="local-search local-search-google local-search-plugin" id="local-search">
-  <span><input type="search" placeholder="站内搜索..." id="local-search-input" class="local-search-input-cls" style=""></span>&nbsp;
+  <span><input type="search" placeholder="站内搜索..." id="local-search-input" class="local-search-input-cls" style=""/></span>&nbsp;
   <span class="fa fa-search"></span>
   <div id="local-search-result" class="local-search-result-cls"></div>
 </span></li>
         </ul>
         <div class="profile clearfix">
-            <div class="qr-site fl" onmouseover="siteQrMouseOver()" onmouseout="siteQrMouseOut()">
+            <div class="qr-site fl"  onmouseover="siteQrMouseOver()" onmouseout="siteQrMouseOut()">
                 <div>
                     <div id="site-qr"></div>
                 </div>
@@ -134,7 +146,7 @@
                 
             </div>
             <div class="avatar fr">
-                <img src="/crab2died.png" alt="avatar" title="Crab2Died">
+                <img src="/crab2died.png" alt="avatar" title="Crab2Died" >
             </div>
         </div>
     </section>
@@ -147,7 +159,8 @@
     <!--<div class="bulletin-icon"><strong style="color: #ebd829; width: 50px"><i class="fa fa-volume-up"></i></strong></div>-->
     <div class="bulletin-content">
       
-        <marquee direction="left" behavior="scroll" scrollamount="7" scrolldelay="0" align="bottom" bgcolor="#ffffff" hspace="20" vspace="0" onmouseover="this.stop()" onmouseout="this.start()">
+        <marquee direction="left" behavior="scroll" scrollamount=7 scrolldelay=0 align="bottom" bgcolor="#ffffff" hspace=20 vspace=0
+               onmouseover=this.stop() onmouseout=this.start()>
         
       
     </marquee></div>
@@ -185,28 +198,28 @@
   </p>
   <div class="post-content">
     <h2 id="一-环境准备"><a href="#一-环境准备" class="headerlink" title="一. 环境准备"></a>一. 环境准备</h2><h3 id="1-Ubuntu、JDK8、Hadoop2-8-5、HBase2-1-0"><a href="#1-Ubuntu、JDK8、Hadoop2-8-5、HBase2-1-0" class="headerlink" title="1. Ubuntu、JDK8、Hadoop2.8.5、HBase2.1.0"></a>1. Ubuntu、JDK8、Hadoop2.8.5、HBase2.1.0</h3><ul>
-<li><a href="https://www.ubuntu.com/download/desktop" target="_blank" rel="noopener">安装Ubuntu https://www.ubuntu.com/download/desktop</a>  </li>
-<li><a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="noopener">安装JDK,修改环境变量 https://www.oracle.com/technetwork/java/javase/downloads/index.html</a>  </li>
-<li><a href="http://hadoop.apache.org/" target="_blank" rel="noopener">安装Hadoop2.8.5 http://hadoop.apache.org/</a>  </li>
-<li><a href="http://hbase.apache.org/" target="_blank" rel="noopener">下载HBase2.1.0 http://hbase.apache.org/</a></li>
+<li><a href="https://www.ubuntu.com/download/desktop">安装Ubuntu https://www.ubuntu.com/download/desktop</a>  </li>
+<li><a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">安装JDK,修改环境变量 https://www.oracle.com/technetwork/java/javase/downloads/index.html</a>  </li>
+<li><a href="http://hadoop.apache.org/">安装Hadoop2.8.5 http://hadoop.apache.org/</a>  </li>
+<li><a href="http://hbase.apache.org/">下载HBase2.1.0 http://hbase.apache.org/</a></li>
 </ul>
 <h3 id="2-其他准备"><a href="#2-其他准备" class="headerlink" title="2. 其他准备"></a>2. 其他准备</h3><p>   部署Hadoop详见: <a href="/2018/10/26/pseudo-distributed-hadoop-install/">Hadoop 伪分布式部署</a></p>
-<h2 id="二-部署HBase"><a href="#二-部署HBase" class="headerlink" title="二. 部署HBase"></a>二. 部署HBase</h2><h3 id="1-解压HBase"><a href="#1-解压HBase" class="headerlink" title="1. 解压HBase"></a>1. 解压HBase</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">sudo tar -zxf ~/Downloads/hbase-2.1.0-bin.tar.gz -C /usr/<span class="built_in">local</span> <span class="comment"># 解压到/usr/local中</span></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/                                              </span><br><span class="line">chmod -R 777 ./hbase-2.1.0                                     <span class="comment"># 设置权限</span></span><br></pre></td></tr></table></figure>
-<h3 id="2-配置HBase环境变量"><a href="#2-配置HBase环境变量" class="headerlink" title="2. 配置HBase环境变量"></a>2. 配置HBase环境变量</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> HBASE_HOME=/usr/<span class="built_in">local</span>/hbase-2.1.0</span><br><span class="line"><span class="built_in">export</span> HBASE_CONF_DIR=<span class="variable">$&#123;HBASE_HOME&#125;</span>/conf</span><br><span class="line"><span class="built_in">export</span> HBASE_CLASS_PATH=<span class="variable">$&#123;HBASE_CONF_DIR&#125;</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$&#123;HBASE_HOME&#125;</span>/bin</span><br></pre></td></tr></table></figure>
-<h3 id="3-修改环境-HBASE-HOME-conf-hbase-evn-sh配置"><a href="#3-修改环境-HBASE-HOME-conf-hbase-evn-sh配置" class="headerlink" title="3. 修改环境${HBASE_HOME}/conf/hbase-evn.sh配置"></a>3. 修改环境${HBASE_HOME}/conf/hbase-evn.sh配置</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 增加以下配置</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/<span class="built_in">local</span>/jdk1.8.0_181  <span class="comment"># JDK根目录</span></span><br><span class="line"><span class="built_in">export</span> HBASE_MANAGES_ZK=<span class="literal">true</span>              <span class="comment"># 使用HBase自带zookeeper</span></span><br></pre></td></tr></table></figure>
-<h3 id="4-修改配置文件-HBASE-HOME-conf-hbase-site-xml"><a href="#4-修改配置文件-HBASE-HOME-conf-hbase-site-xml" class="headerlink" title="4. 修改配置文件${HBASE_HOME}/conf/hbase-site.xml"></a>4. 修改配置文件${HBASE_HOME}/conf/hbase-site.xml</h3>   <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://crab2died:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="5-修改文件-HBASE-HOME-conf-regionservers"><a href="#5-修改文件-HBASE-HOME-conf-regionservers" class="headerlink" title="5. 修改文件${HBASE_HOME}/conf/regionservers"></a>5. 修改文件${HBASE_HOME}/conf/regionservers</h3><p>   将<code>localhost</code>改为<code>crab2died</code></p>
-<h3 id="6-解决HBase-master启动错误"><a href="#6-解决HBase-master启动错误" class="headerlink" title="6. 解决HBase master启动错误"></a>6. 解决HBase master启动错误</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 执行cp </span></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/hbase-2.1.0</span><br><span class="line">cp ./lib/client-facing-thirdparty/htrace-core-3.1.0-incubating.jar ./lib</span><br></pre></td></tr></table></figure>
+<h2 id="二-部署HBase"><a href="#二-部署HBase" class="headerlink" title="二. 部署HBase"></a>二. 部署HBase</h2><h3 id="1-解压HBase"><a href="#1-解压HBase" class="headerlink" title="1. 解压HBase"></a>1. 解压HBase</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line"><span class="built_in">sudo</span> tar -zxf ~/Downloads/hbase-2.1.0-bin.tar.gz -C /usr/local <span class="comment"># 解压到/usr/local中</span></span><br><span class="line"><span class="built_in">cd</span> /usr/local/                                              </span><br><span class="line"><span class="built_in">chmod</span> -R 777 ./hbase-2.1.0                                     <span class="comment"># 设置权限</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-配置HBase环境变量"><a href="#2-配置HBase环境变量" class="headerlink" title="2. 配置HBase环境变量"></a>2. 配置HBase环境变量</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> HBASE_HOME=/usr/local/hbase-2.1.0</span><br><span class="line"><span class="built_in">export</span> HBASE_CONF_DIR=<span class="variable">$&#123;HBASE_HOME&#125;</span>/conf</span><br><span class="line"><span class="built_in">export</span> HBASE_CLASS_PATH=<span class="variable">$&#123;HBASE_CONF_DIR&#125;</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$&#123;HBASE_HOME&#125;</span>/bin</span><br></pre></td></tr></table></figure>
+<h3 id="3-修改环境-HBASE-HOME-conf-hbase-evn-sh配置"><a href="#3-修改环境-HBASE-HOME-conf-hbase-evn-sh配置" class="headerlink" title="3. 修改环境${HBASE_HOME}&#x2F;conf&#x2F;hbase-evn.sh配置"></a>3. 修改环境${HBASE_HOME}&#x2F;conf&#x2F;hbase-evn.sh配置</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 增加以下配置</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/local/jdk1.8.0_181  <span class="comment"># JDK根目录</span></span><br><span class="line"><span class="built_in">export</span> HBASE_MANAGES_ZK=<span class="literal">true</span>              <span class="comment"># 使用HBase自带zookeeper</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-修改配置文件-HBASE-HOME-conf-hbase-site-xml"><a href="#4-修改配置文件-HBASE-HOME-conf-hbase-site-xml" class="headerlink" title="4. 修改配置文件${HBASE_HOME}&#x2F;conf&#x2F;hbase-site.xml"></a>4. 修改配置文件${HBASE_HOME}&#x2F;conf&#x2F;hbase-site.xml</h3>   <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://crab2died:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-修改文件-HBASE-HOME-conf-regionservers"><a href="#5-修改文件-HBASE-HOME-conf-regionservers" class="headerlink" title="5. 修改文件${HBASE_HOME}&#x2F;conf&#x2F;regionservers"></a>5. 修改文件${HBASE_HOME}&#x2F;conf&#x2F;regionservers</h3><p>   将<code>localhost</code>改为<code>crab2died</code></p>
+<h3 id="6-解决HBase-master启动错误"><a href="#6-解决HBase-master启动错误" class="headerlink" title="6. 解决HBase master启动错误"></a>6. 解决HBase master启动错误</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 执行cp </span></span><br><span class="line"><span class="built_in">cd</span> /usr/local/hbase-2.1.0</span><br><span class="line"><span class="built_in">cp</span> ./lib/client-facing-thirdparty/htrace-core-3.1.0-incubating.jar ./lib</span><br></pre></td></tr></table></figure>
 <h3 id="7-验证版本"><a href="#7-验证版本" class="headerlink" title="7. 验证版本"></a>7. 验证版本</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hbase version</span><br><span class="line"><span class="comment"># 成功则会返回版本信息</span></span><br></pre></td></tr></table></figure>
-<h2 id="三-启动HBase"><a href="#三-启动HBase" class="headerlink" title="三. 启动HBase"></a>三. 启动HBase</h2><h3 id="1-先启动Hadoop-详见-Hadoop-伪分布式部署"><a href="#1-先启动Hadoop-详见-Hadoop-伪分布式部署" class="headerlink" title="1. 先启动Hadoop,详见: Hadoop 伪分布式部署"></a>1. 先启动Hadoop,详见: <a href="/2018/10/26/pseudo-distributed-hadoop-install/">Hadoop 伪分布式部署</a></h3><h3 id="2-启动HBase"><a href="#2-启动HBase" class="headerlink" title="2. 启动HBase"></a>2. 启动HBase</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">start-hbase.sh</span><br></pre></td></tr></table></figure>
+<h2 id="三-启动HBase"><a href="#三-启动HBase" class="headerlink" title="三. 启动HBase"></a>三. 启动HBase</h2><h3 id="1-先启动Hadoop-详见-Hadoop-伪分布式部署"><a href="#1-先启动Hadoop-详见-Hadoop-伪分布式部署" class="headerlink" title="1. 先启动Hadoop,详见: Hadoop 伪分布式部署"></a>1. 先启动Hadoop,详见: <a href="/2018/10/26/pseudo-distributed-hadoop-install/">Hadoop 伪分布式部署</a></h3><h3 id="2-启动HBase"><a href="#2-启动HBase" class="headerlink" title="2. 启动HBase"></a>2. 启动HBase</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">start-hbase.sh </span><br></pre></td></tr></table></figure>
 <h3 id="3-jps查看进程"><a href="#3-jps查看进程" class="headerlink" title="3. jps查看进程"></a>3. jps查看进程</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">jps</span><br><span class="line">1257 HQuorumPeer</span><br><span class="line">1285 HMaster</span><br><span class="line">1312 HRegionServer</span><br></pre></td></tr></table></figure>
-<h3 id="4-查看HBase管理界面"><a href="#4-查看HBase管理界面" class="headerlink" title="4. 查看HBase管理界面"></a>4. 查看HBase管理界面</h3><p>   <a href="http://crab2died:16030" target="_blank" rel="noopener">http://crab2died:16030</a></p>
+<h3 id="4-查看HBase管理界面"><a href="#4-查看HBase管理界面" class="headerlink" title="4. 查看HBase管理界面"></a>4. 查看HBase管理界面</h3><p>   <a href="http://crab2died:16030/">http://crab2died:16030</a></p>
 <h3 id="5-进入命令行管理"><a href="#5-进入命令行管理" class="headerlink" title="5. 进入命令行管理"></a>5. 进入命令行管理</h3>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hbase shell</span><br></pre></td></tr></table></figure>
   </div>
 
   <!-- 目录 -->
   <div class="catalog">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-环境准备"><span class="toc-text">一. 环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Ubuntu、JDK8、Hadoop2-8-5、HBase2-1-0"><span class="toc-text">1. Ubuntu、JDK8、Hadoop2.8.5、HBase2.1.0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-其他准备"><span class="toc-text">2. 其他准备</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-部署HBase"><span class="toc-text">二. 部署HBase</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-解压HBase"><span class="toc-text">1. 解压HBase</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-配置HBase环境变量"><span class="toc-text">2. 配置HBase环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-修改环境-HBASE-HOME-conf-hbase-evn-sh配置"><span class="toc-text">3. 修改环境${HBASE_HOME}/conf/hbase-evn.sh配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-修改配置文件-HBASE-HOME-conf-hbase-site-xml"><span class="toc-text">4. 修改配置文件${HBASE_HOME}/conf/hbase-site.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-修改文件-HBASE-HOME-conf-regionservers"><span class="toc-text">5. 修改文件${HBASE_HOME}/conf/regionservers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-解决HBase-master启动错误"><span class="toc-text">6. 解决HBase master启动错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-验证版本"><span class="toc-text">7. 验证版本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-启动HBase"><span class="toc-text">三. 启动HBase</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-先启动Hadoop-详见-Hadoop-伪分布式部署"><span class="toc-text">1. 先启动Hadoop,详见: Hadoop 伪分布式部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-启动HBase"><span class="toc-text">2. 启动HBase</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-jps查看进程"><span class="toc-text">3. jps查看进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-查看HBase管理界面"><span class="toc-text">4. 查看HBase管理界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-进入命令行管理"><span class="toc-text">5. 进入命令行管理</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">一. 环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Ubuntu%E3%80%81JDK8%E3%80%81Hadoop2-8-5%E3%80%81HBase2-1-0"><span class="toc-text">1. Ubuntu、JDK8、Hadoop2.8.5、HBase2.1.0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%85%B6%E4%BB%96%E5%87%86%E5%A4%87"><span class="toc-text">2. 其他准备</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E9%83%A8%E7%BD%B2HBase"><span class="toc-text">二. 部署HBase</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%A7%A3%E5%8E%8BHBase"><span class="toc-text">1. 解压HBase</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AEHBase%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">2. 配置HBase环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83-HBASE-HOME-conf-hbase-evn-sh%E9%85%8D%E7%BD%AE"><span class="toc-text">3. 修改环境${HBASE_HOME}&#x2F;conf&#x2F;hbase-evn.sh配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-HBASE-HOME-conf-hbase-site-xml"><span class="toc-text">4. 修改配置文件${HBASE_HOME}&#x2F;conf&#x2F;hbase-site.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6-HBASE-HOME-conf-regionservers"><span class="toc-text">5. 修改文件${HBASE_HOME}&#x2F;conf&#x2F;regionservers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%A7%A3%E5%86%B3HBase-master%E5%90%AF%E5%8A%A8%E9%94%99%E8%AF%AF"><span class="toc-text">6. 解决HBase master启动错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E9%AA%8C%E8%AF%81%E7%89%88%E6%9C%AC"><span class="toc-text">7. 验证版本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E5%90%AF%E5%8A%A8HBase"><span class="toc-text">三. 启动HBase</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%85%88%E5%90%AF%E5%8A%A8Hadoop-%E8%AF%A6%E8%A7%81-Hadoop-%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2"><span class="toc-text">1. 先启动Hadoop,详见: Hadoop 伪分布式部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%90%AF%E5%8A%A8HBase"><span class="toc-text">2. 启动HBase</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-jps%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B"><span class="toc-text">3. jps查看进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9F%A5%E7%9C%8BHBase%E7%AE%A1%E7%90%86%E7%95%8C%E9%9D%A2"><span class="toc-text">4. 查看HBase管理界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%BF%9B%E5%85%A5%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AE%A1%E7%90%86"><span class="toc-text">5. 进入命令行管理</span></a></li></ol></li></ol>
   </div>
 
   <p class="post-meta">
@@ -230,13 +243,17 @@
   <div class="article-share clearfix text-center">
     <div class="share-area">
       <span class="share-txt">分享到：</span>
-      <a href="javascript: window.open('http://service.weibo.com/share/share.php?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title + '&pic=https://www.seekpie.com/images/hbase/hbase_logo_00.png&language=zh_cn');" class="share-icon weibo"></a>
+      <a href="javascript: window.open('http://service.weibo.com/share/share.php?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title + '&pic=https://www.seekpie.com/images/hbase/hbase_logo_00.png&language=zh_cn');"
+         class="share-icon weibo"></a>
       <a href="javascript: wechatShare('wechat-show', window.location.href.split('#')[0])" class="share-icon wechat"></a>
-      <a href="javascript: window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title);" class="share-icon qqzone"></a>
+      <a href="javascript: window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title);"
+         class="share-icon qqzone"></a>
       <a href="javascript: window.open('http://connect.qq.com/widget/shareqq/index.html?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + encodeURIComponent(document.title) +'&desc=' + encodeURIComponent('一. 环境准备1. Ubuntu、JDK8、Hadoop2.8.5、HBase2.1.0
 安装Ubuntu https://www.ubuntu.com/download/desktop  
-安装JDK,修改环境变量 https://www.oracle.com/technetwork/java/j') + '&pics=https://www.seekpie.com/images/hbase/hbase_logo_00.png');" class="share-icon qq"></a>
-      <a href="javascript: window.open('http://shuo.douban.com/!service/share?href=' + encodeURIComponent(location.href.split('#')[0]) + '&name=' + document.title + '&text=' + document.title);" class="share-icon douban"></a>
+安装JDK,修改环境变量 https://www.oracle.com/technetwork/java/j') + '&pics=https://www.seekpie.com/images/hbase/hbase_logo_00.png');"
+         class="share-icon qq"></a>
+      <a href="javascript: window.open('http://shuo.douban.com/!service/share?href=' + encodeURIComponent(location.href.split('#')[0]) + '&name=' + document.title + '&text=' + document.title);"
+         class="share-icon douban"></a>
     </div>
   </div>
   <div class="wechat-show">
@@ -251,7 +268,7 @@
 <div class="article-nav clearfix">
     
     <span class="prev fl">
-        上一篇<br>
+        上一篇<br >
         <a href="/2019/01/02/elasticsearch-optimize/">
             
                 Elasticsearch Performance Optimization
@@ -262,7 +279,7 @@
 
     
     <span class="next fr">
-        下一篇<br>
+        下一篇<br >
         <a href="/2018/10/26/pseudo-distributed-hadoop-install/">
             
                 Pseudo Distributed Hadoop Install
@@ -279,7 +296,9 @@
   </div>
 
   
-    <script src="/js/comment.js"></script>
+    
+<script src="/js/comment.js"></script>
+
     <script>
         JELON.Comment({
             container: 'comments',
@@ -303,7 +322,7 @@
       <h3 class="widget-hd"><strong>文章目录</strong></h3>
       <!-- 目录 -->
       <div class="toc">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一-环境准备"><span class="post-toc-text">一. 环境准备</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-Ubuntu、JDK8、Hadoop2-8-5、HBase2-1-0"><span class="post-toc-text">1. Ubuntu、JDK8、Hadoop2.8.5、HBase2.1.0</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-其他准备"><span class="post-toc-text">2. 其他准备</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二-部署HBase"><span class="post-toc-text">二. 部署HBase</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-解压HBase"><span class="post-toc-text">1. 解压HBase</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-配置HBase环境变量"><span class="post-toc-text">2. 配置HBase环境变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-修改环境-HBASE-HOME-conf-hbase-evn-sh配置"><span class="post-toc-text">3. 修改环境${HBASE_HOME}/conf/hbase-evn.sh配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-修改配置文件-HBASE-HOME-conf-hbase-site-xml"><span class="post-toc-text">4. 修改配置文件${HBASE_HOME}/conf/hbase-site.xml</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-修改文件-HBASE-HOME-conf-regionservers"><span class="post-toc-text">5. 修改文件${HBASE_HOME}/conf/regionservers</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-解决HBase-master启动错误"><span class="post-toc-text">6. 解决HBase master启动错误</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-验证版本"><span class="post-toc-text">7. 验证版本</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三-启动HBase"><span class="post-toc-text">三. 启动HBase</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-先启动Hadoop-详见-Hadoop-伪分布式部署"><span class="post-toc-text">1. 先启动Hadoop,详见: Hadoop 伪分布式部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-启动HBase"><span class="post-toc-text">2. 启动HBase</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-jps查看进程"><span class="post-toc-text">3. jps查看进程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-查看HBase管理界面"><span class="post-toc-text">4. 查看HBase管理界面</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-进入命令行管理"><span class="post-toc-text">5. 进入命令行管理</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%80-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="post-toc-text">一. 环境准备</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-Ubuntu%E3%80%81JDK8%E3%80%81Hadoop2-8-5%E3%80%81HBase2-1-0"><span class="post-toc-text">1. Ubuntu、JDK8、Hadoop2.8.5、HBase2.1.0</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-%E5%85%B6%E4%BB%96%E5%87%86%E5%A4%87"><span class="post-toc-text">2. 其他准备</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BA%8C-%E9%83%A8%E7%BD%B2HBase"><span class="post-toc-text">二. 部署HBase</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-%E8%A7%A3%E5%8E%8BHBase"><span class="post-toc-text">1. 解压HBase</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-%E9%85%8D%E7%BD%AEHBase%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="post-toc-text">2. 配置HBase环境变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83-HBASE-HOME-conf-hbase-evn-sh%E9%85%8D%E7%BD%AE"><span class="post-toc-text">3. 修改环境${HBASE_HOME}&#x2F;conf&#x2F;hbase-evn.sh配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-HBASE-HOME-conf-hbase-site-xml"><span class="post-toc-text">4. 修改配置文件${HBASE_HOME}&#x2F;conf&#x2F;hbase-site.xml</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6-HBASE-HOME-conf-regionservers"><span class="post-toc-text">5. 修改文件${HBASE_HOME}&#x2F;conf&#x2F;regionservers</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-%E8%A7%A3%E5%86%B3HBase-master%E5%90%AF%E5%8A%A8%E9%94%99%E8%AF%AF"><span class="post-toc-text">6. 解决HBase master启动错误</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-%E9%AA%8C%E8%AF%81%E7%89%88%E6%9C%AC"><span class="post-toc-text">7. 验证版本</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%89-%E5%90%AF%E5%8A%A8HBase"><span class="post-toc-text">三. 启动HBase</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-%E5%85%88%E5%90%AF%E5%8A%A8Hadoop-%E8%AF%A6%E8%A7%81-Hadoop-%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2"><span class="post-toc-text">1. 先启动Hadoop,详见: Hadoop 伪分布式部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-%E5%90%AF%E5%8A%A8HBase"><span class="post-toc-text">2. 启动HBase</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-jps%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B"><span class="post-toc-text">3. jps查看进程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-%E6%9F%A5%E7%9C%8BHBase%E7%AE%A1%E7%90%86%E7%95%8C%E9%9D%A2"><span class="post-toc-text">4. 查看HBase管理界面</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-%E8%BF%9B%E5%85%A5%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AE%A1%E7%90%86"><span class="post-toc-text">5. 进入命令行管理</span></a></li></ol></li></ol>
       </div>
     </section>
     
@@ -325,9 +344,9 @@
       <a href="/categories/Big-Data/">Big Data</a>
     </li>
   
-    <li title="Elasticsearch">
+    <li title="Excel4J">
       <span class="badge">(1)</span>
-      <a href="/categories/Elasticsearch/">Elasticsearch</a>
+      <a href="/categories/Excel4J/">Excel4J</a>
     </li>
   
     <li title="Database">
@@ -335,9 +354,9 @@
       <a href="/categories/Database/">Database</a>
     </li>
   
-    <li title="Excel4J">
+    <li title="Elasticsearch">
       <span class="badge">(1)</span>
-      <a href="/categories/Excel4J/">Excel4J</a>
+      <a href="/categories/Elasticsearch/">Elasticsearch</a>
     </li>
   
 </ul>
@@ -361,8 +380,12 @@
       Big Data(2)
     </a>
   
-    <a class="tag-item-link" href="/tags/GC/" title="GC 1篇">
-      GC(1)
+    <a class="tag-item-link" href="/tags/Excel4J/" title="Excel4J 1篇">
+      Excel4J(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Database/" title="Database 1篇">
+      Database(1)
     </a>
   
     <a class="tag-item-link" href="/tags/Elasticsearch/" title="Elasticsearch 1篇">
@@ -373,20 +396,12 @@
       Interview(1)
     </a>
   
-    <a class="tag-item-link" href="/tags/Database/" title="Database 1篇">
-      Database(1)
-    </a>
-  
     <a class="tag-item-link" href="/tags/Classloader/" title="Classloader 1篇">
       Classloader(1)
     </a>
   
     <a class="tag-item-link" href="/tags/Collection/" title="Collection 1篇">
       Collection(1)
-    </a>
-  
-    <a class="tag-item-link" href="/tags/Excel4J/" title="Excel4J 1篇">
-      Excel4J(1)
     </a>
   
     <a class="tag-item-link" href="/tags/JIT/" title="JIT 1篇">
@@ -397,37 +412,33 @@
       Optimize(1)
     </a>
   
-    <a class="tag-item-link" href="/tags/HTTP/" title="HTTP 1篇">
-      HTTP(1)
-    </a>
-  
     <a class="tag-item-link" href="/tags/Concurrent/" title="Concurrent 1篇">
       Concurrent(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/GC/" title="GC 1篇">
+      GC(1)
     </a>
   
     <a class="tag-item-link" href="/tags/JMM/" title="JMM 1篇">
       JMM(1)
     </a>
   
+    <a class="tag-item-link" href="/tags/Java-Monitor/" title="Java Monitor 1篇">
+      Java Monitor(1)
+    </a>
+  
 </div>
     </section>
     
 
     
-    <section class="widget visit-map">
-        <h3 class="widget-hd" style="display: inline-block"><strong>当前访客</strong></h3>
-        <div class="map-switch-btn"><a href="javascript:switchMapStyle()" class="map-switch">...</a></div>
-        <div class="widget-bd revolvermaps">
-正在加载访问地图...
-</div>
-    </section>
-    
 
     
     <section class="widget visit-map">
-      <h3 class="widget-hd" style="display: inline-block"><strong>螃蟹以死</strong></h3>
+      <h3 class="widget-hd"  style="display: inline-block"><strong>螃蟹以死</strong></h3>
       <div class="widget-bd" style="position: relative;">
-<img class="widget-bd postcard" src="https://github-readme-stats.vercel.app/api?username=crab2died&show_icons=true&theme=highcontrast&cache_seconds=60&line_height=32">
+<img class="widget-bd postcard" src="https://github-readme-stats.vercel.app/api?username=crab2died&show_icons=true&theme=highcontrast&cache_seconds=60&line_height=32"/>
 </div>
     </section>
     
@@ -435,26 +446,38 @@
     
 
     
-    <!-- 友情链接 -->
+    <!-- 实用工具 -->
     <section class="widget">
-        <h3 class="widget-hd"><strong>友情链接</strong></h3>
+        <h3 class="widget-hd"><strong>实用工具</strong></h3>
         <!-- 文章分类 -->
 <ul class="widget-bd">
     
         <li>
-            <a href="https://coolshell.cn/" target="_blank" title="酷 壳">酷 壳</a>
+            <a href="/tools/time-converter.html" target="_blank" title="时间转换工具">时间转换工具</a>
         </li>
     
         <li>
-            <a href="https://segmentfault.com/" target="_blank" title="SegmentFault">思 否</a>
+            <a href="/tools/number-converter.html" target="_blank" title="进制转换工具">进制转换工具</a>
         </li>
     
         <li>
-            <a href="https://www.infoq.cn/" target="_blank" title="InfoQ">InfoQ</a>
+            <a href="/tools/scientific-calculator.html" target="_blank" title="科学计算器">科学计算器</a>
         </li>
     
         <li>
-            <a href="https://www.oschina.net/" target="_blank" title="开源中国">开源中国</a>
+            <a href="/tools/exchange-rate.html" target="_blank" title="汇率转换工具">汇率转换工具</a>
+        </li>
+    
+        <li>
+            <a href="/tools/loan-calculator.html" target="_blank" title="贷款计算器">贷款计算器</a>
+        </li>
+    
+        <li>
+            <a href="/tools/json-array-tool.html" target="_blank" title="JSON数组展示工具">JSON数组展示工具</a>
+        </li>
+    
+        <li>
+            <a href="/tools/csv-tool.html" target="_blank" title="CSV展示工具">CSV展示工具</a>
         </li>
     
 </ul>
@@ -475,7 +498,7 @@
   <br>
     Copyright &copy;
     
-        2017 - 2020
+        2017 - 2025
     
 
     <a href="https://github.com/Crab2died" target="_blank"> Crab2Died </a>
@@ -486,7 +509,9 @@
 
     <!--博客js脚本 -->
     <!-- 这里放网站js脚本 -->
+
 <script src="/js/main.js"></script>
+
 
 </body>
 </html>

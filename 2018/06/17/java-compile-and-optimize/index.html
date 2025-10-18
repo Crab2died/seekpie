@@ -1,26 +1,30 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8">
-    <meta name="baidu-site-verification" content="dIcXMeY8Ya">
+<head>
+    <meta charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8" >
+    <meta name="baidu-site-verification" content="dIcXMeY8Ya" />
     
     <title>Java Compile and Optimize | 螃蟹以死</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.3, maximum-scale=1, user-scalable=0">
-    <meta name="keywords" content="螃蟹以死(Crab2Died)的个人博客，分享学习、工作的经验总结。涉及软件开发，大数据开发，分布式系统，微服务，前端开发等">
-    <meta itemprop="name" content="0">
-    <meta itemprop="image" content="https://www.seekpie.com/images/material/gaoxiao.jpg  ">
-    <meta itemprop="description" name="description" content="1. 早期(编译期)优化1.1. 概论前端编译器:Sun的Javac、 Eclipse JDT中的增量式编译器(ECJ)JIT编译器:HotSpot VM的C1、 C2编译器AOT编译器:GNU Compiler for the Java(GCJ)、 Excelsior JETjavac这类编译器几乎不对代码进行性能优化,把性能优化放到了JIT即时编译器内,可为JRuby、Groovy这类语言的代码也同等享有优化带来的好处1.2. javac编译1.2.1. 编译过程解析与填充符号表过程  词法、语法分析词法分析是将源代码的字符流转变为标记(Token)集合,单个字符是程序编写过程的最小元素,而标记则是编译过程的最小元素,关键字、 变量名、 字面量、 运算符都可以成为标记语法分析是根据Tok ">
-    <meta name="baidu-site-verification" content="8ssDkDEucu">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.3, maximum-scale=1, user-scalable=0" />
+    <meta name="keywords" content="螃蟹以死(Crab2Died)的个人博客，分享学习、工作的经验总结。涉及软件开发，大数据开发，分布式系统，微服务，前端开发等" />
+    <meta itemprop="name" content="0" />
+    <meta itemprop="image" content="https://www.seekpie.com/images/material/gaoxiao.jpg  "/>
+    <meta itemprop="description" name="description"  content="1. 早期(编译期)优化1.1. 概论前端编译器:Sun的Javac、 Eclipse JDT中的增量式编译器(ECJ)JIT编译器:HotSpot VM的C1、 C2编译器AOT编译器:GNU Compiler for the Java(GCJ)、 Excelsior JETjavac这类编译器几乎不对代码进行性能优化,把性能优化放到了JIT即时编译器内,可为JRuby、Groovy这类语言的代码也同等享有优化带来的好处1.2. javac编译1.2.1. 编译过程解析与填充符号表过程词法、语法分析词法分析是将源代码的字符流转变为标记(Token)集合,单个字符是程序编写过程的最小元素,而标记则是编译过程的最小元素,关键字、 变量名、 字面量、 运算符都可以成为标记语法分析是根据Token " />
+    <meta name="baidu-site-verification" content="8ssDkDEucu" />
     
-    <link rel="alternative" href="/atom.xml" title="螃蟹以死" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="螃蟹以死" type="application/atom+xml" >
     
     
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico" >
     
-    <link rel="stylesheet" href="/css/style.css">
+    
+<link rel="stylesheet" href="/css/style.css">
+
     <!--[if lt IE 9]>
-    <script src="/js/html5.js"></script>
+    
+<script src="/js/html5.js"></script>
+
     <![endif]-->
     
     <script>
@@ -44,12 +48,20 @@
     });
 </script>
     
-    <script src="/js/jquery/jquery-2.2.0.min.js"></script>
-    <script src="/js/qrcode.min.js"></script>
-    <script src="/js/particles.js"></script>
-    <script src="/js/qq/share.js"></script>
-</head>
-</html>
+    
+<script src="/js/jquery/jquery-2.2.0.min.js"></script>
+
+    
+<script src="/js/qrcode.min.js"></script>
+
+    
+<script src="/js/particles.js"></script>
+
+    
+<script src="/js/qq/share.js"></script>
+
+<meta name="generator" content="Hexo 8.0.0"></head>
+
 <body class="home">
     <!--[if lt IE 9]>
     <div class="browsehappy">
@@ -78,30 +90,30 @@
         <ul class="menu hidden" id="JELON__menu">
             
             <li rel="/2018/06/17/java-compile-and-optimize/index.html" class="item ">
-                <a href="/" title="首页" class="fa fa-home">&nbsp;首页</a>
+                <a href="/"  title="首页" class="fa fa-home">&nbsp;首页</a>
             </li>
             
             <li rel="/2018/06/17/java-compile-and-optimize/index.html" class="item ">
-                <a href="/archives/" title="归档" class="fa fa-archive">&nbsp;归档</a>
+                <a href="/archives/"  title="归档" class="fa fa-archive">&nbsp;归档</a>
             </li>
             
             <li rel="/2018/06/17/java-compile-and-optimize/index.html" class="item ">
-                <a href="/about/" title="关于" class="fa fa-user-circle-o">&nbsp;关于</a>
+                <a href="/about/"  title="关于" class="fa fa-user-circle-o">&nbsp;关于</a>
             </li>
             
             <li rel="/2018/06/17/java-compile-and-optimize/index.html" class="item ">
-                <a href="/atom.xml" target="_blank" title="RSS" class="fa fa-rss">&nbsp;RSS</a>
+                <a href="/atom.xml" target="_blank"  title="RSS" class="fa fa-rss">&nbsp;RSS</a>
             </li>
             
             <li class="item search-item"><!-- 搜索遮罩框 -->
 <span class="local-search local-search-google local-search-plugin" id="local-search">
-  <span><input type="search" placeholder="站内搜索..." id="local-search-input" class="local-search-input-cls" style=""></span>&nbsp;
+  <span><input type="search" placeholder="站内搜索..." id="local-search-input" class="local-search-input-cls" style=""/></span>&nbsp;
   <span class="fa fa-search"></span>
   <div id="local-search-result" class="local-search-result-cls"></div>
 </span></li>
         </ul>
         <div class="profile clearfix">
-            <div class="qr-site fl" onmouseover="siteQrMouseOver()" onmouseout="siteQrMouseOut()">
+            <div class="qr-site fl"  onmouseover="siteQrMouseOver()" onmouseout="siteQrMouseOut()">
                 <div>
                     <div id="site-qr"></div>
                 </div>
@@ -134,7 +146,7 @@
                 
             </div>
             <div class="avatar fr">
-                <img src="/crab2died.png" alt="avatar" title="Crab2Died">
+                <img src="/crab2died.png" alt="avatar" title="Crab2Died" >
             </div>
         </div>
     </section>
@@ -147,7 +159,8 @@
     <!--<div class="bulletin-icon"><strong style="color: #ebd829; width: 50px"><i class="fa fa-volume-up"></i></strong></div>-->
     <div class="bulletin-content">
       
-        <marquee direction="left" behavior="scroll" scrollamount="7" scrolldelay="0" align="bottom" bgcolor="#ffffff" hspace="20" vspace="0" onmouseover="this.stop()" onmouseout="this.start()">
+        <marquee direction="left" behavior="scroll" scrollamount=7 scrolldelay=0 align="bottom" bgcolor="#ffffff" hspace=20 vspace=0
+               onmouseover=this.stop() onmouseout=this.start()>
         
       
     </marquee></div>
@@ -193,7 +206,9 @@
 <li>javac这类编译器几乎不对代码进行性能优化,把性能优化放到了JIT即时编译器内,可为JRuby、Groovy这类语言的代码也同等享有优化带来的好处</li>
 </ol>
 <h3 id="1-2-javac编译"><a href="#1-2-javac编译" class="headerlink" title="1.2. javac编译"></a>1.2. javac编译</h3><h4 id="1-2-1-编译过程"><a href="#1-2-1-编译过程" class="headerlink" title="1.2.1. 编译过程"></a>1.2.1. 编译过程</h4><ol>
-<li>解析与填充符号表过程  <ul>
+<li>解析与填充符号表过程</li>
+</ol>
+<ul>
 <li>词法、语法分析<ul>
 <li>词法分析是将源代码的字符流转变为标记(Token)集合,单个字符是程序编写过程的最小元素,而标记则是编译过程的最小元素,关键字、 变量名、 字面量、 运算符都可以成为标记</li>
 <li>语法分析是根据Token序列构造抽象语法树的过程,抽象语法树(Abstract Syntax Tree,AST)是一种用来描述程序代码语法结构的树形表示方式,语法树的每一个节点都代表着程序
@@ -206,9 +221,11 @@
 </ul>
 </li>
 </ul>
-</li>
+<ol start="2">
 <li>插入式注解处理器的注解处理过程</li>
-<li>分析与字节码生成过程<ul>
+<li>分析与字节码生成过程</li>
+</ol>
+<ul>
 <li>标注检查<ul>
 <li>检查的内容包括诸如变量使用前是否已被声明、 变量与赋值之间的数据类型是否能够匹配等</li>
 <li>常量折叠 如定义了<code>int a = 1 + 2</code>会被编译为<code>int a = 3</code></li>
@@ -223,7 +240,7 @@
 <li>语法糖:也称糖衣语法,是由英国计算机科学家彼得·约翰·兰达(Peter J.Landin)发明的一个术语,
 指在计算机语言中添加的某种语法,这种语法对语言的功能并没有影响,但是更方便程序员使用.
 通常来说,使用语法糖能够增加程序的可读性,从而减少程序代码出错的机会.</li>
-<li>java语法糖:泛型、变长参数、 自动装箱/拆箱等 内部类、 枚举类、 断言语句、 对枚举和字符串(在JDK 1.7中支持)
+<li>java语法糖:泛型、变长参数、 自动装箱&#x2F;拆箱等 内部类、 枚举类、 断言语句、 对枚举和字符串(在JDK 1.7中支持)
 的switch支持、 try语句中定义和关闭资源(在JDK 1.7中支持)等</li>
 <li>泛型:编译器会进行解泛,所以泛型不能进行方法重载</li>
 <li>自动装箱、 拆箱与遍历循环</li>
@@ -236,25 +253,23 @@
 </ul>
 </li>
 </ul>
-</li>
-</ol>
 <h2 id="2-晚期-运行期-优化"><a href="#2-晚期-运行期-优化" class="headerlink" title="2. 晚期(运行期)优化"></a>2. 晚期(运行期)优化</h2><h3 id="2-1-即时编译器-JIT"><a href="#2-1-即时编译器-JIT" class="headerlink" title="2.1. 即时编译器(JIT)"></a>2.1. 即时编译器(JIT)</h3><ol>
 <li>为了提高热点代码的执行效率,在运行时,虚拟机将会把这些代码编译成与本地平台相关的机器码,并进行各种层次的优化,
 完成这个任务的编译器称为即时编译器(Just In Time Compiler)</li>
-<li><p>解释器与编译器(sun HotSpot虚拟机为例)</p>
+<li>解释器与编译器(sun HotSpot虚拟机为例)</li>
+</ol>
 <ul>
-<li><p>交互模型</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">   +---------------即时编译-----------↓</span><br><span class="line">   ↓                         Client Compiler(C1编译器)</span><br><span class="line">解释器(Interpreter)               编译器</span><br><span class="line">   ↑                         Server Compiler(C2编译器)</span><br><span class="line">   +----------------逆优化------------↑</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>HotSpot虚拟机同时由解释器与编译器搭配使用(成为混合模式(Mixed Model)),
-可添加参数-Xint强制虚拟机使用解释模式(Interpreted Mode),可添加参数<code>-Xcomp</code>强制虚拟机使用编译模式(Compiled Mode)</p>
-</li>
+<li>交互模型 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   +---------------即时编译-----------↓</span><br><span class="line">   ↓                         Client Compiler(C1编译器)</span><br><span class="line">解释器(Interpreter)               编译器</span><br><span class="line">   ↑                         Server Compiler(C2编译器)</span><br><span class="line">   +----------------逆优化------------↑</span><br></pre></td></tr></table></figure></li>
+<li>HotSpot虚拟机同时由解释器与编译器搭配使用(成为混合模式(Mixed Model)),
+可添加参数-Xint强制虚拟机使用解释模式(Interpreted Mode),可添加参数<code>-Xcomp</code>强制虚拟机使用编译模式(Compiled Mode)</li>
 <li>启动参数<code>-client</code>启用Client Compiler编译器 参数<code>-server</code>启用Server Compiler编译器</li>
 <li>HotSpot虚拟机还会逐渐启用分层编译(Tiered Compilation)的策略,分层编译的概念在JDK 1.6时期出现,
 JDK1.7中Server模式中默认开启,之前需配参数<code>-XX:+TieredCompilation</code>启用</li>
 </ul>
-</li>
-<li>编译对象与触发条件<ul>
+<ol start="3">
+<li>编译对象与触发条件</li>
+</ol>
+<ul>
 <li>触发条件<ul>
 <li>被多次调用的方法</li>
 <li>被多次执行的循环体,这个称为栈上替换(On Stack Replacement,简称为OSR编译)</li>
@@ -275,13 +290,17 @@ JDK1.7中Server模式中默认开启,之前需配参数<code>-XX:+TieredCompilat
 </ul>
 </li>
 </ul>
-</li>
-<li>编译过程<ul>
-<li>Client模式下编译过程<br><img src="/images/java/java_client_compiler.png" alt="Client Compiler编译过程"></li>
+<ol start="4">
+<li>编译过程</li>
+</ol>
+<ul>
+<li>Client模式下编译过程<br>   <img src="/images/java/java_client_compiler.png" alt="Client Compiler编译过程"></li>
 <li>Server模式下编译过程<br>相当复杂</li>
 </ul>
-</li>
-<li>优化技术<ul>
+<ol start="5">
+<li>优化技术</li>
+</ol>
+<ul>
 <li>公共子表达式消除<ul>
 <li>经典优化技术,如果一个表达式E已经计算过了,并且从先前的计算到现在E中所有变量的值都没有发生变化,那么E的这次出现就成为了公共子表达式. 
 对于这种表达式,没有必要花时间再对它进行计算,只需要直接用前面计算过的表达式结果代替E就可以了</li>
@@ -315,14 +334,12 @@ JDK1.7中Server模式中默认开启,之前需配参数<code>-XX:+TieredCompilat
 </ul>
 </li>
 </ul>
-</li>
-</ol>
 
   </div>
 
   <!-- 目录 -->
   <div class="catalog">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-早期-编译期-优化"><span class="toc-text">1. 早期(编译期)优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-概论"><span class="toc-text">1.1. 概论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-javac编译"><span class="toc-text">1.2. javac编译</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-编译过程"><span class="toc-text">1.2.1. 编译过程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-晚期-运行期-优化"><span class="toc-text">2. 晚期(运行期)优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-即时编译器-JIT"><span class="toc-text">2.1. 即时编译器(JIT)</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%97%A9%E6%9C%9F-%E7%BC%96%E8%AF%91%E6%9C%9F-%E4%BC%98%E5%8C%96"><span class="toc-text">1. 早期(编译期)优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%A6%82%E8%AE%BA"><span class="toc-text">1.1. 概论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-javac%E7%BC%96%E8%AF%91"><span class="toc-text">1.2. javac编译</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B"><span class="toc-text">1.2.1. 编译过程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%99%9A%E6%9C%9F-%E8%BF%90%E8%A1%8C%E6%9C%9F-%E4%BC%98%E5%8C%96"><span class="toc-text">2. 晚期(运行期)优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91%E5%99%A8-JIT"><span class="toc-text">2.1. 即时编译器(JIT)</span></a></li></ol></li></ol>
   </div>
 
   <p class="post-meta">
@@ -348,17 +365,21 @@ JDK1.7中Server模式中默认开启,之前需配参数<code>-XX:+TieredCompilat
   <div class="article-share clearfix text-center">
     <div class="share-area">
       <span class="share-txt">分享到：</span>
-      <a href="javascript: window.open('http://service.weibo.com/share/share.php?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title + '&pic=https://www.seekpie.com/images/material/gaoxiao.jpg&language=zh_cn');" class="share-icon weibo"></a>
+      <a href="javascript: window.open('http://service.weibo.com/share/share.php?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title + '&pic=https://www.seekpie.com/images/material/gaoxiao.jpg&language=zh_cn');"
+         class="share-icon weibo"></a>
       <a href="javascript: wechatShare('wechat-show', window.location.href.split('#')[0])" class="share-icon wechat"></a>
-      <a href="javascript: window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title);" class="share-icon qqzone"></a>
+      <a href="javascript: window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title);"
+         class="share-icon qqzone"></a>
       <a href="javascript: window.open('http://connect.qq.com/widget/shareqq/index.html?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + encodeURIComponent(document.title) +'&desc=' + encodeURIComponent('1. 早期(编译期)优化1.1. 概论
 前端编译器:Sun的Javac、 Eclipse JDT中的增量式编译器(ECJ)
 JIT编译器:HotSpot VM的C1、 C2编译器
 AOT编译器:GNU Compiler for the Java(GCJ)、 Excelsior JET
 
 
-javac') + '&pics=https://www.seekpie.com/images/material/gaoxiao.jpg');" class="share-icon qq"></a>
-      <a href="javascript: window.open('http://shuo.douban.com/!service/share?href=' + encodeURIComponent(location.href.split('#')[0]) + '&name=' + document.title + '&text=' + document.title);" class="share-icon douban"></a>
+javac') + '&pics=https://www.seekpie.com/images/material/gaoxiao.jpg');"
+         class="share-icon qq"></a>
+      <a href="javascript: window.open('http://shuo.douban.com/!service/share?href=' + encodeURIComponent(location.href.split('#')[0]) + '&name=' + document.title + '&text=' + document.title);"
+         class="share-icon douban"></a>
     </div>
   </div>
   <div class="wechat-show">
@@ -373,7 +394,7 @@ javac') + '&pics=https://www.seekpie.com/images/material/gaoxiao.jpg');" class="
 <div class="article-nav clearfix">
     
     <span class="prev fl">
-        上一篇<br>
+        上一篇<br >
         <a href="/2018/06/25/java-classloader/">
             
                 Java Classloader
@@ -384,10 +405,10 @@ javac') + '&pics=https://www.seekpie.com/images/material/gaoxiao.jpg');" class="
 
     
     <span class="next fr">
-        下一篇<br>
-        <a href="/2018/06/15/java-gc/">
+        下一篇<br >
+        <a href="/2018/06/15/java-collection-frame/">
             
-                Java GC
+                Java Collection Frame
             
         </a>
     </span>
@@ -401,7 +422,9 @@ javac') + '&pics=https://www.seekpie.com/images/material/gaoxiao.jpg');" class="
   </div>
 
   
-    <script src="/js/comment.js"></script>
+    
+<script src="/js/comment.js"></script>
+
     <script>
         JELON.Comment({
             container: 'comments',
@@ -425,7 +448,7 @@ javac') + '&pics=https://www.seekpie.com/images/material/gaoxiao.jpg');" class="
       <h3 class="widget-hd"><strong>文章目录</strong></h3>
       <!-- 目录 -->
       <div class="toc">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-早期-编译期-优化"><span class="post-toc-text">1. 早期(编译期)优化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-1-概论"><span class="post-toc-text">1.1. 概论</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-2-javac编译"><span class="post-toc-text">1.2. javac编译</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-2-1-编译过程"><span class="post-toc-text">1.2.1. 编译过程</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-晚期-运行期-优化"><span class="post-toc-text">2. 晚期(运行期)优化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-1-即时编译器-JIT"><span class="post-toc-text">2.1. 即时编译器(JIT)</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-%E6%97%A9%E6%9C%9F-%E7%BC%96%E8%AF%91%E6%9C%9F-%E4%BC%98%E5%8C%96"><span class="post-toc-text">1. 早期(编译期)优化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-1-%E6%A6%82%E8%AE%BA"><span class="post-toc-text">1.1. 概论</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-2-javac%E7%BC%96%E8%AF%91"><span class="post-toc-text">1.2. javac编译</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-2-1-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B"><span class="post-toc-text">1.2.1. 编译过程</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-%E6%99%9A%E6%9C%9F-%E8%BF%90%E8%A1%8C%E6%9C%9F-%E4%BC%98%E5%8C%96"><span class="post-toc-text">2. 晚期(运行期)优化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-1-%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91%E5%99%A8-JIT"><span class="post-toc-text">2.1. 即时编译器(JIT)</span></a></li></ol></li></ol>
       </div>
     </section>
     
@@ -447,9 +470,9 @@ javac') + '&pics=https://www.seekpie.com/images/material/gaoxiao.jpg');" class="
       <a href="/categories/Big-Data/">Big Data</a>
     </li>
   
-    <li title="Elasticsearch">
+    <li title="Excel4J">
       <span class="badge">(1)</span>
-      <a href="/categories/Elasticsearch/">Elasticsearch</a>
+      <a href="/categories/Excel4J/">Excel4J</a>
     </li>
   
     <li title="Database">
@@ -457,9 +480,9 @@ javac') + '&pics=https://www.seekpie.com/images/material/gaoxiao.jpg');" class="
       <a href="/categories/Database/">Database</a>
     </li>
   
-    <li title="Excel4J">
+    <li title="Elasticsearch">
       <span class="badge">(1)</span>
-      <a href="/categories/Excel4J/">Excel4J</a>
+      <a href="/categories/Elasticsearch/">Elasticsearch</a>
     </li>
   
 </ul>
@@ -483,8 +506,12 @@ javac') + '&pics=https://www.seekpie.com/images/material/gaoxiao.jpg');" class="
       Big Data(2)
     </a>
   
-    <a class="tag-item-link" href="/tags/GC/" title="GC 1篇">
-      GC(1)
+    <a class="tag-item-link" href="/tags/Excel4J/" title="Excel4J 1篇">
+      Excel4J(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Database/" title="Database 1篇">
+      Database(1)
     </a>
   
     <a class="tag-item-link" href="/tags/Elasticsearch/" title="Elasticsearch 1篇">
@@ -495,20 +522,12 @@ javac') + '&pics=https://www.seekpie.com/images/material/gaoxiao.jpg');" class="
       Interview(1)
     </a>
   
-    <a class="tag-item-link" href="/tags/Database/" title="Database 1篇">
-      Database(1)
-    </a>
-  
     <a class="tag-item-link" href="/tags/Classloader/" title="Classloader 1篇">
       Classloader(1)
     </a>
   
     <a class="tag-item-link" href="/tags/Collection/" title="Collection 1篇">
       Collection(1)
-    </a>
-  
-    <a class="tag-item-link" href="/tags/Excel4J/" title="Excel4J 1篇">
-      Excel4J(1)
     </a>
   
     <a class="tag-item-link" href="/tags/JIT/" title="JIT 1篇">
@@ -519,37 +538,33 @@ javac') + '&pics=https://www.seekpie.com/images/material/gaoxiao.jpg');" class="
       Optimize(1)
     </a>
   
-    <a class="tag-item-link" href="/tags/HTTP/" title="HTTP 1篇">
-      HTTP(1)
-    </a>
-  
     <a class="tag-item-link" href="/tags/Concurrent/" title="Concurrent 1篇">
       Concurrent(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/GC/" title="GC 1篇">
+      GC(1)
     </a>
   
     <a class="tag-item-link" href="/tags/JMM/" title="JMM 1篇">
       JMM(1)
     </a>
   
+    <a class="tag-item-link" href="/tags/Java-Monitor/" title="Java Monitor 1篇">
+      Java Monitor(1)
+    </a>
+  
 </div>
     </section>
     
 
     
-    <section class="widget visit-map">
-        <h3 class="widget-hd" style="display: inline-block"><strong>当前访客</strong></h3>
-        <div class="map-switch-btn"><a href="javascript:switchMapStyle()" class="map-switch">...</a></div>
-        <div class="widget-bd revolvermaps">
-正在加载访问地图...
-</div>
-    </section>
-    
 
     
     <section class="widget visit-map">
-      <h3 class="widget-hd" style="display: inline-block"><strong>螃蟹以死</strong></h3>
+      <h3 class="widget-hd"  style="display: inline-block"><strong>螃蟹以死</strong></h3>
       <div class="widget-bd" style="position: relative;">
-<img class="widget-bd postcard" src="https://github-readme-stats.vercel.app/api?username=crab2died&show_icons=true&theme=highcontrast&cache_seconds=60&line_height=32">
+<img class="widget-bd postcard" src="https://github-readme-stats.vercel.app/api?username=crab2died&show_icons=true&theme=highcontrast&cache_seconds=60&line_height=32"/>
 </div>
     </section>
     
@@ -557,26 +572,38 @@ javac') + '&pics=https://www.seekpie.com/images/material/gaoxiao.jpg');" class="
     
 
     
-    <!-- 友情链接 -->
+    <!-- 实用工具 -->
     <section class="widget">
-        <h3 class="widget-hd"><strong>友情链接</strong></h3>
+        <h3 class="widget-hd"><strong>实用工具</strong></h3>
         <!-- 文章分类 -->
 <ul class="widget-bd">
     
         <li>
-            <a href="https://coolshell.cn/" target="_blank" title="酷 壳">酷 壳</a>
+            <a href="/tools/time-converter.html" target="_blank" title="时间转换工具">时间转换工具</a>
         </li>
     
         <li>
-            <a href="https://segmentfault.com/" target="_blank" title="SegmentFault">思 否</a>
+            <a href="/tools/number-converter.html" target="_blank" title="进制转换工具">进制转换工具</a>
         </li>
     
         <li>
-            <a href="https://www.infoq.cn/" target="_blank" title="InfoQ">InfoQ</a>
+            <a href="/tools/scientific-calculator.html" target="_blank" title="科学计算器">科学计算器</a>
         </li>
     
         <li>
-            <a href="https://www.oschina.net/" target="_blank" title="开源中国">开源中国</a>
+            <a href="/tools/exchange-rate.html" target="_blank" title="汇率转换工具">汇率转换工具</a>
+        </li>
+    
+        <li>
+            <a href="/tools/loan-calculator.html" target="_blank" title="贷款计算器">贷款计算器</a>
+        </li>
+    
+        <li>
+            <a href="/tools/json-array-tool.html" target="_blank" title="JSON数组展示工具">JSON数组展示工具</a>
+        </li>
+    
+        <li>
+            <a href="/tools/csv-tool.html" target="_blank" title="CSV展示工具">CSV展示工具</a>
         </li>
     
 </ul>
@@ -597,7 +624,7 @@ javac') + '&pics=https://www.seekpie.com/images/material/gaoxiao.jpg');" class="
   <br>
     Copyright &copy;
     
-        2017 - 2020
+        2017 - 2025
     
 
     <a href="https://github.com/Crab2died" target="_blank"> Crab2Died </a>
@@ -608,7 +635,9 @@ javac') + '&pics=https://www.seekpie.com/images/material/gaoxiao.jpg');" class="
 
     <!--博客js脚本 -->
     <!-- 这里放网站js脚本 -->
+
 <script src="/js/main.js"></script>
+
 
 </body>
 </html>

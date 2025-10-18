@@ -1,26 +1,30 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8">
-    <meta name="baidu-site-verification" content="dIcXMeY8Ya">
+<head>
+    <meta charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8" >
+    <meta name="baidu-site-verification" content="dIcXMeY8Ya" />
     
     <title>Database | 螃蟹以死</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.3, maximum-scale=1, user-scalable=0">
-    <meta name="keywords" content="螃蟹以死(Crab2Died)的个人博客，分享学习、工作的经验总结。涉及软件开发，大数据开发，分布式系统，微服务，前端开发等">
-    <meta itemprop="name" content="0">
-    <meta itemprop="image" content="https://www.seekpie.com/images/db/mysql_logo.png  ">
-    <meta itemprop="description" name="description" content="一. 四大特性(CIAD)原子性(Atomicity): 要么全成功，要么全失败，失败会回滚。一致性(Consistency): 一致性是指事务必须使数据库从一个一致性状态变换到另一个一致性状态，也就是说一个事务执行之前和执行之后都必须处于一致性状态。隔离性(Isolation): 隔离性是当多个用户并发访问数据库时，比如操作同一张表时，数据库为每一个用户开启的事务，不能被其他事务的操作所干扰，多个并发事务之间要相互隔离。持久性(Durability): 一旦事物提交成功，那么数据库中的数据就是永久改变的，即使系统故障也不会丢失提交的事物。二. 数据库隔离级别1. 不考虑隔离级别造成的问题更新丢失: 2个事物同时更新一条数据会有一个事物把另一个事物的更新覆盖了，这是因为系统没有任何操作隔离导 ">
-    <meta name="baidu-site-verification" content="8ssDkDEucu">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.3, maximum-scale=1, user-scalable=0" />
+    <meta name="keywords" content="螃蟹以死(Crab2Died)的个人博客，分享学习、工作的经验总结。涉及软件开发，大数据开发，分布式系统，微服务，前端开发等" />
+    <meta itemprop="name" content="0" />
+    <meta itemprop="image" content="https://www.seekpie.com/images/db/mysql_logo.png  "/>
+    <meta itemprop="description" name="description"  content="一. 四大特性(CIAD)原子性(Atomicity): 要么全成功，要么全失败，失败会回滚。一致性(Consistency): 一致性是指事务必须使数据库从一个一致性状态变换到另一个一致性状态，也就是说一个事务执行之前和执行之后都必须处于一致性状态。隔离性(Isolation): 隔离性是当多个用户并发访问数据库时，比如操作同一张表时，数据库为每一个用户开启的事务，不能被其他事务的操作所干扰，多个并发事务之间要相互隔离。持久性(Durability): 一旦事物提交成功，那么数据库中的数据就是永久改变的，即使系统故障也不会丢失提交的事物。二. 数据库隔离级别1. 不考虑隔离级别造成的问题更新丢失: 2个事物同时更新一条数据会有一个事物把另一个事物的更新覆盖了，这是因为系统没有任何操作隔离导 " />
+    <meta name="baidu-site-verification" content="8ssDkDEucu" />
     
-    <link rel="alternative" href="/atom.xml" title="螃蟹以死" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="螃蟹以死" type="application/atom+xml" >
     
     
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico" >
     
-    <link rel="stylesheet" href="/css/style.css">
+    
+<link rel="stylesheet" href="/css/style.css">
+
     <!--[if lt IE 9]>
-    <script src="/js/html5.js"></script>
+    
+<script src="/js/html5.js"></script>
+
     <![endif]-->
     
     <script>
@@ -44,12 +48,20 @@
     });
 </script>
     
-    <script src="/js/jquery/jquery-2.2.0.min.js"></script>
-    <script src="/js/qrcode.min.js"></script>
-    <script src="/js/particles.js"></script>
-    <script src="/js/qq/share.js"></script>
-</head>
-</html>
+    
+<script src="/js/jquery/jquery-2.2.0.min.js"></script>
+
+    
+<script src="/js/qrcode.min.js"></script>
+
+    
+<script src="/js/particles.js"></script>
+
+    
+<script src="/js/qq/share.js"></script>
+
+<meta name="generator" content="Hexo 8.0.0"></head>
+
 <body class="home">
     <!--[if lt IE 9]>
     <div class="browsehappy">
@@ -78,30 +90,30 @@
         <ul class="menu hidden" id="JELON__menu">
             
             <li rel="/2018/07/06/database/index.html" class="item ">
-                <a href="/" title="首页" class="fa fa-home">&nbsp;首页</a>
+                <a href="/"  title="首页" class="fa fa-home">&nbsp;首页</a>
             </li>
             
             <li rel="/2018/07/06/database/index.html" class="item ">
-                <a href="/archives/" title="归档" class="fa fa-archive">&nbsp;归档</a>
+                <a href="/archives/"  title="归档" class="fa fa-archive">&nbsp;归档</a>
             </li>
             
             <li rel="/2018/07/06/database/index.html" class="item ">
-                <a href="/about/" title="关于" class="fa fa-user-circle-o">&nbsp;关于</a>
+                <a href="/about/"  title="关于" class="fa fa-user-circle-o">&nbsp;关于</a>
             </li>
             
             <li rel="/2018/07/06/database/index.html" class="item ">
-                <a href="/atom.xml" target="_blank" title="RSS" class="fa fa-rss">&nbsp;RSS</a>
+                <a href="/atom.xml" target="_blank"  title="RSS" class="fa fa-rss">&nbsp;RSS</a>
             </li>
             
             <li class="item search-item"><!-- 搜索遮罩框 -->
 <span class="local-search local-search-google local-search-plugin" id="local-search">
-  <span><input type="search" placeholder="站内搜索..." id="local-search-input" class="local-search-input-cls" style=""></span>&nbsp;
+  <span><input type="search" placeholder="站内搜索..." id="local-search-input" class="local-search-input-cls" style=""/></span>&nbsp;
   <span class="fa fa-search"></span>
   <div id="local-search-result" class="local-search-result-cls"></div>
 </span></li>
         </ul>
         <div class="profile clearfix">
-            <div class="qr-site fl" onmouseover="siteQrMouseOver()" onmouseout="siteQrMouseOut()">
+            <div class="qr-site fl"  onmouseover="siteQrMouseOver()" onmouseout="siteQrMouseOut()">
                 <div>
                     <div id="site-qr"></div>
                 </div>
@@ -134,7 +146,7 @@
                 
             </div>
             <div class="avatar fr">
-                <img src="/crab2died.png" alt="avatar" title="Crab2Died">
+                <img src="/crab2died.png" alt="avatar" title="Crab2Died" >
             </div>
         </div>
     </section>
@@ -147,7 +159,8 @@
     <!--<div class="bulletin-icon"><strong style="color: #ebd829; width: 50px"><i class="fa fa-volume-up"></i></strong></div>-->
     <div class="bulletin-content">
       
-        <marquee direction="left" behavior="scroll" scrollamount="7" scrolldelay="0" align="bottom" bgcolor="#ffffff" hspace="20" vspace="0" onmouseover="this.stop()" onmouseout="this.start()">
+        <marquee direction="left" behavior="scroll" scrollamount=7 scrolldelay=0 align="bottom" bgcolor="#ffffff" hspace=20 vspace=0
+               onmouseover=this.stop() onmouseout=this.start()>
         
       
     </marquee></div>
@@ -201,7 +214,7 @@
 </ul>
 </li>
 </ol>
-<h3 id="2-隔离级别-低-gt-高"><a href="#2-隔离级别-低-gt-高" class="headerlink" title="2. 隔离级别(低 -&gt; 高)"></a>2. 隔离级别(低 -&gt; 高)</h3><ol>
+<h3 id="2-隔离级别-低-高"><a href="#2-隔离级别-低-高" class="headerlink" title="2. 隔离级别(低 -&gt; 高)"></a>2. 隔离级别(低 -&gt; 高)</h3><ol>
 <li><strong>Read uncommitted(未授权读取、读未提交)</strong><ul>
 <li>当一个事物在执行写操作时，则不允许另一事物执行写操作，可执行其他操作，可由排他锁来实现</li>
 <li>解决了更新丢失问题，但会出现脏读</li>
@@ -230,7 +243,7 @@
 <li>修改隔离级别:<br><code>set [glogal | session] transaction isolation level 隔离级别名称</code>如<code>set transaction isolation level read-committed</code><br>或者<code>set tx_isolation=&#39;隔离级别名称&#39;</code> 如 <code>set tx_isolation = &#39;read-committed&#39;</code></li>
 </ul>
 </li>
-<li>隔离级别的设置只对当前连接有效  </li>
+<li>隔离级别的设置只对当前连接有效</li>
 </ol>
 <h3 id="4-MySQL悲观锁、乐观锁、共享锁与排他锁"><a href="#4-MySQL悲观锁、乐观锁、共享锁与排他锁" class="headerlink" title="4. MySQL悲观锁、乐观锁、共享锁与排他锁"></a>4. MySQL悲观锁、乐观锁、共享锁与排他锁</h3><ol>
 <li><strong>悲观锁</strong>: 在操作数据时都认为会出现数据冲突，所以每次都会去获取锁，只有获取锁后才能对数据操作。</li>
@@ -259,7 +272,7 @@
 <li>InnoDB支持外键,MyISAM不支持  </li>
 <li>MyISAM支持全文检索,InnoDB不支持  </li>
 <li>MyISAM内置一个数据计数器，能很容易得出<code>SELECT COUNT(*) FROM TABLE_NAME</code>结果  </li>
-<li>MyISAM索引数据与表数据分离，而InnoDB索引与表数据紧密关联  </li>
+<li>MyISAM索引数据与表数据分离，而InnoDB索引与表数据紧密关联</li>
 </ul>
 </li>
 </ol>
@@ -274,7 +287,7 @@
 
   <!-- 目录 -->
   <div class="catalog">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-四大特性-CIAD"><span class="toc-text">一. 四大特性(CIAD)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-数据库隔离级别"><span class="toc-text">二. 数据库隔离级别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-不考虑隔离级别造成的问题"><span class="toc-text">1. 不考虑隔离级别造成的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-隔离级别-低-gt-高"><span class="toc-text">2. 隔离级别(低 -&gt; 高)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-扩展"><span class="toc-text">3. 扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-MySQL悲观锁、乐观锁、共享锁与排他锁"><span class="toc-text">4. MySQL悲观锁、乐观锁、共享锁与排他锁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-数据库的三大范式-Normal-Form"><span class="toc-text">三. 数据库的三大范式(Normal Form)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四-数据库数据结构"><span class="toc-text">四. 数据库数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五-mysql的MyISAM与InnoDB"><span class="toc-text">五. mysql的MyISAM与InnoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六-SQL功能"><span class="toc-text">六. SQL功能</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E5%9B%9B%E5%A4%A7%E7%89%B9%E6%80%A7-CIAD"><span class="toc-text">一. 四大特性(CIAD)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-text">二. 数据库隔离级别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%8D%E8%80%83%E8%99%91%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E9%80%A0%E6%88%90%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">1. 不考虑隔离级别造成的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB-%E4%BD%8E-%E9%AB%98"><span class="toc-text">2. 隔离级别(低 -&gt; 高)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%89%A9%E5%B1%95"><span class="toc-text">3. 扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-MySQL%E6%82%B2%E8%A7%82%E9%94%81%E3%80%81%E4%B9%90%E8%A7%82%E9%94%81%E3%80%81%E5%85%B1%E4%BA%AB%E9%94%81%E4%B8%8E%E6%8E%92%E4%BB%96%E9%94%81"><span class="toc-text">4. MySQL悲观锁、乐观锁、共享锁与排他锁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F-Normal-Form"><span class="toc-text">三. 数据库的三大范式(Normal Form)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">四. 数据库数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-mysql%E7%9A%84MyISAM%E4%B8%8EInnoDB"><span class="toc-text">五. mysql的MyISAM与InnoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-SQL%E5%8A%9F%E8%83%BD"><span class="toc-text">六. SQL功能</span></a></li></ol>
   </div>
 
   <p class="post-meta">
@@ -296,15 +309,19 @@
   <div class="article-share clearfix text-center">
     <div class="share-area">
       <span class="share-txt">分享到：</span>
-      <a href="javascript: window.open('http://service.weibo.com/share/share.php?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title + '&pic=https://www.seekpie.com/images/db/mysql_logo.png&language=zh_cn');" class="share-icon weibo"></a>
+      <a href="javascript: window.open('http://service.weibo.com/share/share.php?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title + '&pic=https://www.seekpie.com/images/db/mysql_logo.png&language=zh_cn');"
+         class="share-icon weibo"></a>
       <a href="javascript: wechatShare('wechat-show', window.location.href.split('#')[0])" class="share-icon wechat"></a>
-      <a href="javascript: window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title);" class="share-icon qqzone"></a>
+      <a href="javascript: window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + document.title);"
+         class="share-icon qqzone"></a>
       <a href="javascript: window.open('http://connect.qq.com/widget/shareqq/index.html?url=' + encodeURIComponent(location.href.split('#')[0]) + '&title=' + encodeURIComponent(document.title) +'&desc=' + encodeURIComponent('一. 四大特性(CIAD)
 原子性(Atomicity): 要么全成功，要么全失败，失败会回滚。
 一致性(Consistency): 一致性是指事务必须使数据库从一个一致性状态变换到另一个一致性状态，也就是说一个事务执
 行之前和执行之后都必须处于一致性状态。
-隔离性(Isolation): 隔离性是') + '&pics=https://www.seekpie.com/images/db/mysql_logo.png');" class="share-icon qq"></a>
-      <a href="javascript: window.open('http://shuo.douban.com/!service/share?href=' + encodeURIComponent(location.href.split('#')[0]) + '&name=' + document.title + '&text=' + document.title);" class="share-icon douban"></a>
+隔离性(Isolation): 隔离性是') + '&pics=https://www.seekpie.com/images/db/mysql_logo.png');"
+         class="share-icon qq"></a>
+      <a href="javascript: window.open('http://shuo.douban.com/!service/share?href=' + encodeURIComponent(location.href.split('#')[0]) + '&name=' + document.title + '&text=' + document.title);"
+         class="share-icon douban"></a>
     </div>
   </div>
   <div class="wechat-show">
@@ -319,7 +336,7 @@
 <div class="article-nav clearfix">
     
     <span class="prev fl">
-        上一篇<br>
+        上一篇<br >
         <a href="/2018/07/16/redis-cache-summarize/">
             
                 Redis Cache Summarize
@@ -330,7 +347,7 @@
 
     
     <span class="next fr">
-        下一篇<br>
+        下一篇<br >
         <a href="/2018/06/25/java-classloader/">
             
                 Java Classloader
@@ -347,7 +364,9 @@
   </div>
 
   
-    <script src="/js/comment.js"></script>
+    
+<script src="/js/comment.js"></script>
+
     <script>
         JELON.Comment({
             container: 'comments',
@@ -371,7 +390,7 @@
       <h3 class="widget-hd"><strong>文章目录</strong></h3>
       <!-- 目录 -->
       <div class="toc">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一-四大特性-CIAD"><span class="post-toc-text">一. 四大特性(CIAD)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二-数据库隔离级别"><span class="post-toc-text">二. 数据库隔离级别</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-不考虑隔离级别造成的问题"><span class="post-toc-text">1. 不考虑隔离级别造成的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-隔离级别-低-gt-高"><span class="post-toc-text">2. 隔离级别(低 -&gt; 高)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-扩展"><span class="post-toc-text">3. 扩展</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-MySQL悲观锁、乐观锁、共享锁与排他锁"><span class="post-toc-text">4. MySQL悲观锁、乐观锁、共享锁与排他锁</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三-数据库的三大范式-Normal-Form"><span class="post-toc-text">三. 数据库的三大范式(Normal Form)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#四-数据库数据结构"><span class="post-toc-text">四. 数据库数据结构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#五-mysql的MyISAM与InnoDB"><span class="post-toc-text">五. mysql的MyISAM与InnoDB</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#六-SQL功能"><span class="post-toc-text">六. SQL功能</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%80-%E5%9B%9B%E5%A4%A7%E7%89%B9%E6%80%A7-CIAD"><span class="post-toc-text">一. 四大特性(CIAD)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BA%8C-%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="post-toc-text">二. 数据库隔离级别</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-%E4%B8%8D%E8%80%83%E8%99%91%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E9%80%A0%E6%88%90%E7%9A%84%E9%97%AE%E9%A2%98"><span class="post-toc-text">1. 不考虑隔离级别造成的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB-%E4%BD%8E-%E9%AB%98"><span class="post-toc-text">2. 隔离级别(低 -&gt; 高)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-%E6%89%A9%E5%B1%95"><span class="post-toc-text">3. 扩展</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-MySQL%E6%82%B2%E8%A7%82%E9%94%81%E3%80%81%E4%B9%90%E8%A7%82%E9%94%81%E3%80%81%E5%85%B1%E4%BA%AB%E9%94%81%E4%B8%8E%E6%8E%92%E4%BB%96%E9%94%81"><span class="post-toc-text">4. MySQL悲观锁、乐观锁、共享锁与排他锁</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%89-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F-Normal-Form"><span class="post-toc-text">三. 数据库的三大范式(Normal Form)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%9B%9B-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="post-toc-text">四. 数据库数据结构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BA%94-mysql%E7%9A%84MyISAM%E4%B8%8EInnoDB"><span class="post-toc-text">五. mysql的MyISAM与InnoDB</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%85%AD-SQL%E5%8A%9F%E8%83%BD"><span class="post-toc-text">六. SQL功能</span></a></li></ol>
       </div>
     </section>
     
@@ -393,9 +412,9 @@
       <a href="/categories/Big-Data/">Big Data</a>
     </li>
   
-    <li title="Elasticsearch">
+    <li title="Excel4J">
       <span class="badge">(1)</span>
-      <a href="/categories/Elasticsearch/">Elasticsearch</a>
+      <a href="/categories/Excel4J/">Excel4J</a>
     </li>
   
     <li title="Database">
@@ -403,9 +422,9 @@
       <a href="/categories/Database/">Database</a>
     </li>
   
-    <li title="Excel4J">
+    <li title="Elasticsearch">
       <span class="badge">(1)</span>
-      <a href="/categories/Excel4J/">Excel4J</a>
+      <a href="/categories/Elasticsearch/">Elasticsearch</a>
     </li>
   
 </ul>
@@ -429,8 +448,12 @@
       Big Data(2)
     </a>
   
-    <a class="tag-item-link" href="/tags/GC/" title="GC 1篇">
-      GC(1)
+    <a class="tag-item-link" href="/tags/Excel4J/" title="Excel4J 1篇">
+      Excel4J(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/Database/" title="Database 1篇">
+      Database(1)
     </a>
   
     <a class="tag-item-link" href="/tags/Elasticsearch/" title="Elasticsearch 1篇">
@@ -441,20 +464,12 @@
       Interview(1)
     </a>
   
-    <a class="tag-item-link" href="/tags/Database/" title="Database 1篇">
-      Database(1)
-    </a>
-  
     <a class="tag-item-link" href="/tags/Classloader/" title="Classloader 1篇">
       Classloader(1)
     </a>
   
     <a class="tag-item-link" href="/tags/Collection/" title="Collection 1篇">
       Collection(1)
-    </a>
-  
-    <a class="tag-item-link" href="/tags/Excel4J/" title="Excel4J 1篇">
-      Excel4J(1)
     </a>
   
     <a class="tag-item-link" href="/tags/JIT/" title="JIT 1篇">
@@ -465,37 +480,33 @@
       Optimize(1)
     </a>
   
-    <a class="tag-item-link" href="/tags/HTTP/" title="HTTP 1篇">
-      HTTP(1)
-    </a>
-  
     <a class="tag-item-link" href="/tags/Concurrent/" title="Concurrent 1篇">
       Concurrent(1)
+    </a>
+  
+    <a class="tag-item-link" href="/tags/GC/" title="GC 1篇">
+      GC(1)
     </a>
   
     <a class="tag-item-link" href="/tags/JMM/" title="JMM 1篇">
       JMM(1)
     </a>
   
+    <a class="tag-item-link" href="/tags/Java-Monitor/" title="Java Monitor 1篇">
+      Java Monitor(1)
+    </a>
+  
 </div>
     </section>
     
 
     
-    <section class="widget visit-map">
-        <h3 class="widget-hd" style="display: inline-block"><strong>当前访客</strong></h3>
-        <div class="map-switch-btn"><a href="javascript:switchMapStyle()" class="map-switch">...</a></div>
-        <div class="widget-bd revolvermaps">
-正在加载访问地图...
-</div>
-    </section>
-    
 
     
     <section class="widget visit-map">
-      <h3 class="widget-hd" style="display: inline-block"><strong>螃蟹以死</strong></h3>
+      <h3 class="widget-hd"  style="display: inline-block"><strong>螃蟹以死</strong></h3>
       <div class="widget-bd" style="position: relative;">
-<img class="widget-bd postcard" src="https://github-readme-stats.vercel.app/api?username=crab2died&show_icons=true&theme=highcontrast&cache_seconds=60&line_height=32">
+<img class="widget-bd postcard" src="https://github-readme-stats.vercel.app/api?username=crab2died&show_icons=true&theme=highcontrast&cache_seconds=60&line_height=32"/>
 </div>
     </section>
     
@@ -503,26 +514,38 @@
     
 
     
-    <!-- 友情链接 -->
+    <!-- 实用工具 -->
     <section class="widget">
-        <h3 class="widget-hd"><strong>友情链接</strong></h3>
+        <h3 class="widget-hd"><strong>实用工具</strong></h3>
         <!-- 文章分类 -->
 <ul class="widget-bd">
     
         <li>
-            <a href="https://coolshell.cn/" target="_blank" title="酷 壳">酷 壳</a>
+            <a href="/tools/time-converter.html" target="_blank" title="时间转换工具">时间转换工具</a>
         </li>
     
         <li>
-            <a href="https://segmentfault.com/" target="_blank" title="SegmentFault">思 否</a>
+            <a href="/tools/number-converter.html" target="_blank" title="进制转换工具">进制转换工具</a>
         </li>
     
         <li>
-            <a href="https://www.infoq.cn/" target="_blank" title="InfoQ">InfoQ</a>
+            <a href="/tools/scientific-calculator.html" target="_blank" title="科学计算器">科学计算器</a>
         </li>
     
         <li>
-            <a href="https://www.oschina.net/" target="_blank" title="开源中国">开源中国</a>
+            <a href="/tools/exchange-rate.html" target="_blank" title="汇率转换工具">汇率转换工具</a>
+        </li>
+    
+        <li>
+            <a href="/tools/loan-calculator.html" target="_blank" title="贷款计算器">贷款计算器</a>
+        </li>
+    
+        <li>
+            <a href="/tools/json-array-tool.html" target="_blank" title="JSON数组展示工具">JSON数组展示工具</a>
+        </li>
+    
+        <li>
+            <a href="/tools/csv-tool.html" target="_blank" title="CSV展示工具">CSV展示工具</a>
         </li>
     
 </ul>
@@ -543,7 +566,7 @@
   <br>
     Copyright &copy;
     
-        2017 - 2020
+        2017 - 2025
     
 
     <a href="https://github.com/Crab2died" target="_blank"> Crab2Died </a>
@@ -554,7 +577,9 @@
 
     <!--博客js脚本 -->
     <!-- 这里放网站js脚本 -->
+
 <script src="/js/main.js"></script>
+
 
 </body>
 </html>
