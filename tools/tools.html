@@ -150,7 +150,7 @@
             </div>
 
             <div class="nav-card" onclick="showTool('time')">
-                <h3><span class="icon">⏰</span>时间转换工具</h3>
+                <h3><span class="icon">🕐</span>时间转换工具</h3>
                 <p>时区转换、时间戳转换，支持夏令时自动识别</p>
             </div>
 
@@ -164,9 +164,49 @@
                 <p>等额本息、等额本金计算，支持组合贷款和详细还款计划</p>
             </div>
 
+            <div class="nav-card" onclick="showTool('tax')">
+                <h3><span class="icon">💰</span>个人所得税计算器</h3>
+                <p>支持工资、年终奖、股票所得和偶然所得的个税计算</p>
+            </div>
+
             <div class="nav-card" onclick="showTool('converter')">
                 <h3><span class="icon">🔢</span>进制转换工具</h3>
                 <p>支持2-36进制之间的数字转换，包含转换历史记录</p>
+            </div>
+
+            <div class="nav-card" onclick="showTool('encoder')">
+                <h3><span class="icon">🔐</span>编解码工具</h3>
+                <p>支持Base64、URL、HTML、Unicode等多种编码格式的编码和解码</p>
+            </div>
+
+            <div class="nav-card" onclick="showTool('crypto')">
+                <h3><span class="icon">🔒</span>加解密工具</h3>
+                <p>支持对称加密、非对称加密、HMAC签名等多种加密算法</p>
+            </div>
+
+            <div class="nav-card" onclick="showTool('unit')">
+                <h3><span class="icon">📏</span>单位转换工具</h3>
+                <p>支持长度、重量、面积、体积、密度、温度、时间、速度、数据等各类单位转换</p>
+            </div>
+
+            <div class="nav-card" onclick="showTool('regex')">
+                <h3><span class="icon">🔍</span>正则表达式工具</h3>
+                <p>强大的正则表达式测试、匹配和替换工具，支持常用模板和历史记录</p>
+            </div>
+
+            <div class="nav-card" onclick="showTool('cron')">
+                <h3><span class="icon">⏰</span>Cron表达式生成工具</h3>
+                <p>可视化配置定时任务Cron表达式，支持Quartz和Spring格式</p>
+            </div>
+
+            <div class="nav-card" onclick="showTool('compression')">
+                <h3><span class="icon">📦</span>解压缩工具</h3>
+                <p>支持Gzip、Deflate、LZ-String等多种压缩算法的压缩和解压操作</p>
+            </div>
+
+            <div class="nav-card" onclick="showTool('formatter')">
+                <h3><span class="icon">✨</span>代码格式化工具</h3>
+                <p>支持JSON、XML、HTML、CSS、SQL、YAML、Markdown等各种格式</p>
             </div>
 
             <div class="nav-card" onclick="showTool('csv')">
@@ -194,7 +234,15 @@
                 'exchange': 'exchange-rate.html',
                 'calculator': 'scientific-calculator.html',
                 'loan': 'loan-calculator.html',
-                'converter': 'number-converter.html'
+                'converter': 'number-converter.html',
+                'encoder': 'encoder-decoder.html',
+                'tax': 'tax-calculator.html',
+                'unit': 'unit-converter.html',
+                'regex': 'regex-tool.html',
+                'cron': 'cron-tool.html',
+                'crypto': 'crypto-tool.html',
+                'compression': 'compression-tool.html',
+                'formatter': 'formatter-tool.html'
             };
 
             const filename = toolFileMap[toolName];

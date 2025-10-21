@@ -22,37 +22,34 @@
         }
 
         .container {
+            max-width: 1400px;
+            margin: 0 auto;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            max-width: 800px;
-            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
         .header {
-            text-align: center;
-            margin-bottom: 30px;
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: white;
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
         }
 
         .header h1 {
-            color: #333;
             font-size: 2.5em;
             margin-bottom: 10px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-weight: 300;
         }
 
         .header p {
-            /* color: #666; */
             font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
         }
 
         .conversion-form {
@@ -362,28 +359,18 @@
             color: #495057;
         }
 
-        /* 平板和中等屏幕 */
-        @media (max-width: 1024px) {
-            .container {
-                padding: 35px;
-            }
-        }
-
         /* 移动端优化 */
         @media (max-width: 768px) {
             body {
                 padding: 10px;
             }
 
-            .container {
+            .content {
                 padding: 20px 15px;
-                border-radius: 15px;
             }
 
             .header {
                 padding: 20px 15px;
-                margin-bottom: 20px;
-                border-radius: 12px;
             }
 
             .header h1 {
@@ -512,6 +499,21 @@
                 padding: 6px 12px;
                 font-size: 0.85em;
             }
+
+            .examples {
+                padding: 15px;
+                margin-top: 20px;
+                border-radius: 10px;
+            }
+
+            .examples h4 {
+                font-size: 1.1em;
+                margin-bottom: 12px;
+            }
+
+            .example-item {
+                font-size: 0.9em;
+            }
         }
 
         /* 小屏手机优化 */
@@ -520,14 +522,12 @@
                 padding: 8px;
             }
 
-            .container {
+            .content {
                 padding: 15px 12px;
-                border-radius: 12px;
             }
 
             .header {
                 padding: 15px 12px;
-                border-radius: 10px;
             }
 
             .header h1 {
@@ -612,6 +612,20 @@
                 padding: 5px 10px;
                 font-size: 0.8em;
             }
+
+            .examples {
+                padding: 12px;
+                margin-top: 15px;
+            }
+
+            .examples h4 {
+                font-size: 1em;
+                margin-bottom: 10px;
+            }
+
+            .example-item {
+                font-size: 0.85em;
+            }
         }
 
         /* 超小屏手机 */
@@ -641,17 +655,26 @@
             .history-header h3 {
                 font-size: 1em;
             }
+
+            .examples h4 {
+                font-size: 0.95em;
+            }
+
+            .example-item {
+                font-size: 0.8em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>进制转换工具</h1>
+            <h1>🔢 进制转换工具</h1>
             <p>支持2-36进制之间的任意转换，包括二进制、八进制、十进制、十六进制等</p>
         </div>
 
-        <form class="conversion-form" id="conversionForm">
+        <div class="content">
+            <form class="conversion-form" id="conversionForm">
             <div class="input-group">
                 <label for="inputBase">输入进制：</label>
                 <div class="input-row">
@@ -781,6 +804,7 @@
             <div class="example-item">• 十六进制: FF → 三十二进制: 7V</div>
             <div class="example-item">• 十进制: 100 → 二进制: 1100100</div>
             <div class="example-item">• 三十六进制: Z → 十进制: 35</div>
+        </div>
         </div>
     </div>
 
