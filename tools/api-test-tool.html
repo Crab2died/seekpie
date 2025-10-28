@@ -1362,7 +1362,7 @@
             <!-- 请求配置区域 -->
             <div class="section">
                 <div class="section-title">📤 请求配置</div>
-                
+
                 <div class="request-line">
                     <select id="httpMethod" class="method-select">
                         <option value="GET">GET</option>
@@ -1399,7 +1399,7 @@
                         <h4>💡 使用提示</h4>
                         <p>在URL中输入带查询参数的地址会自动解析（鼠标离开输入框后触发），例如：<br>
                         <code>https://api.example.com/users?id=123&name=John</code><br>
-                        <code>/api/users?id=123&name=John</code> （不需要完整URL）<br>
+                        <code>/api/users?id=123&name=John</code> <br>
                         参数将自动提取到下方列表，URL保持不变。发送请求时会合并URL中的参数和下方列表中的参数。</p>
                     </div>
                     <div id="paramsList" class="key-value-list"></div>
@@ -1412,7 +1412,7 @@
                         <h4>💡 使用提示</h4>
                         <p>在URL中使用 <code>{变量名}</code> 或 <code>:变量名</code> 格式定义路径参数，例如：<br>
                         <code>https://api.example.com/users/{userId}/posts/{postId}</code></p>
-                        <p style="margin-top: 8px;">⚠️ 注意：<code>{{'{{'}}变量名}}</code> 格式是全局变量，不会被识别为路径参数</p>
+                        <p style="margin-top: 8px;">⚠️ 注意：<code>{{变量名}}</code> 格式是全局变量，不会被识别为路径参数</p>
                     </div>
                     <div id="pathVarsList" class="key-value-list"></div>
                     <button class="btn btn-secondary btn-small" onclick="addPathVar()">➕ 添加路径参数</button>
@@ -1612,9 +1612,9 @@
                 <div class="modal-body">
                     <div class="info-box" style="margin-bottom: 20px;">
                         <h4>💡 使用说明</h4>
-                        <p>• 使用 <code>{{'{{'}}变量名}}</code> 格式在任何输入框中引用变量<br>
+                        <p>• 使用 <code>{{变量名}}</code> 格式在任何输入框中引用变量<br>
                         • 支持在URL、参数、Headers、Body等位置使用<br>
-                        • 例如：URL输入 <code>{{'{{'}}baseUrl}}/users/{{'{{'}}userId}}</code></p>
+                        • 例如：URL输入 <code>{{baseUrl}}/users/{{userId}}</code></p>
                     </div>
                     <div id="variablesList" class="key-value-list"></div>
                     <button class="btn btn-secondary btn-small" onclick="addVariable()">➕ 添加变量</button>
@@ -1644,20 +1644,20 @@
             loadHistory();
             loadGlobalVariables();
             initVariableHints();
-            
+
             // 监听URL变化，鼠标离开时自动检测路径参数和查询参数
             const urlInput = document.getElementById('apiUrl');
             urlInput.addEventListener('blur', function() {
                 // 如果正在加载历史记录，不自动解析
                 if (isLoadingHistory) return;
-                
+
                 autoDetectPathVariables();
                 autoDetectQueryParams();
             });
         });
 
         // ==================== 全局变量管理 ====================
-        
+
         // 加载全局变量
         function loadGlobalVariables() {
             const stored = localStorage.getItem('api_global_variables');
@@ -1679,16 +1679,16 @@
         function openVariablesModal() {
             const modal = document.getElementById('variablesModal');
             modal.classList.add('show');
-            
+
             // 加载变量到列表
             const variablesList = document.getElementById('variablesList');
             variablesList.innerHTML = '';
             variablesCount = 0;
-            
+
             Object.entries(globalVariables).forEach(([key, value]) => {
                 addVariable(key, value);
             });
-            
+
             // 如果没有变量，添加一个空行
             if (Object.keys(globalVariables).length === 0) {
                 addVariable();
@@ -1719,18 +1719,18 @@
             const variablesList = document.getElementById('variablesList');
             const rows = variablesList.querySelectorAll('.key-value-row');
             const newVariables = {};
-            
+
             rows.forEach(row => {
                 const keyInput = row.querySelector('.key-input');
                 const valueInput = row.querySelector('.value-input');
                 const key = keyInput ? keyInput.value.trim() : '';
                 const value = valueInput ? valueInput.value.trim() : '';
-                
+
                 if (key) {
                     newVariables[key] = value;
                 }
             });
-            
+
             globalVariables = newVariables;
             saveGlobalVariablesToStorage();
             closeVariablesModal();
@@ -1739,7 +1739,7 @@
         // 替换文本中的变量
         function replaceVariables(text) {
             if (!text) return text;
-            
+
             // 匹配 {{variableName}} 格式
             return text.replace(/\{\{([^}]+)\}\}/g, (match, varName) => {
                 const trimmedName = varName.trim();
@@ -1767,11 +1767,11 @@
                 '#jsonBody',
                 '#textBody'
             ];
-            
+
             // 使用事件委托来处理动态添加的输入框
             document.addEventListener('input', function(e) {
                 const target = e.target;
-                
+
                 // 检查是否是相关的输入框
                 const isRelevantInput = inputSelectors.some(selector => {
                     if (selector.startsWith('#')) {
@@ -1780,7 +1780,7 @@
                         return target.classList.contains(selector.substring(1));
                     }
                 });
-                
+
                 if (isRelevantInput) {
                     handleVariableHint(target);
                 }
@@ -1791,16 +1791,16 @@
         function handleVariableHint(input) {
             const value = input.value;
             const cursorPos = input.selectionStart;
-            
+
             // 查找最近的 {{ 位置
             const textBeforeCursor = value.substring(0, cursorPos);
             const lastBracePos = textBeforeCursor.lastIndexOf('{{');
-            
+
             if (lastBracePos !== -1) {
                 // 检查在 {{ 之后是否有 }}
                 const textAfterBrace = textBeforeCursor.substring(lastBracePos + 2);
                 const hasClosingBrace = textAfterBrace.indexOf('}}') !== -1;
-                
+
                 if (!hasClosingBrace) {
                     // 显示变量提示
                     const searchTerm = textAfterBrace.toLowerCase();
@@ -1808,7 +1808,7 @@
                     return;
                 }
             }
-            
+
             // 隐藏提示
             hideVariableHints();
         }
@@ -1818,12 +1818,12 @@
             const variables = Object.keys(globalVariables).filter(key =>
                 key.toLowerCase().includes(searchTerm)
             );
-            
+
             if (variables.length === 0) {
                 hideVariableHints();
                 return;
             }
-            
+
             // 创建或获取提示框
             let hintBox = document.getElementById('variableHintBox');
             if (!hintBox) {
@@ -1832,7 +1832,7 @@
                 hintBox.className = 'variable-hint';
                 document.body.appendChild(hintBox);
             }
-            
+
             // 填充提示内容
             hintBox.innerHTML = variables.map(key => `
                 <div class="variable-hint-item" onclick="insertVariable('${key}')">
@@ -1840,14 +1840,14 @@
                     <span class="variable-hint-value">${escapeHtml(globalVariables[key])}</span>
                 </div>
             `).join('');
-            
+
             // 定位提示框
             const rect = input.getBoundingClientRect();
             hintBox.style.position = 'fixed';
             hintBox.style.left = rect.left + 'px';
             hintBox.style.top = (rect.bottom + 5) + 'px';
             hintBox.classList.add('show');
-            
+
             // 保存当前输入框的引用
             hintBox.dataset.targetInput = input.id || input.className;
             window.currentHintInput = input;
@@ -1868,27 +1868,27 @@
                 hideVariableHints();
                 return;
             }
-            
+
             const value = input.value;
             const cursorPos = input.selectionStart;
             const textBeforeCursor = value.substring(0, cursorPos);
             const textAfterCursor = value.substring(cursorPos);
-            
+
             // 查找最近的 {{ 位置
             const lastBracePos = textBeforeCursor.lastIndexOf('{{');
-            
+
             if (lastBracePos !== -1) {
-                const newValue = 
+                const newValue =
                     value.substring(0, lastBracePos) +
                     '{{' + varName + '}}' +
                     textAfterCursor;
-                
+
                 input.value = newValue;
                 const newCursorPos = lastBracePos + varName.length + 4; // {{varName}}
                 input.setSelectionRange(newCursorPos, newCursorPos);
                 input.focus();
             }
-            
+
             hideVariableHints();
         }
 
@@ -1923,7 +1923,7 @@
         // 切换认证类型
         function switchAuthType() {
             const authType = document.getElementById('authType').value;
-            
+
             document.querySelectorAll('.auth-content').forEach(content => {
                 content.classList.remove('active');
                 content.style.display = 'none';
@@ -1950,7 +1950,7 @@
             document.querySelectorAll('#responseBody, #responseHeaders').forEach(tab => {
                 tab.classList.remove('active');
             });
-            
+
             const tabs = document.querySelector('#responseSection .tabs').children;
             Array.from(tabs).forEach(tab => {
                 tab.classList.remove('active');
@@ -1963,7 +1963,7 @@
         // 切换Body类型
         function switchBodyType(type) {
             currentBodyType = type;
-            
+
             document.querySelectorAll('.body-type-option').forEach(opt => {
                 opt.classList.remove('active');
             });
@@ -2020,7 +2020,7 @@
         function autoDetectPathVariables() {
             const url = document.getElementById('apiUrl').value;
             const pathVarsList = document.getElementById('pathVarsList');
-            
+
             // 如果URL为空，清空路径变量列表
             if (!url) {
                 pathVarsList.innerHTML = '';
@@ -2032,15 +2032,15 @@
             // 注意：排除 {{variable}} 格式（全局变量）
             const curlyBracePattern = /(?<!\{)\{([^}]+)\}(?!\})/g;  // {variable} 但不是 {{variable}}
             const colonPattern = /:([a-zA-Z_][a-zA-Z0-9_]*)/g;
-            
+
             const detectedVars = new Set();
-            
+
             // 检测 {variable} 格式（排除全局变量 {{variable}}）
             let match;
             while ((match = curlyBracePattern.exec(url)) !== null) {
                 detectedVars.add(match[1]);
             }
-            
+
             // 检测 :variable 格式
             while ((match = colonPattern.exec(url)) !== null) {
                 detectedVars.add(match[1]);
@@ -2074,7 +2074,7 @@
         function autoDetectQueryParams() {
             const url = document.getElementById('apiUrl').value.trim();
             const paramsList = document.getElementById('paramsList');
-            
+
             // 如果URL为空，清空参数列表
             if (!url) {
                 paramsList.innerHTML = '';
@@ -2113,7 +2113,7 @@
             // 检查是否有新的参数需要添加
             let hasNewParams = false;
             const newParams = [];
-            
+
             searchParams.forEach((value, key) => {
                 if (!existingParams.has(key)) {
                     newParams.push({ key, value });
@@ -2222,7 +2222,7 @@
                 <div class="key-value-row" id="header-${id}">
                     <input type="checkbox" checked>
                     <div class="autocomplete-wrapper">
-                        <input type="text" class="key-input" placeholder="Header名称" 
+                        <input type="text" class="key-input" placeholder="Header名称"
                                autocomplete="off"
                                data-header-id="${id}"
                                onfocus="showHeaderSuggestions(${id})"
@@ -2249,7 +2249,7 @@
         function showHeaderSuggestions(headerId) {
             const suggestions = document.getElementById(`headerNameSuggestions-${headerId}`);
             if (!suggestions) return;
-            
+
             const headerNames = Object.keys(commonHeaders);
             suggestions.innerHTML = headerNames
                 .map(name => `<div class="autocomplete-suggestion" onclick="selectHeaderName(${headerId}, '${name}')">${name}</div>`)
@@ -2261,16 +2261,16 @@
         function filterHeaderSuggestions(headerId) {
             const row = document.getElementById(`header-${headerId}`);
             if (!row) return;
-            
+
             const input = row.querySelector('.key-input');
             const suggestions = document.getElementById(`headerNameSuggestions-${headerId}`);
             if (!input || !suggestions) return;
-            
+
             const filter = input.value.toLowerCase();
-            const headerNames = Object.keys(commonHeaders).filter(name => 
+            const headerNames = Object.keys(commonHeaders).filter(name =>
                 name.toLowerCase().includes(filter)
             );
-            
+
             if (headerNames.length > 0 && filter) {
                 suggestions.innerHTML = headerNames
                     .map(name => `<div class="autocomplete-suggestion" onclick="selectHeaderName(${headerId}, '${name}')">${name}</div>`)
@@ -2297,7 +2297,7 @@
         function selectHeaderName(headerId, name) {
             const row = document.getElementById(`header-${headerId}`);
             if (!row) return;
-            
+
             const input = row.querySelector('.key-input');
             if (input) {
                 input.value = name;
@@ -2317,13 +2317,13 @@
         function showHeaderValueSuggestions(headerId) {
             const row = document.getElementById(`header-${headerId}`);
             if (!row) return;
-            
+
             const keyInput = row.querySelector('.key-input');
             const suggestions = document.getElementById(`headerValueSuggestions-${headerId}`);
             if (!keyInput || !suggestions) return;
-            
+
             const headerName = keyInput.value.trim();
-            
+
             if (commonHeaders[headerName] && commonHeaders[headerName].length > 0) {
                 suggestions.innerHTML = commonHeaders[headerName]
                     .map(value => {
@@ -2341,20 +2341,20 @@
         function filterHeaderValueSuggestions(headerId) {
             const row = document.getElementById(`header-${headerId}`);
             if (!row) return;
-            
+
             const keyInput = row.querySelector('.key-input');
             const valueInput = row.querySelector('.value-input');
             const suggestions = document.getElementById(`headerValueSuggestions-${headerId}`);
             if (!keyInput || !valueInput || !suggestions) return;
-            
+
             const headerName = keyInput.value.trim();
             const filter = valueInput.value.toLowerCase();
-            
+
             if (commonHeaders[headerName]) {
                 const filteredValues = commonHeaders[headerName].filter(value =>
                     value.toLowerCase().includes(filter)
                 );
-                
+
                 if (filteredValues.length > 0 && filter) {
                     suggestions.innerHTML = filteredValues
                         .map(value => {
@@ -2385,7 +2385,7 @@
         function selectHeaderValue(headerId, value) {
             const row = document.getElementById(`header-${headerId}`);
             if (!row) return;
-            
+
             const input = row.querySelector('.value-input');
             if (input) {
                 input.value = value;
@@ -2444,7 +2444,7 @@
 
                 const key = keyInput ? keyInput.value.trim() : '';
                 const value = valueInput ? valueInput.value.trim() : '';
-                
+
                 if (key || value) { // 只保存有内容的行
                     data.push({
                         enabled: checkbox ? checkbox.checked : true,
@@ -2482,7 +2482,7 @@
                     const apiKeyName = replaceVariables(document.getElementById('apiKeyName').value.trim());
                     const apiKeyValue = replaceVariables(document.getElementById('apiKeyValue').value.trim());
                     const apiKeyLocation = document.getElementById('apiKeyLocation').value;
-                    
+
                     if (apiKeyName && apiKeyValue) {
                         if (apiKeyLocation === 'header') {
                             headers[apiKeyName] = apiKeyValue;
@@ -2615,7 +2615,7 @@
                 // 获取响应内容
                 const contentType = response.headers.get('content-type');
                 let responseBody;
-                
+
                 if (contentType && contentType.includes('application/json')) {
                     try {
                         responseBody = await response.json();
@@ -2641,7 +2641,7 @@
                 const allPathVars = getAllKeyValueData('pathVarsList');
                 const allHeaders = getAllKeyValueData('headersList');
                 const allFormData = currentBodyType === 'form' ? getAllKeyValueData('formDataList') : [];
-                
+
                 // 获取认证信息
                 const authData = {
                     type: document.getElementById('authType').value,
@@ -2654,7 +2654,7 @@
                     oauth2Token: document.getElementById('oauth2Token').value,
                     oauth2TokenType: document.getElementById('oauth2TokenType').value
                 };
-                
+
                 // 获取Body数据
                 const bodyData = {
                     type: currentBodyType,
@@ -2662,7 +2662,7 @@
                     textBody: document.getElementById('textBody').value,
                     formData: allFormData
                 };
-                
+
                 // 使用原始URL，不使用处理后的URL
                 saveToHistory(method, originalUrl, response.status, duration, allParams, allPathVars, allHeaders, authData, bodyData);
 
@@ -2831,7 +2831,7 @@
                 const originalText = button.textContent;
                 button.textContent = '✅ 已复制';
                 button.style.background = '#28a745';
-                
+
                 setTimeout(() => {
                     button.textContent = originalText;
                     button.style.background = '#667eea';
@@ -2860,7 +2860,7 @@
             document.getElementById('jsonBody').value = '';
             document.getElementById('textBody').value = '';
             document.getElementById('responseSection').classList.remove('show');
-            
+
             // 清空认证信息
             document.getElementById('authType').value = 'none';
             document.getElementById('bearerToken').value = '';
@@ -2874,12 +2874,12 @@
             document.getElementById('oauth2Token').value = '';
             document.getElementById('oauth2TokenType').value = 'Bearer';
             switchAuthType();
-            
+
             paramsCount = 0;
             pathVarsCount = 0;
             headersCount = 0;
             formDataCount = 0;
-            
+
             addParam();
             addHeader();
         }
@@ -2890,7 +2890,7 @@
         function saveToHistory(method, url, status, duration, params, pathVars, headers, authData, bodyData) {
             const storageKey = 'api_test_history';
             let history = JSON.parse(localStorage.getItem(storageKey) || '[]');
-            
+
             const record = {
                 id: Date.now(),
                 method: method,
@@ -2904,13 +2904,13 @@
                 bodyData: bodyData,  // Body数据对象
                 timestamp: new Date().toLocaleString('zh-CN')
             };
-            
+
             history.unshift(record);
-            
+
             if (history.length > MAX_HISTORY) {
                 history = history.slice(0, MAX_HISTORY);
             }
-            
+
             localStorage.setItem(storageKey, JSON.stringify(history));
             loadHistory();
         }
@@ -2919,12 +2919,12 @@
             const storageKey = 'api_test_history';
             const history = JSON.parse(localStorage.getItem(storageKey) || '[]');
             const historyContainer = document.getElementById('historyList');
-            
+
             if (history.length === 0) {
                 historyContainer.innerHTML = '<div class="empty-history">📭 暂无请求历史</div>';
                 return;
             }
-            
+
             historyContainer.innerHTML = history.map(record => {
                 const statusClass = record.status >= 200 && record.status < 300 ? 'success' : 'error';
                 return `
@@ -2940,7 +2940,7 @@
                             </div>
                         </div>
                         <div class="history-item-status">
-                            状态: <span class="${statusClass}">${record.status}</span> | 
+                            状态: <span class="${statusClass}">${record.status}</span> |
                             耗时: ${record.duration}ms
                         </div>
                     </div>
@@ -2952,7 +2952,7 @@
             const storageKey = 'api_test_history';
             const history = JSON.parse(localStorage.getItem(storageKey) || '[]');
             const record = history.find(r => r.id === recordId);
-            
+
             if (!record) return;
 
             // 设置标志位，防止自动解析URL
@@ -3051,7 +3051,7 @@
                 currentBodyType = record.bodyData.type || 'none';
                 document.getElementById('jsonBody').value = record.bodyData.jsonBody || '';
                 document.getElementById('textBody').value = record.bodyData.textBody || '';
-                
+
                 // 切换到对应的body类型
                 document.querySelectorAll('.body-type-option').forEach(opt => opt.classList.remove('active'));
                 const bodyTypeMap = {
@@ -3064,7 +3064,7 @@
                 if (bodyTypeOptions[bodyTypeMap[currentBodyType]]) {
                     bodyTypeOptions[bodyTypeMap[currentBodyType]].classList.add('active');
                 }
-                
+
                 // 显示对应的body内容
                 document.querySelectorAll('.body-content').forEach(content => {
                     content.style.display = 'none';
@@ -3079,7 +3079,7 @@
                 if (bodyContent) {
                     bodyContent.style.display = 'block';
                 }
-                
+
                 // 加载Form Data
                 if (currentBodyType === 'form' && Array.isArray(record.bodyData.formData)) {
                     document.getElementById('formDataList').innerHTML = '';
@@ -3110,7 +3110,7 @@
             if (event) {
                 event.stopPropagation();
             }
-            
+
             if (confirm('确定要删除这条历史记录吗？')) {
                 const storageKey = 'api_test_history';
                 let history = JSON.parse(localStorage.getItem(storageKey) || '[]');
