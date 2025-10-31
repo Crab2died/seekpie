@@ -1,3 +1,4 @@
+https://www.seekpie.com/20225/10/31/tools-handbook/
 https://www.seekpie.com/download/index.html
 https://www.seekpie.com/2018/08/27/restful-http/
 https://www.seekpie.com/2018/08/27/spring-intergration-websocket/
@@ -6,13 +7,13 @@ https://www.seekpie.com/2018/06/14/java-monitor-tools/
 https://www.seekpie.com/2018/10/26/pseudo-distributed-hadoop-install/
 https://www.seekpie.com/2018/10/26/pseudo-distributed-hbase-install/
 https://www.seekpie.com/2018/07/16/redis-cache-summarize/
+https://www.seekpie.com/2018/06/17/java-compile-and-optimize/
 https://www.seekpie.com/2018/06/15/java-concurrent/
 https://www.seekpie.com/2018/06/15/java-gc/
-https://www.seekpie.com/2018/06/17/java-compile-and-optimize/
 https://www.seekpie.com/2018/06/15/java-memory-model/
 https://www.seekpie.com/2019/01/02/elasticsearch-optimize/
-https://www.seekpie.com/2018/06/25/java-classloader/
 https://www.seekpie.com/2018/05/19/interview-experience/
+https://www.seekpie.com/2018/06/25/java-classloader/
 https://www.seekpie.com/2018/06/15/java-collection-frame/
 https://www.seekpie.com/2018/04/16/Excel4J/
 https://www.seekpie.com/2018/07/06/database/
@@ -21,14 +22,14 @@ https://www.seekpie.com/tags/Java/
 https://www.seekpie.com/tags/Excel4J/
 https://www.seekpie.com/tags/Database/
 https://www.seekpie.com/tags/Elasticsearch/
+https://www.seekpie.com/tags/Interview/
 https://www.seekpie.com/tags/JVM/
 https://www.seekpie.com/tags/Classloader/
-https://www.seekpie.com/tags/Interview/
 https://www.seekpie.com/tags/Collection/
-https://www.seekpie.com/tags/Concurrent/
-https://www.seekpie.com/tags/GC/
 https://www.seekpie.com/tags/JIT/
 https://www.seekpie.com/tags/Optimize/
+https://www.seekpie.com/tags/Concurrent/
+https://www.seekpie.com/tags/GC/
 https://www.seekpie.com/tags/JMM/
 https://www.seekpie.com/tags/Java-Monitor/
 https://www.seekpie.com/tags/Big-Data/
@@ -40,6 +41,7 @@ https://www.seekpie.com/tags/REST/
 https://www.seekpie.com/tags/HTTP/
 https://www.seekpie.com/tags/Spring/
 https://www.seekpie.com/tags/Web-Socket/
+https://www.seekpie.com/tags/Tool/
 https://www.seekpie.com/categories/Excel4J/
 https://www.seekpie.com/categories/Database/
 https://www.seekpie.com/categories/Elasticsearch/
@@ -48,3 +50,4 @@ https://www.seekpie.com/categories/Big-Data/
 https://www.seekpie.com/categories/Cache/
 https://www.seekpie.com/categories/HTTP/
 https://www.seekpie.com/categories/Web-Socket/
+https://www.seekpie.com/categories/Tools/

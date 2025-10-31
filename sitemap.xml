@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.seekpie.com/20225/10/31/tools-handbook/</loc>
+    
+    <lastmod>2025-10-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.seekpie.com/download/index.html</loc>
     
     <lastmod>2025-10-18</lastmod>
@@ -74,6 +83,15 @@
   </url>
   
   <url>
+    <loc>https://www.seekpie.com/2018/06/17/java-compile-and-optimize/</loc>
+    
+    <lastmod>2025-10-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.seekpie.com/2018/06/15/java-concurrent/</loc>
     
     <lastmod>2025-10-18</lastmod>
@@ -84,15 +102,6 @@
   
   <url>
     <loc>https://www.seekpie.com/2018/06/15/java-gc/</loc>
-    
-    <lastmod>2025-10-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.seekpie.com/2018/06/17/java-compile-and-optimize/</loc>
     
     <lastmod>2025-10-18</lastmod>
     
@@ -119,7 +128,7 @@
   </url>
   
   <url>
-    <loc>https://www.seekpie.com/2018/06/25/java-classloader/</loc>
+    <loc>https://www.seekpie.com/2018/05/19/interview-experience/</loc>
     
     <lastmod>2025-10-18</lastmod>
     
@@ -128,7 +137,7 @@
   </url>
   
   <url>
-    <loc>https://www.seekpie.com/2018/05/19/interview-experience/</loc>
+    <loc>https://www.seekpie.com/2018/06/25/java-classloader/</loc>
     
     <lastmod>2025-10-18</lastmod>
     
@@ -166,7 +175,7 @@
 
   <url>
     <loc>https://www.seekpie.com/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -174,161 +183,168 @@
   
   <url>
     <loc>https://www.seekpie.com/tags/Java/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/Excel4J/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/Database/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/Elasticsearch/</loc>
-    <lastmod>2025-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.seekpie.com/tags/JVM/</loc>
-    <lastmod>2025-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.seekpie.com/tags/Classloader/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/Interview/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.seekpie.com/tags/JVM/</loc>
+    <lastmod>2025-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.seekpie.com/tags/Classloader/</loc>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/Collection/</loc>
-    <lastmod>2025-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.seekpie.com/tags/Concurrent/</loc>
-    <lastmod>2025-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.seekpie.com/tags/GC/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/JIT/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/Optimize/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.seekpie.com/tags/Concurrent/</loc>
+    <lastmod>2025-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.seekpie.com/tags/GC/</loc>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/JMM/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/Java-Monitor/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/Big-Data/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/Hadoop/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/HBase/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/Cache/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/Redis/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/REST/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/HTTP/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/Spring/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/tags/Web-Socket/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.seekpie.com/tags/Tool/</loc>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -337,56 +353,63 @@
   
   <url>
     <loc>https://www.seekpie.com/categories/Excel4J/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/categories/Database/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/categories/Elasticsearch/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/categories/Java/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/categories/Big-Data/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/categories/Cache/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/categories/HTTP/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.seekpie.com/categories/Web-Socket/</loc>
-    <lastmod>2025-10-30</lastmod>
+    <lastmod>2025-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.seekpie.com/categories/Tools/</loc>
+    <lastmod>2025-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
